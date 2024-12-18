@@ -42,9 +42,6 @@ export const ChooseNewImageCard = (
     }: Props
 ) => {
 
-
-
-
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
         useLoadMoreFetch({
             pageParam: 1,
@@ -59,7 +56,6 @@ export const ChooseNewImageCard = (
     const form = useFormContext();
     const [showLibrary, setShowLibrary] = useState(false);
     const value = form.watch(fieldId);
-
     return (
         <div className="space-y-2">
             <Dialog>
@@ -78,7 +74,7 @@ export const ChooseNewImageCard = (
                                         return (
                                             <div className="w-fit relative" key={index}>
                                                 <Image
-                                                    src={image?.url || "/"}
+                                                    src={BACKEND_URL + "/" + image.url}
                                                     alt="image"
                                                     height={200}
                                                     width={200}
