@@ -4,10 +4,12 @@ import * as React from "react"
 import {
     Bed,
     Bike,
+    DollarSign,
     GalleryThumbnails,
     Hotel,
     Images,
     LayoutDashboard,
+    MapPin,
     Rocket,
     Settings,
     ShieldCheck,
@@ -80,23 +82,51 @@ const data = {
                 },
             ]
         },
+
         {
-            name: "Orders",
-            url: "/orders",
-            icon: ShoppingBag,
+            name: "Menus",
+            url: "/restaurants/menus",
+            icon: PiBowlFood,
+            items: [
+                {
+                    name: "All Menus",
+                    url: "/restaurants/menus",
+                },
+                {
+                    name: "Add New",
+                    url: "/restaurants/menus/add",
+                },
+            ]
         },
+
         {
-            name: "Cuisines",
-            url: "cuisines",
+            name: "Products",
+            url: "/restaurants/products",
+            icon: PiBowlFood,
+            items: [
+                {
+                    name: "All Products",
+                    url: "/restaurants/products",
+                },
+                {
+                    name: "Add New",
+                    url: "/restaurants/products/add",
+                },
+            ]
+        },
+
+        {
+            name: "Cuisines (Category)",
+            url: "/restaurants/cuisines",
             icon: PiBowlFood,
             items: [
                 {
                     name: "All cuisines",
-                    url: "/cuisines",
+                    url: "/restaurants/cuisines",
                 },
                 {
                     name: "Add New",
-                    url: "/cuisines/add",
+                    url: "/restaurants/cuisines/add",
                 },
             ]
         },
@@ -107,19 +137,37 @@ const data = {
             items: [
                 {
                     name: "All riders",
-                    url: "/riders",
+                    url: "/restaurants/riders",
                 },
                 {
                     name: "Add New",
-                    url: "/riders/add",
+                    url: "/restaurants/riders/add",
                 },
             ]
         },
+
         {
-            name: "Food Media",
-            url: "/food-media",
+            name: "Orders & Transactions",
+            url: "/restaurants/orders",
+            icon: DollarSign,
+            items: [
+                {
+                    name: "All orders",
+                    url: "/restaurants/orders",
+                },
+                {
+                    name: "Transactions",
+                    url: "/restaurants/transactions",
+                },
+            ]
+        },
+
+        {
+            name: "Gallery",
+            url: "/restaurant/gallery",
             icon: Images,
         },
+
     ],
 
     lodging: [
@@ -150,6 +198,24 @@ const data = {
         }
     ],
 
+    misc: [
+        {
+            name: "Cities",
+            url: "/cities",
+            icon: MapPin,
+            items: [
+                {
+                    name: "All Cities",
+                    url: "/cities",
+                },
+                {
+                    name: "Add New",
+                    url: "/cities/add",
+                },
+            ]
+        },
+
+    ],
     users: [
         {
             name: "Admin",
@@ -175,9 +241,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarContent>
                 <ScrollArea>
                     <NavServices title={"Overview"} services={data.overview} />
-                    <NavServices title={"Fooding"} services={data.fooding} />
+                    <NavServices title={"Restaurant Management"} services={data.fooding} />
 
                     <NavServices title={"Lodging"} services={data.lodging} />
+                    <NavServices title={"Miscellaneous"} services={data.misc} />
                     <NavServices title={"Users Management"} services={data.users} />
 
                     <NavServices title={"Settings"} services={data.settings} />

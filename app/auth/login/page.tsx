@@ -39,7 +39,7 @@ const LoginPage = () => {
 
   const onSubmit = async (values: TLogin) => {
     // setErrors({});
-
+    console.log(values)
     const response = await signIn(values);
 
     if (response?.errors) {

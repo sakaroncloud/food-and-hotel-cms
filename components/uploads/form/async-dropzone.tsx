@@ -30,10 +30,9 @@ export const AsyncDropZone = ({ setShowLibrary }: Props) => {
 
             const response = await UploadHandler(
                 formData,
-                API_ROUTES.restImage,
+                API_ROUTES.restImage.endpoint,
             );
 
-            console.log(response)
             if (response.statusCode == 201) {
                 // Display success message
                 toast.success(`Uploaded successfully.`);
@@ -41,7 +40,7 @@ export const AsyncDropZone = ({ setShowLibrary }: Props) => {
                 onSuccess(response, file);
                 // Update file list
                 setFileList([]);
-                queryClient.invalidateQueries({ queryKey: ['restaurantImages'] })
+                queryClient.invalidateQueries({ queryKey: [API_ROUTES.restImage.queryKey] })
 
                 // Optionally show the library if `setShowLibrary` exists
                 if (setShowLibrary) {

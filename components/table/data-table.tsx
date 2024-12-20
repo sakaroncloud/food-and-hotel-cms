@@ -34,13 +34,15 @@ interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
     actionButton?: React.ReactNode
+    showViewColumn?: boolean
 }
 
 export function DataTable<TData, TValue>({
     actionButton,
     columns,
     data,
-    searchKey
+    searchKey,
+    showViewColumn = false
 }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -89,7 +91,7 @@ export function DataTable<TData, TValue>({
                     </div>
                 </div>
 
-                <DataTableViewOptions table={table} />
+                {showViewColumn && <DataTableViewOptions table={table} />}
 
             </div>
             <div className="rounded-md border p-2">

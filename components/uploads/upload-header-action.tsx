@@ -1,7 +1,7 @@
 "use client";
 import { useCustomSearchParams } from "@/hooks/useCustomSearchParams";
 import { Suspense } from "react";
-import { HeaderActionsWithSearch } from "./add-item-button";
+import { AddItemButton } from "./add-item-button";
 
 export const UploadHeaderAction = () => {
     const { createQueryString, deleteQueryString, searchParams } =
@@ -17,11 +17,11 @@ export const UploadHeaderAction = () => {
     };
 
     return (
-        <HeaderActionsWithSearch label="Upload" onClick={() => handleChange()} />
+        <AddItemButton label="Upload" onClick={handleChange} />
     );
 };
 
-export const UploadHeaderActionWrapper = () => {
+export const UploadDropDownButton = () => {
     return (
         <Suspense fallback={<>Loading</>}>
             <UploadHeaderAction />

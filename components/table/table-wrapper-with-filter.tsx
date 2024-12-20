@@ -34,7 +34,7 @@ export const TableWrapperWithFilter = ({
                     </div>
                 )}
             </div>
-            <div className="bg-white rounded-lg py-4 px-6">{children}</div>
+            <div className="bg-white rounded-lg py-0 px-6">{children}</div>
         </div>
     );
 };

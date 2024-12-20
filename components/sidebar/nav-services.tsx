@@ -1,7 +1,5 @@
 "use client"
-
 import {
-
     ChevronRight,
     type LucideIcon,
 } from "lucide-react"
@@ -10,13 +8,11 @@ import {
     SidebarGroup,
     SidebarGroupLabel,
     SidebarMenu,
-    SidebarMenuAction,
     SidebarMenuButton,
     SidebarMenuItem,
     SidebarMenuSub,
     SidebarMenuSubButton,
     SidebarMenuSubItem,
-    useSidebar,
 } from "@/components/ui/sidebar"
 import { IconType } from "react-icons/lib"
 import Link from "next/link"
@@ -69,9 +65,9 @@ export function NavServices({
                                         {item.items?.map((subItem) => (
                                             <SidebarMenuSubItem key={subItem.name}>
                                                 <SidebarMenuSubButton asChild>
-                                                    <a href={subItem.url}>
+                                                    <Link href={subItem.url}>
                                                         <span>{subItem.name}</span>
-                                                    </a>
+                                                    </Link>
                                                 </SidebarMenuSubButton>
                                             </SidebarMenuSubItem>
                                         ))}

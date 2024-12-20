@@ -1,10 +1,15 @@
+import { getSession } from "@/lib/actions/session";
 import { BACKEND_URL } from "@/lib/constants";
+import { API_ROUTES } from "@/lib/routes";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+
+type TQueryKey = typeof API_ROUTES[keyof typeof API_ROUTES]["queryKey"]
+type TEndPoint = typeof API_ROUTES[keyof typeof API_ROUTES]["endpoint"]
 
 type TLoadMore = {
     pageParam: number;
-    endPoint: string;
-    queryKey: string;
+    endPoint: TEndPoint;
+    queryKey: TQueryKey;
     take?: number;
     imageName?: string
 };
@@ -55,8 +60,15 @@ export const useFetch = <T>(options: TOption) => {
 };
 
 const getData = async <T>(options: TOption): Promise<T | null> => {
+    const session = await getSession()
+
     const response = await fetch(
-        BACKEND_URL + options.endPoint + (options.param ? `/${options.param}` : "")
+        BACKEND_URL + options.endPoint + (options.param ? `/${options.param}` : ""),
+        {
+            headers: {
+                "Authorization": `Bearer ${session?.accessToken || ""}`
+            }
+        }
     );
     if (!response.ok) {
         return null;

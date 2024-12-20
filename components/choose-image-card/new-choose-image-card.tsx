@@ -16,13 +16,14 @@ import { PlusCircleIcon, X } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 
-import Image from "next/image";
 import { ErrorMessage } from "@hookform/error-message";
 import { LibraryContent } from "./library-tab-content";
 import { Button } from "../ui/button";
 import { AsyncDropZone } from "../uploads/form/async-dropzone";
 import { TAsyncGallery, TDefaultImage } from "@/lib/types/upload.type";
 import { BACKEND_URL } from "@/lib/constants";
+import FallbackImage from "../fallback-image";
+import { API_ROUTES } from "@/lib/routes";
 
 
 
@@ -45,8 +46,8 @@ export const ChooseNewImageCard = (
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
         useLoadMoreFetch({
             pageParam: 1,
-            endPoint: "/restaurant-image",
-            queryKey: `restaurantImages`,
+            endPoint: API_ROUTES.restImage.endpoint,
+            queryKey: API_ROUTES.restImage.queryKey,
             take: 10,
         });
 
@@ -73,9 +74,10 @@ export const ChooseNewImageCard = (
                                     if (image?.url) {
                                         return (
                                             <div className="w-fit relative" key={index}>
-                                                <Image
+                                                <FallbackImage
                                                     src={BACKEND_URL + "/" + image.url}
                                                     alt="image"
+                                                    type="rectangle"
                                                     height={200}
                                                     width={200}
                                                     className="rounded object-cover max-h-[160px] w-auto"
@@ -91,12 +93,13 @@ export const ChooseNewImageCard = (
                         ) : (
                             // for single image
                             <div className="w-fit relative">
-                                <Image
+                                <FallbackImage
                                     src={
                                         BACKEND_URL + "/" + (gallery?.find((image) => image?.id === value)?.url ||
                                             defaultImages?.find((image) => image?.id === value)?.url || "/")
                                     }
                                     alt="image"
+                                    type="rectangle"
                                     height={200}
                                     width={200}
                                     className="rounded object-cover max-h-[160px] w-auto"
@@ -108,7 +111,7 @@ export const ChooseNewImageCard = (
                         )
                     ) : (
                         <Button type="button" variant="outline" className="space-x-3">
-                            Choose Image
+                            Choose {label}
                         </Button>
                     )}
                 </DialogTrigger>

@@ -60,7 +60,7 @@ export const columns: ColumnDef<TCuisine>[] = [
             const onDelete = async () => {
                 startTransition(async () => {
                     const res = await deleteHandler({
-                        ENDPOINT: API_ROUTES.cuisine,
+                        ENDPOINT: API_ROUTES.cuisine.endpoint,
                         PARAM: data.id
                     })
                     if (res.success == true) {
@@ -71,7 +71,7 @@ export const columns: ColumnDef<TCuisine>[] = [
                         toast.error(res.message)
                         setOpen(false)
                     }
-                    queryClient.invalidateQueries({ queryKey: ['cuisines'] })
+                    queryClient.invalidateQueries({ queryKey: [API_ROUTES.cuisine.queryKey] })
                 });
 
             };

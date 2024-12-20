@@ -53,6 +53,7 @@ export async function getSession() {
       algorithms: ["HS256"],
     });
 
+
     return payload as Session;
   } catch (err) {
     redirect("/auth/sigin");

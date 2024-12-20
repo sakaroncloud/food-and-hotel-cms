@@ -59,11 +59,11 @@ export const UploadImageCard = ({ image }: Props) => {
 
     const onSubmit = async (values: TImageName) => {
         startTransition(async () => {
-            const res = await updateImageName(values, API_ROUTES.restImage, image.id)
+            const res = await updateImageName(values, API_ROUTES.restImage.endpoint, image.id)
             if (res.success == true) {
                 toast.success(res.message)
                 setOpen(false)
-                queryClient.invalidateQueries({ queryKey: ['restaurantImages'] })
+                queryClient.invalidateQueries({ queryKey: [API_ROUTES.restImage.queryKey] })
             }
             else {
                 toast.error(res.message)
@@ -74,7 +74,7 @@ export const UploadImageCard = ({ image }: Props) => {
     const onDelete = async () => {
         startTransition(async () => {
             const res = await deleteHandler({
-                ENDPOINT: API_ROUTES.restImage,
+                ENDPOINT: API_ROUTES.restImage.endpoint,
                 PARAM: image.id
             })
             if (res.success == true) {
@@ -85,7 +85,7 @@ export const UploadImageCard = ({ image }: Props) => {
                 toast.error(res.message)
                 setOpen(false)
             }
-            queryClient.invalidateQueries({ queryKey: ['restaurantImages'] })
+            queryClient.invalidateQueries({ queryKey: [API_ROUTES.restImage.queryKey] })
             setDeleteModal(false)
         });
 

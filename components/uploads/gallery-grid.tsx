@@ -6,6 +6,7 @@ import { UploadImageCard } from "./image-card";
 import { useCustomSearchParams } from "@/hooks/useCustomSearchParams";
 import { useLoadMoreFetch } from "@/hooks/useFetch";
 import { GallerySkeleton } from "../skeleton/gallery-skeleton";
+import { API_ROUTES } from "@/lib/routes";
 
 export const GalleryGrid = () => {
     const { searchParams } = useCustomSearchParams()
@@ -14,15 +15,13 @@ export const GalleryGrid = () => {
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching, refetch } =
         useLoadMoreFetch({
             pageParam: 1,
-            endPoint: "/restaurant-image",
-            queryKey: `restaurantImages`,
+            endPoint: API_ROUTES.restImage.endpoint,
+            queryKey: API_ROUTES.restImage.queryKey,
             take: 5,
             imageName: searchkey || ""
         });
 
     const allImages = useMemo(() => data?.pages?.flatMap((page) => page?.data).filter(Boolean) ?? [], [data]);
-
-
 
     return (
         <div className="flex flex-wrap gap-4">

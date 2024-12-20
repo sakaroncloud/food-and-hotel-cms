@@ -5,18 +5,22 @@ import { CustomFormField } from "@/components/form/custom-form-field"
 import { FormFieldWrapper, FormFooter } from "@/components/form/form-field-wrapper"
 import { Form } from "@/components/ui/form"
 import { submitCusine } from "@/lib/actions/action.cuisine"
+import { API_ROUTES } from "@/lib/routes"
+import { TDefaultImage } from "@/lib/types/upload.type"
 import { cuisineFormSchema, TCuisineForm } from "@/schemas/fooding/schema.cuisine"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import { useEffect, useTransition } from "react"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 
 type Props = {
-  formValues?: TCuisineForm & { id: string, slug: string }
+  formValues?: TCuisineForm & { id: string, slug: string };
+  defaultImages?: TDefaultImage[]
 }
 
-export const CuisineForm = ({ formValues }: Props) => {
+export const CuisineForm = ({ defaultImages, formValues }: Props) => {
 
   const router = useRouter()
   const form = useForm<TCuisineForm>({
@@ -34,6 +38,7 @@ export const CuisineForm = ({ formValues }: Props) => {
 
 
   const [isPending, startTransition] = useTransition();
+  const queryClient = useQueryClient()
 
 
   const onSubmit = (values: TCuisineForm) => {
@@ -41,7 +46,14 @@ export const CuisineForm = ({ formValues }: Props) => {
       const response = await submitCusine(values, formValues?.id);
       if (response.success == true) {
         toast.success(response.message)
-        router.push(response.data.slug)
+
+        if (formValues) {
+          queryClient.invalidateQueries({ queryKey: [API_ROUTES.cuisine.queryKey, formValues.slug] })
+        }
+        if (!formValues) {
+          router.push(response.data.slug)
+          queryClient.invalidateQueries({ queryKey: [API_ROUTES.cuisine.queryKey] })
+        }
       }
       else {
         toast.error(response.message)
@@ -77,6 +89,7 @@ export const CuisineForm = ({ formValues }: Props) => {
             fieldId={"featuredImage"}
             label={"Featured Image"}
             allowMultiple={false}
+            defaultImages={defaultImages}
           />
         </FormFieldWrapper>
 

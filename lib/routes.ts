@@ -1,11 +1,36 @@
 export const API_ROUTES = {
-    login: "/auth/login",
-    logout: "/auth/signout",
-    signUp: "/auth/signup",
-    cuisine: "/cuisine",
-    restaurant: "/restaurant",
-    singleCusineRestaurants: "/restaurant/cuisine",
-    restImage: "/restaurant-image",
+    login: {
+        endpoint: "/auth/login" as const,
+        queryKey: "login" as const,
+    },
+    logout: {
+        endpoint: "/auth/signout" as const,
+        queryKey: "logout" as const,
+    },
+    signUp: {
+        endpoint: "/auth/signup" as const,
+        queryKey: "signUp" as const,
+    },
+    cuisine: {
+        endpoint: "/cuisine" as const,
+        queryKey: "cuisine" as const,
+    },
+    city: {
+        endpoint: "/city" as const,
+        queryKey: "city" as const,
+    },
+    restaurant: {
+        endpoint: "/restaurant" as const,
+        queryKey: "restaurant" as const,
+    },
+    singleCusineRestaurants: {
+        endpoint: "/restaurant/cuisine" as const,
+        queryKey: "singleCusineRestaurants" as const,
+    },
+    restImage: {
+        endpoint: "/restaurant-image" as const,
+        queryKey: "restImage" as const,
+    },
 };
 
 

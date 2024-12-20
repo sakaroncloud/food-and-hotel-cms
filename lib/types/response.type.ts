@@ -1,3 +1,4 @@
+import { EDiscountType, EWeekDay } from "@/schemas/fooding/schema.restaurant";
 
 export type ReturnType = {
     message?: string;
@@ -62,7 +63,7 @@ export type TProduct = {
     id: string;
     name: string;
     isPureVeg: boolean;
-    description: string | null;
+    description: string | undefined;
     featuredImage: {
         url: string;
     };
@@ -75,18 +76,38 @@ export type TMenu = {
     products?: TProduct[];
 };
 
+
+export type TGlobalOffer = {
+    heading: string;
+    subHeading: string;
+    actualValue: number;
+    type: EDiscountType;
+    maxUpTo: number;
+}
 export type TRestaurant = {
     id: string;
     slug: string;
     name: string;
+    email: string | undefined;
+    phone: string | undefined;
+    description: string;
     isPureVeg: boolean;
-    logo: TImage;
-    featuredImage: TImage;
+    isOpen: boolean;
+    logo?: TImage;
+    featuredImage?: TImage;
+    commissionPercentage: number;
     address?: TAddress;
-    cuisines?: Omit<TCuisine, "featuredImage" | "restaurants">[];
+    dayOfWeek: EWeekDay[];
+    openingTime: string;
+    closingTime: string;
+    cuisines?: Omit<TCuisine, "featuredImage" | "restaurants" | "slug">[];
+    menus?: TMenu[];
+    hasGlobalOffer?: TGlobalOffer;
 };
 
 export type TCity = {
+    id: string;
+    slug: string;
     name: string;
     pincodes: string[];
 };

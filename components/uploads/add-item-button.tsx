@@ -45,9 +45,7 @@ export const HeaderActionsWithSearch = ({ label, path, ...props }: Props) => {
             <Suspense fallback={<div>Loading...</div>}>
                 <SearchQueryInput placeholder="Search..." />
             </Suspense>
-            <Button variant="outline"  {...props} className="text-sm h-11">
-                <Upload className="size-4" /> Upload
-            </Button>
+            <AddItemButton label={label}  {...props} />
         </div>
     );
 };

@@ -23,7 +23,7 @@ export async function signIn(formData: TLogin): Promise<
     }
 
     const response = await fetch(
-        BACKEND_URL + API_ROUTES.login,
+        BACKEND_URL + API_ROUTES.login.endpoint,
         {
             method: "POST",
             headers: {
@@ -32,6 +32,8 @@ export async function signIn(formData: TLogin): Promise<
             body: JSON.stringify(validationFields.data),
         }
     );
+
+    console.log(response)
 
     const result: TResponse<TLoginResponse> = await response.json();
 

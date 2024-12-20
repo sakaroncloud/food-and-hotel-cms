@@ -39,11 +39,12 @@ export const SubmitHandler = async (option: Option) => {
 
         if (!response.ok) {
             const errorData = await response.json();
-            console.error("Error response from API:", errorData);
             return errorData;
         }
 
         const data = await response.json();
+
+        console.log(data)
         return data;
 
     } catch (error) {

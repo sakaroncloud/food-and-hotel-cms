@@ -26,12 +26,11 @@ export const EditCuisineWrapper = ({ slug }: Props) => {
     ]
 
     const { data: result } = useFetch<ResponseWithNoMeta<TCuisine>>({
-        endPoint: API_ROUTES.cuisine,
+        endPoint: API_ROUTES.cuisine.endpoint,
         param: slug,
-        queryKey: "cuisine",
+        queryKey: API_ROUTES.cuisine.queryKey,
     });
 
-    console.log(result?.data)
     if (!result?.data) return null
 
     return (
@@ -46,6 +45,7 @@ export const EditCuisineWrapper = ({ slug }: Props) => {
                         }
 
                     }
+                    defaultImages={result?.data?.featuredImage ? [{ id: result?.data.featuredImage.id, url: result?.data.featuredImage.url }] : []}
                 />
             </CreatePageWrapper>
         </DashboardProvider>
