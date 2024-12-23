@@ -30,7 +30,6 @@ const hasGlobalOfferSchema = z.object({
     heading: z.string().min(1, { message: "Heading is required" }),
     subHeading: z.string().min(1, { message: "Subheading is required" }),
     actualValue: z.coerce.number().positive(),
-    // type: z.enum(["percentage", "fixed"], { message: "Type must be either 'percentage' or 'fixed'" }),
     type: z.nativeEnum(EDiscountType),
     maxUpTo: z.coerce.number().positive(),
 }).optional();
@@ -65,9 +64,13 @@ export const restaurantFormSchema = z.object({
         value: z.string()
     })).optional(),
 
-    openingTime: z.string(),
-    closingTime: z.string(),
-    isOpen: z.boolean(),
+    openingTime: z.string().min(4, {
+        message: "Required"
+    }),
+    closingTime: z.string().min(4, {
+        message: "Required"
+    }),
+    isEnabled: z.boolean(),
 
     commissionPercentage: z.coerce.number().positive(),
     // for global offers
@@ -99,7 +102,7 @@ export const restaurantDefaultValues: TRestaurantForm = {
         type: EDiscountType.PERCENTAGE,
         maxUpTo: 50
     },
-    isOpen: true,
+    isEnabled: true,
     isPureVeg: false,
     logo: "",
     // menus:[],

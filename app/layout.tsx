@@ -37,7 +37,6 @@ export default function RootLayout({
             }}
           />
           <ReactQueryDevtools initialIsOpen={false} />
-
         </body>
       </html>
     </TanstackProvider>

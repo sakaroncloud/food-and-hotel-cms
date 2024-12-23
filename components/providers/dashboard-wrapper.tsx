@@ -4,6 +4,7 @@ import { SidebarTrigger } from '../ui/sidebar'
 import { Separator } from '../ui/separator'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from '../ui/breadcrumb'
 import { TBreadCrumb } from '@/lib/types/global.type'
+import Link from 'next/link'
 
 type Props = {
   children: React.ReactNode;
@@ -22,7 +23,11 @@ export const DashboardProvider = ({ breadcrumb, children }: Props) => {
               {breadcrumb.map((item, index) => (
                 <React.Fragment key={index}>
                   <BreadcrumbItem >
-                    <BreadcrumbLink className='text-white hover:text-white' href={item.link}>{item.label}</BreadcrumbLink>
+                    <BreadcrumbLink className='text-white hover:text-white' asChild={item.link ? true : false}>
+                      {item.link ? <Link href={item.link}>
+                        {item.label}
+                      </Link> : <span>{item.label}</span>}
+                    </BreadcrumbLink>
                   </BreadcrumbItem>
                   {index < breadcrumb.length - 1 && (
                     <BreadcrumbSeparator className='text-white hover:text-white' />

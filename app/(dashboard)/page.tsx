@@ -1,3 +1,4 @@
+"use client"
 import { DashboardProvider } from "@/components/providers/dashboard-wrapper";
 import { TBreadCrumb } from "@/lib/types/global.type";
 export default function DashboardPage() {

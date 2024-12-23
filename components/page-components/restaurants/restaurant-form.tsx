@@ -24,7 +24,6 @@ type Props = {
 }
 
 export const RestaurantForm = ({ defaultFeaturedImage, defaultLogo, formValues }: Props) => {
-
     const { data: cuisines } = useFetch<ResponseWithMeta<TCuisine[]>>({
         endPoint: API_ROUTES.cuisine.endpoint + "?skipPagination=true",
         queryKey: API_ROUTES.cuisine.queryKey,
@@ -56,7 +55,7 @@ export const RestaurantForm = ({ defaultFeaturedImage, defaultLogo, formValues }
                 }
             }
             else {
-                toast.error(response.message)
+                toast.error(response.message || "Something went wrong")
             }
         })
     };
@@ -98,7 +97,7 @@ export const RestaurantForm = ({ defaultFeaturedImage, defaultLogo, formValues }
                     <CustomFormField
                         elementName="checkbox"
                         fieldId="isPureVeg"
-                        label="Is this restaurant server pure vegetarian food ?"
+                        label="Do this restaurant serve pure vegetarian food ?"
                         placeholder="Please make sure while enabling this, non-veg cannot be added in Pure Veg Restaurant"
                         className="w-full"
                     />
@@ -116,7 +115,7 @@ export const RestaurantForm = ({ defaultFeaturedImage, defaultLogo, formValues }
                     <div className="grid grid-cols-2 gap-6">
                         <CustomFormField
                             elementName="checkbox"
-                            fieldId="isOpen"
+                            fieldId="isEnabled"
                             label="Is restaurant service open ?"
                             placeholder="Only enabled restaurant can be served"
                             className="w-full"
@@ -130,9 +129,6 @@ export const RestaurantForm = ({ defaultFeaturedImage, defaultLogo, formValues }
                             isMulti={true}
                             selectOptions={
                                 weekDaysOptions
-                            }
-                            defaultValue={
-                                restaurantDefaultValues.dayOfWeek
                             }
                         />
 

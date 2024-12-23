@@ -34,7 +34,8 @@ interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
     actionButton?: React.ReactNode
-    showViewColumn?: boolean
+    showViewColumn?: boolean,
+    showPagination?: boolean,
 }
 
 export function DataTable<TData, TValue>({
@@ -42,7 +43,8 @@ export function DataTable<TData, TValue>({
     columns,
     data,
     searchKey,
-    showViewColumn = false
+    showViewColumn = false,
+    showPagination = true
 }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -138,7 +140,7 @@ export function DataTable<TData, TValue>({
                     </TableBody>
                 </Table>
             </div>
-            <DataTablePagination table={table} />
+            {showPagination && <DataTablePagination table={table} />}
         </div>
     )
 }

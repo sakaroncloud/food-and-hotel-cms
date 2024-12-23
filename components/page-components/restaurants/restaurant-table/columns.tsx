@@ -10,7 +10,7 @@ import { useCustomSearchParams } from "@/hooks/useCustomSearchParams"
 import { CustomCell } from "@/components/table/custom-cell"
 import { useState, useTransition } from "react"
 import { deleteHandler } from "@/lib/actions/global.action"
-import { DeleteButton, EditButton } from "@/components/table/action-button"
+import { DeleteButton, EditButton, ViewIcon } from "@/components/table/action-button"
 import { CustomFormModal } from "@/components/form/custom-form-modal"
 import { DialogFooter } from "@/components/ui/dialog"
 import { API_ROUTES } from "@/lib/routes"
@@ -60,7 +60,7 @@ export const columns: ColumnDef<TRestaurant>[] = [
             const onDelete = async () => {
                 startTransition(async () => {
                     const res = await deleteHandler({
-                        ENDPOINT: API_ROUTES.cuisine.endpoint,
+                        ENDPOINT: API_ROUTES.restaurant.endpoint,
                         PARAM: data.id
                     })
                     if (res.success == true) {
@@ -71,12 +71,13 @@ export const columns: ColumnDef<TRestaurant>[] = [
                         toast.error(res.message)
                         setOpen(false)
                     }
-                    queryClient.invalidateQueries({ queryKey: [API_ROUTES.cuisine.queryKey] })
+                    queryClient.invalidateQueries({ queryKey: [API_ROUTES.restaurant.queryKey] })
                 });
 
             };
             return (
                 <div className="flex gap-2">
+                    <ViewIcon path={`/restaurants/${data.slug}`} />
                     <EditButton path={`/restaurants/${data.slug}/edit`} />
                     <CustomFormModal
                         open={open}

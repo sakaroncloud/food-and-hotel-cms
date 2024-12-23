@@ -5,7 +5,6 @@ import {
     Bed,
     Bike,
     DollarSign,
-    GalleryThumbnails,
     Hotel,
     Images,
     LayoutDashboard,
@@ -13,7 +12,6 @@ import {
     Rocket,
     Settings,
     ShieldCheck,
-    ShoppingBag,
     Store,
     Users,
 

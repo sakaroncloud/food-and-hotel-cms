@@ -59,15 +59,22 @@ export type TCuisine = TBase & {
     restaurants: TRestaurant[];
 };
 
+export type TProducts = {
+    products: TProduct[]
+    restaurant: Pick<TRestaurant, "id" | "slug" | "name">
+}
+
 export type TProduct = {
     id: string;
     name: string;
     isPureVeg: boolean;
     description: string | undefined;
     featuredImage: {
+        id: string;
         url: string;
     };
     price: number;
+    preparationTime: number;
 };
 
 export type TMenu = {
@@ -86,23 +93,25 @@ export type TGlobalOffer = {
 }
 export type TRestaurant = {
     id: string;
-    slug: string;
     name: string;
+    slug: string;
+    description: string;
+    hasGlobalOffer?: TGlobalOffer;
     email: string | undefined;
     phone: string | undefined;
-    description: string;
     isPureVeg: boolean;
-    isOpen: boolean;
+    isEnabled: boolean;
     logo?: TImage;
     featuredImage?: TImage;
-    commissionPercentage: number;
+    commissionPercentage: number; // it is defined for only admin
     address?: TAddress;
     dayOfWeek: EWeekDay[];
     openingTime: string;
     closingTime: string;
     cuisines?: Omit<TCuisine, "featuredImage" | "restaurants" | "slug">[];
-    menus?: TMenu[];
-    hasGlobalOffer?: TGlobalOffer;
+    totalProducts: number;
+    totalMenus: number;
+    createdAt: string;
 };
 
 export type TCity = {
@@ -126,6 +135,6 @@ export type TSingleRestaurant = TRestaurant & {
     email?: string;
     openingTime: string;
     closingTime: string;
-    isOpen: boolean;
+    isEnabled: boolean;
     cuisines?: Omit<TCuisine, "featuredImage" | "restaurants" | "description">[];
 };

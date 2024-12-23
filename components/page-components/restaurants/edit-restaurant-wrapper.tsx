@@ -8,15 +8,15 @@ import { TRestaurantForm } from '@/schemas/fooding/schema.restaurant'
 import dayjs from 'dayjs'
 
 type Props = {
-    restaurantId: string
+    restaurantSlug: string
 }
 
 
-export const EditRestaurantWrapper = ({ restaurantId }: Props) => {
+export const EditRestaurantWrapper = ({ restaurantSlug }: Props) => {
 
     const { data: result, isFetching } = useFetch<ResponseWithNoMeta<TRestaurant>>({
         endPoint: API_ROUTES.restaurant.endpoint,
-        param: restaurantId,
+        param: restaurantSlug,
         queryKey: API_ROUTES.restaurant.queryKey,
     });
 
@@ -35,6 +35,7 @@ export const EditRestaurantWrapper = ({ restaurantId }: Props) => {
                 logo: restaurant?.logo?.id,
                 openingTime: dayjs(restaurant?.openingTime, "HH:mm").format('HH:mm'),
                 closingTime: dayjs(restaurant?.closingTime, "HH:mm").format('HH:mm'),
+                email: restaurant?.email || "",
             }
             return parsedRestaurantForForm
         }
@@ -53,7 +54,7 @@ export const EditRestaurantWrapper = ({ restaurantId }: Props) => {
             {result && <RestaurantForm formValues={{
                 ...formValues,
                 id: result.data.id,
-                slug: restaurantId
+                slug: restaurantSlug
             }}
 
                 defaultFeaturedImage={result?.data?.featuredImage ? [{ id: result?.data.featuredImage.id, url: result?.data.featuredImage.url }] : []}

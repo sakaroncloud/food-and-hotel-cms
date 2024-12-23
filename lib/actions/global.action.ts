@@ -1,6 +1,7 @@
 "use server"
 
 import { BACKEND_URL } from "../constants"
+import { ENDPOINT } from "../types/endpoints";
 import { getSession } from "./session";
 
 type Option = {
@@ -13,15 +14,13 @@ type Option = {
 export const SubmitHandler = async (option: Option) => {
 
     if (!option.ENDPOINT || !option.METHOD) {
-        console.error("Missing required properties in 'option' object");
         return { error: "Invalid option object" };
     }
 
     const session = await getSession()
 
     if (!session?.accessToken) {
-        console.error("No session or access token found");
-        return { error: "Unauthorized" };
+        throw new Error("Unauthorized")
     }
 
     try {
@@ -39,17 +38,27 @@ export const SubmitHandler = async (option: Option) => {
 
         if (!response.ok) {
             const errorData = await response.json();
-            return errorData;
+            const error = errorData.message
+            if (typeof error === "string") {
+                return { message: error || "Something went wrong. Please try again later." };
+            }
+            else if (typeof error === "object") {
+                if (Array.isArray(error)) {
+                    console.log(error)
+                    return { message: error[0] || "Something went wrong. Please try again later." };
+                }
+                return { message: error?.message || "Something went wrong. Please try again later." }
+            }
+            return { message: "Something went wrong. Please try again later." }
+
         }
 
         const data = await response.json();
 
-        console.log(data)
         return data;
 
     } catch (error) {
-        console.error("Network or server error:", error);
-        return { error: "Something went wrong. Please try again later." };
+        return { message: error || "Something went wrong. Please try again later." };
     }
 };
 
@@ -57,6 +66,7 @@ export const SubmitHandler = async (option: Option) => {
 export const deleteHandler = async (option: {
     PARAM: string,
     ENDPOINT: string,
+
 }) => {
 
     if (!option.ENDPOINT || !option.PARAM) {
@@ -77,7 +87,7 @@ export const deleteHandler = async (option: {
                 method: "delete",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${session.accessToken}`,
+                    "Authorization": `Bearer ${session.accessToken}`
                 },
             }
         );

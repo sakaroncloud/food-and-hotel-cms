@@ -102,7 +102,7 @@ const RenderField = ({ children, className, defaultTime, elementName, defaultVal
                     <ShadcnSelect onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                             <SelectTrigger>
-                                <SelectValue placeholder="Select a verified email to display" />
+                                <SelectValue placeholder={placeholder} />
                             </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -121,7 +121,7 @@ const RenderField = ({ children, className, defaultTime, elementName, defaultVal
                 <FormItem className={className}>
                     {formLabel && <FormLabel>{formLabel}</FormLabel>}
                     {label && <Label>{label}</Label>}
-                    <Select isMulti={isMulti} defaultValue={defaultValue} options={selectOptions || []} onChange={field.onChange} />
+                    <Select isMulti={isMulti} defaultValue={field.value} options={selectOptions || []} onChange={field.onChange} />
                     {showError && <FormMessage />}
                 </FormItem>
             )

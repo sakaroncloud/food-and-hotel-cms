@@ -4,13 +4,13 @@ import { TBreadCrumb } from '@/lib/types/global.type'
 import React from 'react'
 
 type Props = {
-    params: Promise<{ restaurantId: string }>
+    params: Promise<{ restaurantSlug: string }>
 }
 
 
 
 const EditRestaurantPage = async ({ params }: Props) => {
-    const restaurantId = (await params).restaurantId
+    const restaurantSlug = (await params).restaurantSlug
 
     const breadcrumb: TBreadCrumb[] = [
         {
@@ -18,16 +18,19 @@ const EditRestaurantPage = async ({ params }: Props) => {
             link: "/"
         }, {
             label: "Restaurants",
-            link: "/restaurantss"
+            link: "/restaurants"
         }, {
-            label: restaurantId,
+            label: restaurantSlug,
+            link: `/restaurants/${restaurantSlug}`
+        }, {
+            label: "Edit"
         }
     ]
 
     return (
 
         <DashboardProvider breadcrumb={breadcrumb}>
-            <EditRestaurantWrapper restaurantId={restaurantId} />
+            <EditRestaurantWrapper restaurantSlug={restaurantSlug} />
         </DashboardProvider>
 
     )

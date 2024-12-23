@@ -55,7 +55,7 @@ export const useFetch = <T>(options: TOption) => {
             ? [options.queryKey, options.param]
             : [options.queryKey],
         queryFn: async () => await getData<T>(options),
-        staleTime: 60 * 1000,
+        staleTime: 60000,
     });
 };
 
