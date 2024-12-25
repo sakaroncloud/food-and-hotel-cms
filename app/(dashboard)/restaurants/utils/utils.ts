@@ -1,9 +1,9 @@
 import { CardItemProps } from "@/lib/types/global.type"
-import { TRestaurant } from "@/lib/types/response.type"
+import { Restaurant } from "@/lib/types/restaurant.types"
 import { formatDate } from "@/lib/utils"
 import { Calendar, CircleDollarSign, HandPlatter, Utensils } from "lucide-react"
 
-export const generateRestaurantCards = (restaurant: TRestaurant) => {
+export const generateRestaurantCards = (restaurant: Restaurant.TRestaurant) => {
 
 
     const cards: Record<string, CardItemProps> = {
@@ -25,6 +25,12 @@ export const generateRestaurantCards = (restaurant: TRestaurant) => {
             label: "Total Menus",
             Icon: Utensils,
             link: `/restaurants/${restaurant.slug}/menus`,
+            iconColor: "text-green-500",
+        },
+        totalCuisines: {
+            value: restaurant.totalCuisines || 0,
+            label: "Total Cuisines",
+            Icon: Utensils,
             iconColor: "text-green-500",
         },
         commissionPercentage: {

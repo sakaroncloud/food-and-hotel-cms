@@ -1,15 +1,15 @@
 import { LucideIcon } from "lucide-react";
 import { ClassNameValue } from "tailwind-merge";
 
-export type TBreadCrumb = {
+export type TCardLabel = {
     label: string;
     link?: string;
 }
 
-export type CardItemProps = {
+export type TBreadCrumb = TCardLabel
+
+export type CardItemProps = TCardLabel & {
     value: string | number;
-    label: string;
     Icon: LucideIcon;
     iconColor: ClassNameValue;
-    link?: string;
 }

@@ -3,7 +3,8 @@ import FallbackImage from '@/components/fallback-image';
 import { AddressFormModal } from '@/components/form/address-modal';
 import { BACKEND_URL } from '@/lib/constants';
 import { API_ROUTES } from '@/lib/routes';
-import { ResponseWithNoMeta, TRestaurant } from '@/lib/types/response.type';
+import { ResponseWithNoMeta } from '@/lib/types/response.type';
+import { Restaurant } from '@/lib/types/restaurant.types';
 import { PenIcon, Phone } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react'
@@ -17,7 +18,7 @@ export const RestaurantHeroSection = async ({
     restaurantSlug
 }: Props) => {
 
-    const result = await getData<ResponseWithNoMeta<TRestaurant>>({
+    const result = await getData<ResponseWithNoMeta<Restaurant.TRestaurant>>({
         endPoint: API_ROUTES.restaurant.endpoint,
         param: restaurantSlug,
         tags: ["restaurant", restaurantSlug]

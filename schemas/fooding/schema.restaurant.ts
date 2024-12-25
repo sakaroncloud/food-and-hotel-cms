@@ -32,7 +32,7 @@ const hasGlobalOfferSchema = z.object({
     actualValue: z.coerce.number().positive(),
     type: z.nativeEnum(EDiscountType),
     maxUpTo: z.coerce.number().positive(),
-}).optional();
+})
 
 export const restaurantFormSchema = z.object({
     name: z.string().min(2, {
@@ -43,7 +43,9 @@ export const restaurantFormSchema = z.object({
     }),
 
     email: z.string().email().optional().nullable(),
-    phone: z.string().optional().nullable(),
+    phone: z.string().min(10, {
+        message: "Please enter at least 10 characters"
+    }),
 
     isPureVeg: z.boolean().default(false),
     featuredImage: z.string().uuid({
@@ -84,7 +86,7 @@ export const restaurantDefaultValues: TRestaurantForm = {
     // address : null 
     // TODO: also add address while addings
     email: "",
-    // phone: "",
+    phone: "",
     closingTime: "",
     commissionPercentage: 1,
     cuisines: [],
@@ -95,13 +97,13 @@ export const restaurantDefaultValues: TRestaurantForm = {
     description: "No wonder people are stringing up lights. Gift yourself a tangy, saucy McRib for a limited time and earn points toward free food too.* It’s only here for the holidays.",
     //    email: null;
     featuredImage: "",
-    hasGlobalOffer: {
-        heading: "13% off",
-        subHeading: "upto Rs 50",
-        actualValue: 13,
-        type: EDiscountType.PERCENTAGE,
-        maxUpTo: 50
-    },
+    // hasGlobalOffer: {
+    //     heading: "13% off",
+    //     subHeading: "upto Rs 50",
+    //     actualValue: 13,
+    //     type: EDiscountType.PERCENTAGE,
+    //     maxUpTo: 50
+    // },
     isEnabled: true,
     isPureVeg: false,
     logo: "",

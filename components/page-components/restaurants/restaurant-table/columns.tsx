@@ -3,7 +3,6 @@ import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 
 import { DataTableColumnHeader } from "@/components/table/column-header"
-import { TRestaurant } from "@/lib/types/response.type"
 import { BACKEND_URL } from "@/lib/constants"
 import FallbackImage from "@/components/fallback-image"
 import { useCustomSearchParams } from "@/hooks/useCustomSearchParams"
@@ -15,8 +14,9 @@ import { CustomFormModal } from "@/components/form/custom-form-modal"
 import { DialogFooter } from "@/components/ui/dialog"
 import { API_ROUTES } from "@/lib/routes"
 import toast from "react-hot-toast"
+import { Restaurant } from "@/lib/types/restaurant.types"
 
-export const columns: ColumnDef<TRestaurant & {
+export const columns: ColumnDef<Restaurant.TRestaurant & {
     isDeleted?: boolean | undefined
 }>[] = [
 

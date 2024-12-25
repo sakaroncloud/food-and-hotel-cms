@@ -1,12 +1,12 @@
 import { DashboardProvider } from "@/components/providers/dashboard-wrapper";
-import { TBreadCrumb } from "@/lib/types/global.type";
 import { getData } from "../data";
 import { API_ROUTES } from "@/lib/routes";
-import { ResponseWithMeta, TRestaurant } from "@/lib/types/response.type";
+import { ResponseWithMeta, } from "@/lib/types/response.type";
+import { Restaurant } from "@/lib/types/restaurant.types";
 export default async function DashboardPage() {
 
 
-  const data = await getData<ResponseWithMeta<TRestaurant[]>>({
+  const data = await getData<ResponseWithMeta<Restaurant.TRestaurant[]>>({
     endPoint: API_ROUTES.restaurant.endpoint,
     tags: ["restaurant"]
   })

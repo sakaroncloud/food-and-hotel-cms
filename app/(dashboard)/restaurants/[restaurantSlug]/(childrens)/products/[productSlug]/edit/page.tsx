@@ -3,8 +3,9 @@ import React from 'react'
 import { ProductForm } from '../../_components/product-form'
 import { getData } from '@/app/data'
 import { API_ROUTES } from '@/lib/routes'
-import { ResponseWithNoMeta, TProduct } from '@/lib/types/response.type'
+import { ResponseWithNoMeta } from '@/lib/types/response.type'
 import { notFound } from 'next/navigation'
+import { Restaurant } from '@/lib/types/restaurant.types'
 
 type Props = {
     params: Promise<{ restaurantSlug: string, productSlug: string }>
@@ -13,7 +14,7 @@ type Props = {
 const EditProductPage = async ({ params }: Props) => {
     const { restaurantSlug, productSlug } = await params
 
-    const result = await getData<ResponseWithNoMeta<TProduct>>({
+    const result = await getData<ResponseWithNoMeta<Restaurant.Product.TProduct>>({
         endPoint: API_ROUTES.product.endpoint,
         param: productSlug,
         tags: ["product", productSlug]

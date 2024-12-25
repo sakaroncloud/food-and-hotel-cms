@@ -1,9 +1,10 @@
 import { DataTable } from '@/components/table/data-table'
 import React from 'react'
 import { columns } from './columns'
-import { ResponseWithMeta, TRestaurant } from '@/lib/types/response.type';
+import { ResponseWithMeta } from '@/lib/types/response.type';
 import { API_ROUTES } from '@/lib/routes';
 import { getData } from '@/app/data';
+import { Restaurant } from '@/lib/types/restaurant.types';
 
 type Props = {
     showDeleted?: boolean
@@ -11,7 +12,7 @@ type Props = {
 
 export const RestaurantTable = async ({ showDeleted }: Props) => {
 
-    const result = await getData<ResponseWithMeta<TRestaurant[]>>({
+    const result = await getData<ResponseWithMeta<Restaurant.TRestaurant[]>>({
         endPoint: API_ROUTES.restaurant.endpoint + "?deleted=" + showDeleted,
         tags: ["restaurant"]
     });

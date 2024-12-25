@@ -3,7 +3,6 @@ import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 
 import { DataTableColumnHeader } from "@/components/table/column-header"
-import { TCity } from "@/lib/types/response.type"
 import { useCustomSearchParams } from "@/hooks/useCustomSearchParams"
 import { CustomCell } from "@/components/table/custom-cell"
 import { useState, useTransition } from "react"
@@ -14,6 +13,7 @@ import { DialogFooter } from "@/components/ui/dialog"
 import { API_ROUTES } from "@/lib/routes"
 import toast from "react-hot-toast"
 import { useQueryClient } from "@tanstack/react-query"
+import { TCity } from "@/lib/types/address.types"
 
 export const columns: ColumnDef<TCity>[] = [
 

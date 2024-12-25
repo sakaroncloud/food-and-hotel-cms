@@ -97,7 +97,7 @@ export const CuisineForm = ({ defaultImages, formValues }: Props) => {
           buttonLabel={formValues ? "Update" : "Add New"}
           pending={isPending}
           goBack={{
-            path: "/cuisines"
+            path: "/restaurants/cuisines"
           }}
         />
       </form>

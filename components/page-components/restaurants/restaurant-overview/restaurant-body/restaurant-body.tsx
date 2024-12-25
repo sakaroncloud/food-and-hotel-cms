@@ -1,8 +1,9 @@
 import { getData } from "@/app/data";
 import { API_ROUTES } from "@/lib/routes";
-import { ResponseWithNoMeta, TRestaurant } from "@/lib/types/response.type";
+import { ResponseWithNoMeta } from "@/lib/types/response.type";
 import { RestaurantBodyCard } from "./restaurant-body-card";
 import { generateRestaurantCards } from "@/app/(dashboard)/restaurants/utils/utils";
+import { Restaurant } from "@/lib/types/restaurant.types";
 
 
 type Props = {
@@ -11,7 +12,7 @@ type Props = {
 
 export const RestaurantBody = async ({ restaurantSlug }: Props) => {
 
-    const result = await getData<ResponseWithNoMeta<TRestaurant>>({
+    const result = await getData<ResponseWithNoMeta<Restaurant.TRestaurant>>({
         endPoint: API_ROUTES.restaurant.endpoint,
         param: restaurantSlug,
         tags: ["restaurant", restaurantSlug]
@@ -20,6 +21,8 @@ export const RestaurantBody = async ({ restaurantSlug }: Props) => {
     const restaurant = result?.data
 
     if (!restaurant) return null
+
+    console.log(restaurant)
 
     const cards = generateRestaurantCards(restaurant)
 

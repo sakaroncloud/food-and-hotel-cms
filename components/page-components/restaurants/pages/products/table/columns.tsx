@@ -3,7 +3,6 @@ import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 
 import { DataTableColumnHeader } from "@/components/table/column-header"
-import { TProduct, TRestaurant } from "@/lib/types/response.type"
 import { BACKEND_URL } from "@/lib/constants"
 import FallbackImage from "@/components/fallback-image"
 import { useCustomSearchParams } from "@/hooks/useCustomSearchParams"
@@ -17,9 +16,10 @@ import { API_ROUTES } from "@/lib/routes"
 import toast from "react-hot-toast"
 import { useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
+import { Restaurant } from "@/lib/types/restaurant.types"
 
-export const columns: ColumnDef<TProduct & {
-    restaurant: Pick<TRestaurant, "id" | "slug">
+export const columns: ColumnDef<Restaurant.Product.TProduct & {
+    restaurant: Pick<Restaurant.TRestaurant, "id" | "slug">
 }>[] = [
 
         {
@@ -40,7 +40,7 @@ export const columns: ColumnDef<TProduct & {
                 <DataTableColumnHeader column={column} title="Name" />
             ),
             cell: ({ row }) => {
-                const image = row.original.featuredImage?.url
+                const image = row.original?.featuredImage?.url
                 return (
                     <div className="flex items-center gap-2">
                         <div className="p-1 border border-slate-200 bg-white rounded-lg size-[41px] flex items-center justify-center">

@@ -17,6 +17,7 @@ export const getData = async <T>(options: TOption): Promise<T | null> => {
         cache: 'force-cache',
         next: {
             tags: options.tags,
+            revalidate: 20
         }
     }
 

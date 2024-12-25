@@ -1,6 +1,6 @@
 "use server";
 import { loginSchema, signUpSchema, TLogin, TSignUp } from "@/schemas/auth.schema";
-import { ReturnType, TResponse } from "@/lib/types/response.type";
+import { ReturnType, TBaseResponse } from "@/lib/types/response.type";
 import { Role, TLoginResponse } from "@/lib/types/auth.response.type";
 import { createSession, deleteSession, getSession } from "./session";
 import { API_ROUTES } from "@/lib/routes";
@@ -33,9 +33,8 @@ export async function signIn(formData: TLogin): Promise<
         }
     );
 
-    console.log(response)
 
-    const result: TResponse<TLoginResponse> = await response.json();
+    const result: TBaseResponse<TLoginResponse> = await response.json();
 
     if (response.ok) {
         if (result.data.tokens.limitError) {

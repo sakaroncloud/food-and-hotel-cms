@@ -1,5 +1,5 @@
 "use client"
-import React, { useTransition } from 'react'
+import React, { useEffect, useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import toast from 'react-hot-toast';
@@ -12,8 +12,9 @@ import { TDefaultImage } from '@/lib/types/upload.type';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useFetch } from '@/hooks/useFetch';
 import { API_ROUTES } from '@/lib/routes';
-import { ResponseWithNoMeta, TMenus } from '@/lib/types/response.type';
+import { ResponseWithNoMeta } from '@/lib/types/response.type';
 import { FormFieldWrapper, FormFooter } from '@/components/form/form-field-wrapper';
+import { Restaurant } from '@/lib/types/restaurant.types';
 
 type Props = {
     formValues?: TProductForm & {
@@ -25,10 +26,11 @@ type Props = {
 
 export const ProductForm = ({ defaultFeaturedImage, formValues, restaurantSlug }: Props) => {
 
-    const { data: menus } = useFetch<ResponseWithNoMeta<TMenus>>({
+    const { data: menus } = useFetch<ResponseWithNoMeta<Restaurant.Menu.TMenusResponse>>({
         endPoint: API_ROUTES.menu.endpoint + "?restaurant=" + restaurantSlug,
         queryKey: API_ROUTES.menu.queryKey + restaurantSlug,
     });
+
 
     const form = useForm<TProductForm>({
         resolver: zodResolver(productFormSchema),
@@ -43,6 +45,8 @@ export const ProductForm = ({ defaultFeaturedImage, formValues, restaurantSlug }
 
     const [isPending, startTransition] = useTransition();
     const router = useRouter()
+
+
     const onSubmit = (values: TProductForm) => {
         startTransition(async () => {
             const response = await submitProduct(values, formValues?.id);
@@ -58,6 +62,9 @@ export const ProductForm = ({ defaultFeaturedImage, formValues, restaurantSlug }
             }
         })
     }
+
+
+
     return (
 
         <Form {...form}>

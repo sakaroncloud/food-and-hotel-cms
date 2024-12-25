@@ -6,7 +6,7 @@ export const cuisineFormSchema = z.object({
     }),
     featuredImage: z.string().uuid({
         message: "Please select image"
-    }),
+    }).optional().nullable(),
     description: z.string().min(2)
 })
 

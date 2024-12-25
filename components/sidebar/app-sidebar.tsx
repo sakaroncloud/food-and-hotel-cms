@@ -133,7 +133,7 @@ const data = {
 
         {
             name: "Gallery",
-            url: "/restaurant/gallery",
+            url: "/restaurants/gallery",
             icon: Images,
         },
 

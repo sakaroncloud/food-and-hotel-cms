@@ -1,10 +1,10 @@
 import { DashboardProvider } from '@/components/providers/dashboard-wrapper'
 import { CreatePageWrapper } from '@/components/providers/create-page-wrapper'
-import { TBreadCrumb } from '@/lib/types/global.type'
-import { ResponseWithNoMeta, TCity } from '@/lib/types/response.type'
+import { ResponseWithNoMeta, } from '@/lib/types/response.type'
 import { API_ROUTES } from '@/lib/routes'
 import { CityForm } from './city-form'
 import { getData } from '@/app/data'
+import { TCity } from '@/lib/types/address.types'
 
 type Props = {
     slug: string

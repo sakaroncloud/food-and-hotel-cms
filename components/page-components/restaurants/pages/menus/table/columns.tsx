@@ -3,14 +3,12 @@ import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 
 import { DataTableColumnHeader } from "@/components/table/column-header"
-import { TMenu, TProduct, TRestaurant } from "@/lib/types/response.type"
-import { BACKEND_URL } from "@/lib/constants"
-import FallbackImage from "@/components/fallback-image"
+
 import { useCustomSearchParams } from "@/hooks/useCustomSearchParams"
 import { CustomCell } from "@/components/table/custom-cell"
 import { useState, useTransition } from "react"
 import { deleteHandler } from "@/lib/actions/global.action"
-import { DeleteButton, EditButton, ViewIcon } from "@/components/table/action-button"
+import { DeleteButton, EditButton, } from "@/components/table/action-button"
 import { CustomFormModal } from "@/components/form/custom-form-modal"
 import { DialogFooter } from "@/components/ui/dialog"
 import { API_ROUTES } from "@/lib/routes"
@@ -18,9 +16,10 @@ import toast from "react-hot-toast"
 import { useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import { MenuFormModal } from "../menu-form-modal"
+import { Restaurant } from "@/lib/types/restaurant.types"
 
-export const columns: ColumnDef<TMenu & {
-    restaurant: Pick<TRestaurant, "id" | "slug">
+export const columns: ColumnDef<Restaurant.Menu.TMenu & {
+    restaurant: Pick<Restaurant.TRestaurant, "id" | "slug">
 }>[] = [
         {
             accessorKey: "id",
@@ -53,8 +52,10 @@ export const columns: ColumnDef<TMenu & {
                 <DataTableColumnHeader column={column} title="Description" />
             ),
             cell: ({ row }) => {
+                const description = row.original?.description
+                if (!description) return null
                 return (
-                    <CustomCell label={row.original.description.slice(0, 50) + "..."} />
+                    <CustomCell label={description.slice(0, 50) + "..."} />
                 )
             }
         },
@@ -93,7 +94,6 @@ export const columns: ColumnDef<TMenu & {
                 };
                 return (
                     <div className="flex gap-2">
-                        <ViewIcon path={`/restaurants/${data.id}`} />
                         <EditButton
                             onClick={() => setOpenEdit(true)}
                         >
@@ -109,12 +109,13 @@ export const columns: ColumnDef<TMenu & {
                                 openModal={openEdit}
                                 setOpenModal={setOpenEdit}
                                 formValues={{
-                                    ...data,
+                                    id: data?.id || "",
+                                    description: data?.description || "",
+                                    name: data?.name || "",
                                     restaurant: data.restaurant.slug,
                                 }}
                             />
                         )}
-
 
                         <CustomFormModal
                             open={open}

@@ -18,11 +18,12 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { addressDefaultValues, addressFormSchema, TAddressForm } from '@/schemas/schema.address';
 import { useFetch } from '@/hooks/useFetch';
-import { ResponseWithNoMeta, TCity } from '@/lib/types/response.type';
+import { ResponseWithNoMeta } from '@/lib/types/response.type';
 import { API_ROUTES } from '@/lib/routes';
 import { submitAddress } from '@/lib/actions/action.address';
 import toast from 'react-hot-toast';
 import SubmitButton from './submit-button';
+import { TCity } from '@/lib/types/address.types';
 
 
 type Props = {

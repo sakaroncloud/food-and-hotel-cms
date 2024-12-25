@@ -1,11 +1,12 @@
 "use client"
 import { CreatePageWrapper } from '@/components/providers/create-page-wrapper'
 import { useFetch } from '@/hooks/useFetch'
-import { ResponseWithNoMeta, TRestaurant } from '@/lib/types/response.type'
+import { ResponseWithNoMeta } from '@/lib/types/response.type'
 import { API_ROUTES } from '@/lib/routes'
 import { RestaurantForm } from './restaurant-form'
 import { TRestaurantForm } from '@/schemas/fooding/schema.restaurant'
 import dayjs from 'dayjs'
+import { Restaurant } from '@/lib/types/restaurant.types'
 
 type Props = {
     restaurantSlug: string
@@ -14,7 +15,7 @@ type Props = {
 
 export const EditRestaurantWrapper = ({ restaurantSlug }: Props) => {
 
-    const { data: result, isFetching } = useFetch<ResponseWithNoMeta<TRestaurant>>({
+    const { data: result, isFetching } = useFetch<ResponseWithNoMeta<Restaurant.TRestaurant>>({
         endPoint: API_ROUTES.restaurant.endpoint,
         param: restaurantSlug,
         queryKey: API_ROUTES.restaurant.queryKey,
@@ -24,11 +25,12 @@ export const EditRestaurantWrapper = ({ restaurantSlug }: Props) => {
     if ((!isFetching && !result?.data)) return "not found"
     if (!isFetching && !result) return "something went wrong"
 
-    const parseData = (restaurant: TRestaurant | undefined): TRestaurantForm | undefined => {
+    const parseData = (restaurant: Restaurant.TRestaurant | undefined): TRestaurantForm | undefined => {
         if (restaurant) {
             const parsedRestaurantForForm: TRestaurantForm = {
                 // we have to parse only those data, which are in object or in array - eg : select fields
                 ...restaurant,
+                description: restaurant?.description || "",
                 cuisines: restaurant?.cuisines?.map((cuisine) => ({ value: cuisine.id, label: cuisine.name })) || [],
                 dayOfWeek: restaurant?.dayOfWeek?.map((day) => ({ value: day, label: day })) || [],
                 featuredImage: restaurant?.featuredImage?.id,

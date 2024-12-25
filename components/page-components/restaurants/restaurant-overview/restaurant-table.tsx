@@ -1,13 +1,14 @@
 import { DataTable } from '@/components/table/data-table'
 import React from 'react'
 import { columns } from '../restaurant-table/columns'
-import { ResponseWithMeta, TRestaurant } from '@/lib/types/response.type';
+import { ResponseWithMeta, } from '@/lib/types/response.type';
 import { API_ROUTES } from '@/lib/routes';
 import { getData } from '@/app/data';
+import { Restaurant } from '@/lib/types/restaurant.types';
 
 export const RestaurantTable = async () => {
 
-    const result = await getData<ResponseWithMeta<TRestaurant[]>>({
+    const result = await getData<ResponseWithMeta<Restaurant.TRestaurant[]>>({
         endPoint: API_ROUTES.restaurant.endpoint,
         tags: ["restaurant"]
     });

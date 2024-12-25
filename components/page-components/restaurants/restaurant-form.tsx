@@ -7,7 +7,8 @@ import { Form } from "@/components/ui/form"
 import { useFetch } from "@/hooks/useFetch"
 import { submitRestaurant } from "@/lib/actions/action.restaurant"
 import { API_ROUTES } from "@/lib/routes"
-import { ResponseWithMeta, TCuisine, TMenu } from "@/lib/types/response.type"
+import { ResponseWithMeta } from "@/lib/types/response.type"
+import { Restaurant } from "@/lib/types/restaurant.types"
 import { TDefaultImage } from "@/lib/types/upload.type"
 import { discountTypeOptions, restaurantDefaultValues, restaurantFormSchema, TRestaurantForm, weekDaysOptions } from "@/schemas/fooding/schema.restaurant"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -24,7 +25,7 @@ type Props = {
 }
 
 export const RestaurantForm = ({ defaultFeaturedImage, defaultLogo, formValues }: Props) => {
-    const { data: cuisines } = useFetch<ResponseWithMeta<TCuisine[]>>({
+    const { data: cuisines } = useFetch<ResponseWithMeta<Restaurant.Cuisine.TCuisine[]>>({
         endPoint: API_ROUTES.cuisine.endpoint + "?skipPagination=true",
         queryKey: API_ROUTES.cuisine.queryKey,
     });
@@ -281,7 +282,7 @@ export const RestaurantForm = ({ defaultFeaturedImage, defaultLogo, formValues }
                     buttonLabel={formValues ? "Update" : "Add New"}
                     pending={isPending}
                     goBack={{
-                        path: "/cuisines"
+                        path: `/restaurants`
                     }}
                 />
             </form>
