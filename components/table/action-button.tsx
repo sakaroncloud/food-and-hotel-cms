@@ -1,29 +1,28 @@
 import { Button, ButtonProps, buttonVariants } from "@/components/ui/button";
-import { Edit, Eye, Trash } from "lucide-react";
+import { ArchiveRestore, Edit, Eye, RefreshCcw, Trash } from "lucide-react";
 import Link from "next/link";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 
 type EditProps = {
-    path: string;
+    path?: string;
 } & ButtonProps;
 
 export const EditButton = ({ path, ...props }: EditProps) => {
     return (
 
-
         <TooltipProvider delayDuration={300}>
-
             <Tooltip>
                 <TooltipTrigger asChild>
                     <Button
                         {...props}
                         size="sm"
                         asChild
-                        className="outline-0 shadow-none bg-transparent text-gray-800 p-0 hover:bg-transparent hover:text-primary hover:text-gray-800"
+                        className="outline-0 cursor-pointer shadow-none bg-transparent text-gray-800 p-0 hover:bg-transparent hover:text-primary hover:text-gray-800"
                     >
-                        <Link href={path || "/"}>
+                        {path ? <Link href={path || "/"}>
                             <Edit className="mr-2 size-4 text-blue-500" />
-                        </Link>
+                        </Link> : <Edit className="mr-2 size-4 text-blue-500" />
+                        }
                     </Button>
                 </TooltipTrigger>
                 <TooltipContent>
@@ -31,9 +30,6 @@ export const EditButton = ({ path, ...props }: EditProps) => {
                 </TooltipContent>
             </Tooltip>
         </TooltipProvider>
-
-
-
     );
 };
 
@@ -47,8 +43,6 @@ export const NativeEditButton = () => {
 
 export const DeleteButton = ({ ...props }: ButtonProps) => {
     return (
-
-
         <TooltipProvider delayDuration={300}>
             <Tooltip>
                 <TooltipTrigger asChild>
@@ -68,6 +62,51 @@ export const DeleteButton = ({ ...props }: ButtonProps) => {
 
     );
 };
+
+export const DeleteForeverButton = ({ ...props }: ButtonProps) => {
+    return (
+        <TooltipProvider delayDuration={300}>
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <Button
+                        {...props}
+                        size="sm"
+                        className="outline-0 shadow-none bg-transparent text-red-500 p-0 hover:bg-transparent hover:text-primary hover:text-gray-800"
+                    >
+                        <Trash className="mr-2 size-4 text-primary" />
+                    </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                    <p>Delete Permanently</p>
+                </TooltipContent>
+            </Tooltip>
+        </TooltipProvider>
+
+    );
+};
+export const RestoreButton = ({ ...props }: ButtonProps) => {
+    return (
+        <TooltipProvider delayDuration={300}>
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <Button
+                        {...props}
+                        size="sm"
+                        className="outline-0 shadow-none bg-transparent text-red-500 p-0 hover:bg-transparent hover:text-primary hover:text-gray-800"
+                    >
+                        <RefreshCcw />
+                    </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                    <p>Restore</p>
+                </TooltipContent>
+            </Tooltip>
+        </TooltipProvider>
+
+    );
+};
+
+
 
 export const ViewIcon = ({ path, ...props }: EditProps) => {
     return (

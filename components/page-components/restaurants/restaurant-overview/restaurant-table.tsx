@@ -1,16 +1,15 @@
-"use client"
 import { DataTable } from '@/components/table/data-table'
 import React from 'react'
 import { columns } from '../restaurant-table/columns'
-import { useFetch } from '@/hooks/useFetch';
 import { ResponseWithMeta, TRestaurant } from '@/lib/types/response.type';
 import { API_ROUTES } from '@/lib/routes';
+import { getData } from '@/app/data';
 
-export const RestaurantTable = () => {
+export const RestaurantTable = async () => {
 
-    const { data: result } = useFetch<ResponseWithMeta<TRestaurant[]>>({
+    const result = await getData<ResponseWithMeta<TRestaurant[]>>({
         endPoint: API_ROUTES.restaurant.endpoint,
-        queryKey: API_ROUTES.restaurant.queryKey,
+        tags: ["restaurant"]
     });
 
     return (

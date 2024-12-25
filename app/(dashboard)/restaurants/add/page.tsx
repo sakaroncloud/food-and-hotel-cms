@@ -3,19 +3,10 @@ import { CreatePageWrapper } from '@/components/providers/create-page-wrapper'
 import { DashboardProvider } from '@/components/providers/dashboard-wrapper'
 import React from 'react'
 
-const breadcrumb = [
-    {
-        label: "Dashboard",
-        link: "/"
-    }, {
-        label: "Restaurants",
-        link: "/restaurants"
-    }
-]
 
 const AddNewRestaurantPage = () => {
     return (
-        <DashboardProvider breadcrumb={breadcrumb}>
+        <DashboardProvider>
             <CreatePageWrapper title='Add New Restaurant'>
                 <RestaurantForm />
             </CreatePageWrapper>

@@ -1,72 +1,69 @@
-import React, { useState, useTransition } from 'react'
-import { Button } from "@/components/ui/button"
+"use client"
+import React, { useTransition } from 'react'
 import {
     Dialog,
     DialogContent,
     DialogDescription,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
 } from "@/components/ui/dialog"
 
-import { PlusIcon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-
-import { API_ROUTES, } from '@/lib/routes';
-import { useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { Form } from '@/components/ui/form';
 import { CustomFormField } from '@/components/form/custom-form-field';
 import SubmitButton from '@/components/form/submit-button';
-import { ChooseNewImageCard } from '@/components/choose-image-card/new-choose-image-card';
+import { useRouter } from 'next/navigation';
+import { AlertConfirmation } from '@/components/modals/alert-confirmation';
+import { useModalClose } from '@/hooks/useModalClose';
 import { menuDefaultValues, menuFormSchema, TMenuForm } from '@/schemas/fooding/schema.menu';
 import { submitMenu } from '@/lib/actions/menu.action';
 
 type Props = {
-    formValues?: TMenuForm & { id: string };
+    formValues?: TMenuForm & {
+        id: string,
+    };
     restaurantSlug: string;
-    restaurantId: string;
     label: string;
     formDescription?: string;
-    isPureVeg: boolean;
+    openModal: boolean;
+    setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const MenuFormModal = ({ formDescription, formValues, label, isPureVeg, restaurantId, restaurantSlug }: Props) => {
-
-    const [open, setOpen] = useState(false)
+export const MenuFormModal = ({ openModal, setOpenModal, formDescription, formValues, label, restaurantSlug }: Props) => {
 
     const form = useForm<TMenuForm>({
         resolver: zodResolver(menuFormSchema),
         defaultValues: formValues ? {
             ...formValues,
-            restaurant: restaurantId
         } : {
             ...menuDefaultValues,
-            restaurant: restaurantId,
-            isPureVeg: isPureVeg
+            restaurant: restaurantSlug,
         }
 
     })
 
+    const { handleOpenChange, showExitConfirmation, setShowExitConfirmation } = useModalClose({
+        openModal,
+        setOpenModal,
+        formName: "menuFormModified",
+        formState: form.formState.isDirty
+    })
+
+
     const [isPending, startTransition] = useTransition();
-    const queryClient = useQueryClient()
+    const router = useRouter()
 
     const onSubmit = (values: TMenuForm) => {
         startTransition(async () => {
             const response = await submitMenu(values, formValues?.id);
             if (response.success == true) {
                 toast.success(response.message)
-                setOpen(false)
-                form.reset()
-
-                if (formValues) {
-                    queryClient.invalidateQueries({ queryKey: [API_ROUTES.restaurant.queryKey, restaurantSlug] })
-                }
-
-
+                setOpenModal(false)
+                router.refresh()
                 if (!formValues) {
-                    queryClient.invalidateQueries({ queryKey: [API_ROUTES.restaurant.queryKey, restaurantSlug] })
+                    form.reset()
                 }
             }
             else {
@@ -75,11 +72,14 @@ export const MenuFormModal = ({ formDescription, formValues, label, isPureVeg, r
         })
     }
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
-                <Button size={"icon"} variant={"ghost"} className="bg-primary/80 hover:bg-primary p-1 rounded-full "><PlusIcon className='text-white size-5' /></Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+        <Dialog open={openModal} onOpenChange={handleOpenChange}>
+            <DialogContent className="sm:max-w-[625px]">
+                <AlertConfirmation
+                    open={showExitConfirmation}
+                    setOpen={setShowExitConfirmation}
+                    confirmationAction={handleOpenChange}
+                    message="You haven't saved your changes. Please confirm you want to exit without saving."
+                />
                 <DialogHeader>
                     <DialogTitle>
                         {label}
@@ -97,21 +97,16 @@ export const MenuFormModal = ({ formDescription, formValues, label, isPureVeg, r
                             fieldId='name'
                             label='Name'
                             inputType='text'
-                            placeholder='Enter product name'
+                            placeholder='Enter Menu name'
                             className='w-full'
                         />
 
                         <CustomFormField
-                            elementName="checkbox"
-                            fieldId="isPureVeg"
-                            label="Check if product is pure veg"
-                            className="w-full"
-                        />
-
-                        <ChooseNewImageCard
-                            fieldId={"featuredImage"}
-                            label={"Featured Image"}
-                            allowMultiple={false}
+                            elementName='textarea'
+                            fieldId='description'
+                            label='Menu Description'
+                            placeholder='Please enter description'
+                            className='w-full'
                         />
                         <SubmitButton type="submit" label={"Save changes"} pending={isPending} />
                     </form>

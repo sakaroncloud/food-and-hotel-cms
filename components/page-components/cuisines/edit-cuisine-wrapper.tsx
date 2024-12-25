@@ -13,17 +13,7 @@ type Props = {
 
 
 export const EditCuisineWrapper = ({ slug }: Props) => {
-    const breadcrumb: TBreadCrumb[] = [
-        {
-            label: "Dashboard",
-            link: "/"
-        }, {
-            label: "Cuisines",
-            link: "/cuisines"
-        }, {
-            label: slug,
-        }
-    ]
+
 
     const { data: result } = useFetch<ResponseWithNoMeta<TCuisine>>({
         endPoint: API_ROUTES.cuisine.endpoint,
@@ -34,7 +24,7 @@ export const EditCuisineWrapper = ({ slug }: Props) => {
     if (!result?.data) return null
 
     return (
-        <DashboardProvider breadcrumb={breadcrumb}>
+        <DashboardProvider >
             <CreatePageWrapper title='Edit Cuisine'>
                 <CuisineForm
                     formValues={

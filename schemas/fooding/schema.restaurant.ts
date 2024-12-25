@@ -48,11 +48,11 @@ export const restaurantFormSchema = z.object({
     isPureVeg: z.boolean().default(false),
     featuredImage: z.string().uuid({
         message: "Please select image"
-    }).optional(),
+    }).optional().nullable(),
 
     logo: z.string().uuid({
         message: "Please select image"
-    }).optional(),
+    }).optional().nullable(),
 
     dayOfWeek: z.array(z.object({
         value: z.nativeEnum(EWeekDay),

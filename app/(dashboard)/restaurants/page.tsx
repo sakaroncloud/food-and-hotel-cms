@@ -1,30 +1,26 @@
-"use client"
 import { DashboardProvider } from "@/components/providers/dashboard-wrapper"
 import { TableWrapperWithFilter } from "@/components/table/table-wrapper-with-filter"
-import { AddItemButton } from "@/components/uploads/add-item-button"
+import { AddItemButton, ShowTrashOrViewButton } from "@/components/uploads/add-item-button"
 import { TableSearchForm } from "@/components/table/table-search-form"
 import { RestaurantTable } from "@/components/page-components/restaurants/restaurant-table/restaurant-table"
 
-const breadcrumb = [
-    {
-        label: "Dashboard",
-        link: "/"
-    }, {
-        label: "Restaurants",
-        link: "/restaurants"
-    }
-]
+type Props = {
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
 
-const AllRestaurantsPage = () => {
+const AllRestaurantsPage = async ({ searchParams }: Props) => {
+    const params = await searchParams
+
     return (
-        <DashboardProvider breadcrumb={breadcrumb}>
-            <TableWrapperWithFilter title="Restaurants" headerActions={
-                <div className="flex gap-6 items-center">
+        <DashboardProvider >
+            <TableWrapperWithFilter title={params.deleted === "true" ? "Restaurants (Trash)" : "Restaurants"} headerActions={
+                <div className="flex gap-4 items-center">
                     <TableSearchForm placeholder="Enter Restaurant" />
                     <AddItemButton label="Add New" path={`/restaurants/add`} />
+                    <ShowTrashOrViewButton path={`/restaurants`} showDeleted={params?.deleted === "true"} />
                 </div>
             } >
-                <RestaurantTable />
+                <RestaurantTable showDeleted={params?.deleted === "true"} />
             </TableWrapperWithFilter>
         </DashboardProvider>
     )

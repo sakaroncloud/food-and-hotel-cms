@@ -28,6 +28,7 @@ import React from "react"
 import { Input } from "@/components/ui/input"
 import { DataTablePagination } from "./pagination"
 import { DataTableViewOptions } from "./column-visibility-toggle"
+import { cn } from "@/lib/utils"
 
 interface DataTableProps<TData, TValue> {
     searchKey?: string;
@@ -36,6 +37,7 @@ interface DataTableProps<TData, TValue> {
     actionButton?: React.ReactNode
     showViewColumn?: boolean,
     showPagination?: boolean,
+    showDeleted?: boolean
 }
 
 export function DataTable<TData, TValue>({
@@ -44,7 +46,8 @@ export function DataTable<TData, TValue>({
     data,
     searchKey,
     showViewColumn = false,
-    showPagination = true
+    showPagination = true,
+    showDeleted = false
 }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -78,7 +81,7 @@ export function DataTable<TData, TValue>({
 
     return (
         <div className="space-y-4">
-            <div className="flex items-center py-4 w-full">
+            <div className="flex items-center py-4 bg-white w-full">
                 <div className="flex gap-3 flex-1">
                     {searchKey && searchKey.length > 0 && <Input
                         placeholder={`Filter ${searchKey}`}
@@ -96,7 +99,7 @@ export function DataTable<TData, TValue>({
                 {showViewColumn && <DataTableViewOptions table={table} />}
 
             </div>
-            <div className="rounded-md border p-2">
+            <div className={cn("rounded-md border p-2 ", showDeleted && "border-red-600")}>
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (

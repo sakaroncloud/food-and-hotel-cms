@@ -1,41 +1,30 @@
-"use client"
 import { DashboardProvider } from '@/components/providers/dashboard-wrapper'
 import { CreatePageWrapper } from '@/components/providers/create-page-wrapper'
 import { TBreadCrumb } from '@/lib/types/global.type'
-import { useFetch } from '@/hooks/useFetch'
-import { ResponseWithNoMeta, TCity, TCuisine } from '@/lib/types/response.type'
+import { ResponseWithNoMeta, TCity } from '@/lib/types/response.type'
 import { API_ROUTES } from '@/lib/routes'
 import { CityForm } from './city-form'
+import { getData } from '@/app/data'
 
 type Props = {
     slug: string
 }
 
 
-export const EditCityWrapper = ({ slug }: Props) => {
-    const breadcrumb: TBreadCrumb[] = [
-        {
-            label: "Dashboard",
-            link: "/"
-        }, {
-            label: "Cities",
-            link: "/cities"
-        }, {
-            label: slug,
-        }
-    ]
+export const EditCityWrapper = async ({ slug }: Props) => {
 
-    const { data: result } = useFetch<ResponseWithNoMeta<TCity>>({
+
+    const result = await getData<ResponseWithNoMeta<TCity>>({
         endPoint: API_ROUTES.city.endpoint,
         param: slug,
-        queryKey: API_ROUTES.city.queryKey,
+        tags: ["city", slug]
     });
 
     if (!result?.data) return null
 
 
     return (
-        <DashboardProvider breadcrumb={breadcrumb}>
+        <DashboardProvider >
             <CreatePageWrapper title='Edit City'>
                 <CityForm
                     formValues={

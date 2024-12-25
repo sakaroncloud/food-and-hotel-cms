@@ -64,23 +64,30 @@ export type TProducts = {
     restaurant: Pick<TRestaurant, "id" | "slug" | "name">
 }
 
+export type TMenus = {
+    menus: TMenu[]
+    restaurant: Pick<TRestaurant, "id" | "slug" | "name">
+}
+
 export type TProduct = {
     id: string;
+    slug: string;
     name: string;
-    isPureVeg: boolean;
-    description: string | undefined;
+    description: string,
     featuredImage: {
         id: string;
         url: string;
     };
     price: number;
     preparationTime: number;
+    menus?: Pick<TMenu, "id" | "name">[]
 };
 
 export type TMenu = {
     id: string;
     name: string;
     products?: TProduct[];
+    description: string;
 };
 
 

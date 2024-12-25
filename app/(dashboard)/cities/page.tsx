@@ -8,20 +8,10 @@ import React from 'react'
 
 const CitiesPage = () => {
 
-    const breadcrumb: TBreadCrumb[] = [
-        {
-            label: "Dashboard",
-            link: "/"
-        }, {
-            label: "Cities",
-            link: "/cities"
-        }, {
-            label: "Add New",
-        }
-    ]
+
 
     return (
-        <DashboardProvider breadcrumb={breadcrumb}>
+        <DashboardProvider >
             <TableWrapperWithFilter title="Cities" headerActions={
                 <div className="flex gap-6 items-center">
                     <TableSearchForm placeholder="Enter Location" />

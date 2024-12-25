@@ -1,18 +1,17 @@
 import { DashboardProvider } from "@/components/providers/dashboard-wrapper"
 import { TableWrapperWithFilter } from "@/components/table/table-wrapper-with-filter"
 import { AddItemButton } from "@/components/uploads/add-item-button"
-import { breadcrumb } from "@/components/page-components/cuisines/data"
 import { TableSearchForm } from "@/components/table/table-search-form"
 import { CuisineTable } from "@/components/page-components/cuisines/cuisine-table/cuisine-table"
 
 
 const CuisinesPage = () => {
   return (
-    <DashboardProvider breadcrumb={breadcrumb}>
+    <DashboardProvider >
       <TableWrapperWithFilter title="Cuisines" headerActions={
         <div className="flex gap-6 items-center">
           <TableSearchForm placeholder="Enter Cuisine" />
-          <AddItemButton label="Add New" path={`/cuisines/add`} />
+          <AddItemButton label="Add New" path={`/restaurants/cuisines/add`} />
         </div>
       } >
         <CuisineTable />

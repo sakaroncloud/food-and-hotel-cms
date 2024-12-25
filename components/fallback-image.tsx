@@ -35,6 +35,7 @@ const FallbackImage = ({ alt, errorClassName, errorMessage, src, type, ...props 
           : src
       }
       {...props}
+      className={props.className}
     />
   );
 };

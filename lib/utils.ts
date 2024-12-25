@@ -59,3 +59,27 @@ export function formatFileSize(sizeInBytes: number): string {
     return `${(sizeInBytes / (1024 * 1024)).toFixed(2)} MB`;
   }
 }
+
+// ---------------- breadCrumb Generator
+
+export const getBreadCrumb = (pathname: string) => {
+  const pathItems = pathname.split("/").filter(Boolean)
+  const breadCrumb = [
+    { label: "Dashboard", link: "/" },
+    ...pathItems.map((label, index) => {
+      const removedDoubleDash = label.split("--")[0]
+      const formattedLabel = removedDoubleDash.replace(/-/g, " ");
+
+
+      // Replace hyphens with spaces
+      const link =
+        index === pathItems.length - 1 // If it's the last label, no link
+          ? null
+          : "/" + pathItems.slice(0, index + 1).join("/");
+
+      return { label: formattedLabel, link };
+    })
+  ]
+
+  return breadCrumb
+}

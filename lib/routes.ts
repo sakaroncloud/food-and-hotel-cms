@@ -24,8 +24,8 @@ export const API_ROUTES = {
         queryKey: "product-" as const,
     },
     menu: {
-        endpoint: "/menu" as const,
-        queryKey: "menu" as const,
+        endpoint: "/menu-private" as const,
+        queryKey: "menu-" as const,
     },
     restaurant: {
         endpoint: "/restaurant-private" as const,

@@ -53,7 +53,7 @@ export function AddCuisineTrigger() {
             <DialogTrigger asChild>
                 <Button variant="outline" size={"icon"}>+</Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-[625px]">
                 <AlertConfirmation
                     open={showExitConfirmation}
                     setOpen={setShowExitConfirmation}

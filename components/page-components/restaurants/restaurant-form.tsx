@@ -7,7 +7,7 @@ import { Form } from "@/components/ui/form"
 import { useFetch } from "@/hooks/useFetch"
 import { submitRestaurant } from "@/lib/actions/action.restaurant"
 import { API_ROUTES } from "@/lib/routes"
-import { ResponseWithMeta, TCuisine } from "@/lib/types/response.type"
+import { ResponseWithMeta, TCuisine, TMenu } from "@/lib/types/response.type"
 import { TDefaultImage } from "@/lib/types/upload.type"
 import { discountTypeOptions, restaurantDefaultValues, restaurantFormSchema, TRestaurantForm, weekDaysOptions } from "@/schemas/fooding/schema.restaurant"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -28,6 +28,8 @@ export const RestaurantForm = ({ defaultFeaturedImage, defaultLogo, formValues }
         endPoint: API_ROUTES.cuisine.endpoint + "?skipPagination=true",
         queryKey: API_ROUTES.cuisine.queryKey,
     });
+
+
 
     const router = useRouter()
     const form = useForm<TRestaurantForm>({

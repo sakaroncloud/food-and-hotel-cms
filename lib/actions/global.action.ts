@@ -1,7 +1,7 @@
 "use server"
 
+import { revalidatePath } from "next/cache";
 import { BACKEND_URL } from "../constants"
-import { ENDPOINT } from "../types/endpoints";
 import { getSession } from "./session";
 
 type Option = {
@@ -16,6 +16,7 @@ export const SubmitHandler = async (option: Option) => {
     if (!option.ENDPOINT || !option.METHOD) {
         return { error: "Invalid option object" };
     }
+
 
     const session = await getSession()
 
@@ -36,6 +37,7 @@ export const SubmitHandler = async (option: Option) => {
             }
         );
 
+
         if (!response.ok) {
             const errorData = await response.json();
             const error = errorData.message
@@ -54,18 +56,34 @@ export const SubmitHandler = async (option: Option) => {
         }
 
         const data = await response.json();
-
+        revalidatePath("/(dashboard)", 'layout')
         return data;
 
-    } catch (error) {
-        return { message: error || "Something went wrong. Please try again later." };
+    } catch (error: any) {
+
+        if (error instanceof TypeError && error.message.includes('fetch failed')) {
+            return {
+                message: "Error: Unable to connect to the server"
+            }
+        } else if (error?.message.includes('ECONNREFUSED')) {
+            return {
+                message: "Error: Unable to connect to the server"
+            }
+        } else {
+            return {
+                message: "Unexpected error occured"
+            }
+        }
+
     }
+
 };
 
 
 export const deleteHandler = async (option: {
     PARAM: string,
     ENDPOINT: string,
+    revalidateTag?: string[]
 
 }) => {
 
@@ -76,7 +94,6 @@ export const deleteHandler = async (option: {
     const session = await getSession()
 
     if (!session?.accessToken) {
-        console.error("No session or access token found");
         return { error: "Unauthorized" };
     }
 
@@ -99,10 +116,138 @@ export const deleteHandler = async (option: {
         }
 
         const data = await response.json();
+        revalidatePath("/(dashboard)", 'layout')
         return data;
 
-    } catch (error) {
-        return { error: "Something went wrong. Please try again later." };
+    } catch (error: any) {
+        if (error instanceof TypeError && error.message.includes('fetch failed')) {
+            return {
+                message: "Error: Unable to connect to the server"
+            }
+        } else if (error?.message.includes('ECONNREFUSED')) {
+            return {
+                message: "Error: Unable to connect to the server"
+            }
+        } else {
+            return {
+                message: "Unexpected error occured"
+            }
+        }
+
+    }
+};
+
+
+export const deleteForeverHandler = async (option: {
+    PARAM: string,
+    ENDPOINT: string,
+    revalidateTag?: string[]
+
+}) => {
+
+    if (!option.ENDPOINT || !option.PARAM) {
+        return { error: "Invalid option object" };
+    }
+
+    const session = await getSession()
+
+    if (!session?.accessToken) {
+        return { error: "Unauthorized" };
+    }
+
+    try {
+        const response = await fetch(
+            `${BACKEND_URL}${option.ENDPOINT}${"/" + option.PARAM}/delete-forever`,
+            {
+                method: "delete",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${session.accessToken}`
+                },
+            }
+        );
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error("Error response from API:", errorData);
+            return errorData
+        }
+
+        const data = await response.json();
+        revalidatePath("/(dashboard)", 'layout')
+        return data;
+
+    } catch (error: any) {
+        if (error instanceof TypeError && error.message.includes('fetch failed')) {
+            return {
+                message: "Error: Unable to connect to the server"
+            }
+        } else if (error?.message.includes('ECONNREFUSED')) {
+            return {
+                message: "Error: Unable to connect to the server"
+            }
+        } else {
+            return {
+                message: "Unexpected error occured"
+            }
+        }
+
+    }
+};
+
+export const restoreHandler = async (option: {
+    PARAM: string,
+    ENDPOINT: string,
+    revalidateTag?: string[]
+
+}) => {
+
+    if (!option.ENDPOINT || !option.PARAM) {
+        return { error: "Invalid option object" };
+    }
+
+    const session = await getSession()
+
+    if (!session?.accessToken) {
+        return { error: "Unauthorized" };
+    }
+
+    try {
+        const response = await fetch(
+            `${BACKEND_URL}${option.ENDPOINT}${"/" + option.PARAM}/restore`,
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${session.accessToken}`
+                },
+            }
+        );
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            return errorData
+        }
+
+        const data = await response.json();
+        revalidatePath("/(dashboard)", 'layout')
+        return data;
+
+    } catch (error: any) {
+        if (error instanceof TypeError && error.message.includes('fetch failed')) {
+            return {
+                message: "Error: Unable to connect to the server"
+            }
+        } else if (error?.message.includes('ECONNREFUSED')) {
+            return {
+                message: "Error: Unable to connect to the server"
+            }
+        } else {
+            return {
+                message: "Unexpected error occured"
+            }
+        }
+
     }
 };
 

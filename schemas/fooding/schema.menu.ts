@@ -1,26 +1,21 @@
 import { z } from "zod";
 
 export const menuFormSchema = z.object({
-    name: z.string().min(2, {
-        message: "Please enter at least 2 characters"
+    name: z.string().min(3, {
+        message: "Please enter at least 3 characters"
     }),
 
-    isPureVeg: z.boolean().default(false),
-
-    restaurant: z.string().uuid({
-        message: "Please select restaurant"
+    description: z.string().min(4, {
+        message: "Desccription must be at least 4 characters"
     }),
 
-    featuredImage: z.string().uuid({
-        message: "Please select image"
-    }).optional(),
+    restaurant: z.string(),
 })
 
 export type TMenuForm = z.infer<typeof menuFormSchema>
 
 export const menuDefaultValues: TMenuForm = {
     name: "",
-    isPureVeg: false,
     restaurant: "",
-    featuredImage: "",
+    description: ""
 }

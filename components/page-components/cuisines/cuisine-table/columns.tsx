@@ -21,14 +21,14 @@ export const columns: ColumnDef<TCuisine>[] = [
 
     {
         accessorKey: "id",
-        header: "ID",
+        header: "SN",
         cell: ({ row }) => {
             const { searchParams } = useCustomSearchParams();
             const page = parseInt(searchParams.get("page") || "1");
             const take = 10;
             const index = row.index + 1 + (page - 1) * take;
 
-            return <CustomCell label={"#ID: " + index.toString()} />;
+            return <CustomCell label={"#SN: " + index.toString()} />;
         },
     },
 
@@ -77,7 +77,7 @@ export const columns: ColumnDef<TCuisine>[] = [
             };
             return (
                 <div className="flex gap-2">
-                    <EditButton path={`/cuisines/${data.slug}/`} />
+                    <EditButton path={`/restaurants/cuisines/${data.slug}/`} />
                     <CustomFormModal
                         open={open}
                         setOpen={setOpen}

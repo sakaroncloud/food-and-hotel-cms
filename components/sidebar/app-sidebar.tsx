@@ -81,37 +81,8 @@ const data = {
             ]
         },
 
-        {
-            name: "Menus",
-            url: "/restaurants/menus",
-            icon: PiBowlFood,
-            items: [
-                {
-                    name: "All Menus",
-                    url: "/restaurants/menus",
-                },
-                {
-                    name: "Add New",
-                    url: "/restaurants/menus/add",
-                },
-            ]
-        },
 
-        {
-            name: "Products",
-            url: "/restaurants/products",
-            icon: PiBowlFood,
-            items: [
-                {
-                    name: "All Products",
-                    url: "/restaurants/products",
-                },
-                {
-                    name: "Add New",
-                    url: "/restaurants/products/add",
-                },
-            ]
-        },
+
 
         {
             name: "Cuisines (Category)",

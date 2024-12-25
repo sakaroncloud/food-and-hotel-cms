@@ -1,12 +1,14 @@
+"use client"
 import React, { Suspense } from "react";
 import { Button, ButtonProps } from "@/components/ui/button";
-import { Plus, Upload } from "lucide-react";
+import { Plus, Trash } from "lucide-react";
 import Link from "next/link";
 import { SearchQueryInput } from "./form/search-query.input";
 
 type Props = {
     label: string;
     path?: string;
+
 } & ButtonProps;
 
 export const AddItemButton = ({ label, path, ...props }: Props) => {
@@ -27,6 +29,27 @@ export const AddItemButton = ({ label, path, ...props }: Props) => {
                     <span>{label}</span>
                 </span>
             )}
+        </Button>
+    );
+};
+
+export const ShowTrashOrViewButton = ({ path, showDeleted, ...props }: Omit<ButtonProps, "label"> & {
+    showDeleted: boolean,
+    path: string
+}) => {
+    return (
+        <Button
+            {...props}
+            className="rounded-3xl !bg-white border-slate-200  p-4 cursor-pointer !text-black"
+            asChild
+        >
+
+            <Link href={path + (showDeleted ? "" : "?deleted=true")} className="flex items-center gap-2 text-xs text-black">
+                {!showDeleted && <Trash className="size-3" />}
+                <span>
+                    {showDeleted ? "View Published" : "View Trash"}
+                </span>
+            </Link>
         </Button>
     );
 };

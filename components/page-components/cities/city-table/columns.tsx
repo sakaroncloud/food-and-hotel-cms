@@ -19,14 +19,14 @@ export const columns: ColumnDef<TCity>[] = [
 
     {
         accessorKey: "id",
-        header: "ID",
+        header: "SN",
         cell: ({ row }) => {
             const { searchParams } = useCustomSearchParams();
             const page = parseInt(searchParams.get("page") || "1");
             const take = 10;
             const index = row.index + 1 + (page - 1) * take;
 
-            return <CustomCell label={"#ID: " + index.toString()} />;
+            return <CustomCell label={"#SN: " + index.toString()} />;
         },
     },
 
