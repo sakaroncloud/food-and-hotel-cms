@@ -17,6 +17,7 @@ import toast from "react-hot-toast"
 import { useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import { Restaurant } from "@/lib/types/restaurant.types"
+import { TableBadge } from "@/components/table/table-badge"
 
 export const columns: ColumnDef<Restaurant.Product.TProduct & {
     restaurant: Pick<Restaurant.TRestaurant, "id" | "slug">
@@ -58,7 +59,7 @@ export const columns: ColumnDef<Restaurant.Product.TProduct & {
             cell: ({ row }) => {
                 const data = row.original?.menus;
                 return <div className="flex flex-wrap gap-2 max-w-[300px]">
-                    {data?.map((menu) => <div key={menu.id} className="text-xs px-2 py-1 capitalize bg-gray-100  text-gray-600 rounded-xl">{menu.name}</div>)}
+                    {data?.map((menu) => <TableBadge key={menu.id} label={menu.name} />)}
                 </div>
             }
         },

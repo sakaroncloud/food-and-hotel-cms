@@ -26,13 +26,18 @@ export const getData = async <T>(options: TOption): Promise<T | null> => {
         tags: options.tags
     } : fetchOption
 
-    const response = await fetch(
-        BACKEND_URL + options.endPoint + (options.param ? `/${options.param}` : ""),
-        optionsWithTags,
+    try {
+        const response = await fetch(
+            BACKEND_URL + options.endPoint + (options.param ? `/${options.param}` : ""),
+            optionsWithTags,
+        );
+        if (!response.ok) {
+            return null;
+        }
 
-    );
-    if (!response.ok) {
-        return null;
+        return await response.json();
     }
-    return await response.json();
+    catch (error) {
+        return null
+    }
 };

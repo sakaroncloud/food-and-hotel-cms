@@ -31,6 +31,7 @@ export const UploadHandler = async (formData: FormData, ENDPOINT: string) => {
             return errorData
         }
 
+
         const data = await response.json();
         return data;
 

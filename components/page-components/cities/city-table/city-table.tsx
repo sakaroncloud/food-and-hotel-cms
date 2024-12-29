@@ -12,6 +12,7 @@ export const CityTable = async () => {
         tags: ["city"]
     })
 
+
     return (
         <DataTable columns={columns} data={result?.data || []} />)
 }

@@ -5,7 +5,7 @@ import { CustomFormField } from "@/components/form/custom-form-field"
 import { FormFieldWrapper, FormFooter } from "@/components/form/form-field-wrapper"
 import { Form } from "@/components/ui/form"
 import { useFetch } from "@/hooks/useFetch"
-import { submitRestaurant } from "@/lib/actions/action.restaurant"
+import { submitRestaurant } from "@/lib/actions/food/action.restaurant"
 import { API_ROUTES } from "@/lib/routes"
 import { ResponseWithMeta } from "@/lib/types/response.type"
 import { Restaurant } from "@/lib/types/restaurant.types"
@@ -29,8 +29,6 @@ export const RestaurantForm = ({ defaultFeaturedImage, defaultLogo, formValues }
         endPoint: API_ROUTES.cuisine.endpoint + "?skipPagination=true",
         queryKey: API_ROUTES.cuisine.queryKey,
     });
-
-
 
     const router = useRouter()
     const form = useForm<TRestaurantForm>({

@@ -83,3 +83,17 @@ export const getBreadCrumb = (pathname: string) => {
 
   return breadCrumb
 }
+
+
+// Utility function to convert bytes to KB or MB, based on the size
+export function convertFileSize(bytes: number) {
+  const sizeInKB = bytes / 1024;  // Convert bytes to KB
+  if (sizeInKB < 1024) {
+    return sizeInKB.toFixed(2) + ' KB';  // Return in KB if less than 1MB
+  } else {
+    const sizeInMB = sizeInKB / 1024;  // Convert KB to MB if greater than or equal to 1MB
+    return sizeInMB.toFixed(2) + ' MB';  // Return in MB
+  }
+}
+
+

@@ -1,7 +1,7 @@
 "use server"
 
-import { SubmitHandler } from "./global.action";
-import { API_ROUTES } from "../routes";
+import { SubmitHandler } from "../global.action";
+import { API_ROUTES } from "../../routes";
 import { menuFormSchema, TMenuForm } from "@/schemas/fooding/schema.menu";
 
 

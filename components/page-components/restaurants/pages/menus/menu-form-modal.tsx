@@ -18,7 +18,7 @@ import { useRouter } from 'next/navigation';
 import { AlertConfirmation } from '@/components/modals/alert-confirmation';
 import { useModalClose } from '@/hooks/useModalClose';
 import { menuDefaultValues, menuFormSchema, TMenuForm } from '@/schemas/fooding/schema.menu';
-import { submitMenu } from '@/lib/actions/menu.action';
+import { submitMenu } from '@/lib/actions/food/menu.action';
 
 type Props = {
     formValues?: TMenuForm & {

@@ -1,15 +1,15 @@
 "use client"
-import React, { useEffect, useState, useTransition } from 'react'
+import React, { useTransition } from 'react'
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import toast from 'react-hot-toast';
 import { Form } from '@/components/ui/form';
 import { CustomFormField } from '@/components/form/custom-form-field';
 import { productDefaultValues, productFormSchema, TProductForm } from '@/schemas/fooding/schema.product';
-import { submitProduct } from '@/lib/actions/product.action';
+import { submitProduct } from '@/lib/actions/food/product.action';
 import { ChooseNewImageCard } from '@/components/choose-image-card/new-choose-image-card';
 import { TDefaultImage } from '@/lib/types/upload.type';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, } from 'next/navigation';
 import { useFetch } from '@/hooks/useFetch';
 import { API_ROUTES } from '@/lib/routes';
 import { ResponseWithNoMeta } from '@/lib/types/response.type';

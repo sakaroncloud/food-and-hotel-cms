@@ -218,7 +218,7 @@ const RenderField = ({ children, className, defaultTime, elementName, defaultVal
 
         case "checkbox":
             return (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
+                <FormItem className={cn("flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow", className)}>
                     <FormControl>
                         <Checkbox
                             checked={field.value}
@@ -296,8 +296,9 @@ export const CustomFormField = ({ ...props }: TCustomFormFieldProps) => {
 }
 
 
-type TDynamicTagField = Pick<TCustomFormFieldProps, "fieldId" | "label" | "placeholder"> & {
-    defaultTags?: Tag[]
+type TDynamicTagField = Pick<TCustomFormFieldProps, "fieldId" | "label" | "placeholder" | "className"> & {
+    defaultTags?: Tag[],
+
 }
 
 export const DynamicTagField = ({ ...props }: TDynamicTagField) => {
@@ -307,9 +308,10 @@ export const DynamicTagField = ({ ...props }: TDynamicTagField) => {
     return (
         <FormField
             control={form.control}
+
             name={props.fieldId}
             render={({ field }) => (
-                <FormItem className="flex flex-col items-start">
+                <FormItem className={cn("flex flex-col items-start", props.className)}>
                     <FormLabel className="text-left">
                         {props.label}
                     </FormLabel>
@@ -329,6 +331,7 @@ export const DynamicTagField = ({ ...props }: TDynamicTagField) => {
                             className="sm:min-w-[450px]"
                             setTags={(newTags) => {
                                 setTags(newTags);
+                                console.log(newTags)
                                 form.setValue(props.fieldId, newTags as [Tag, ...Tag[]]);
                             }}
                             activeTagIndex={activeTagIndex}

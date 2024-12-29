@@ -81,9 +81,6 @@ const data = {
             ]
         },
 
-
-
-
         {
             name: "Cuisines (Category)",
             url: "/restaurants/cuisines",
@@ -144,13 +141,38 @@ const data = {
             name: "Properties",
             url: "/properties",
             icon: Hotel,
+            items: [{
+                name: "All Properties",
+                url: "/properties"
+            }, {
+                name: "Add New",
+                url: "/properties/add"
+            }]
         },
 
         {
-            name: "Bookings",
-            url: "/bookings",
-            icon: Bed,
-        }
+            name: "Bookings & Transactions",
+            url: "/properties/bookings",
+            icon: DollarSign,
+            items: [
+                {
+                    name: "All Bookings",
+                    url: "/properties/bookings",
+                },
+                {
+                    name: "Transactions",
+                    url: "/properties/transactions",
+                },
+            ]
+        },
+
+        {
+            name: "Gallery",
+            url: "/properties/gallery",
+            icon: Images,
+        },
+
+
     ],
 
     settings: [

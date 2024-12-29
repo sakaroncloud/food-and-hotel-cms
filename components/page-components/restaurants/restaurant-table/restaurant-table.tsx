@@ -17,6 +17,7 @@ export const RestaurantTable = async ({ showDeleted }: Props) => {
         tags: ["restaurant"]
     });
 
+
     const filteredData = result?.data?.map((restaurant) => ({
         ...restaurant,
         isDeleted: showDeleted,

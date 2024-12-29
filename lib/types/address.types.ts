@@ -2,6 +2,7 @@ import { TBaseWithSlug } from "./shared.types";
 
 export type TCity = TBaseWithSlug & {
     pincodes: string[];
+    totalAddresses: number;
 };
 
 export type TAddress = {

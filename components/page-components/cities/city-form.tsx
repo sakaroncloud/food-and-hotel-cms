@@ -77,7 +77,7 @@ export const CityForm = ({ formValues }: Props) => {
           />
           <DynamicTagField
             fieldId="pincodes"
-            label="Pincodes"
+            label="Pincodes (Press Enter to add)"
             placeholder="Enter Pincodes"
             defaultTags={formValues?.pincodes}
           />

@@ -44,6 +44,7 @@ export const RestaurantHeroSection = async ({
                     src={BACKEND_URL + "/" + restaurant?.featuredImage?.url}
                     width={1000}
                     height={220}
+                    quality={100}
                     className='object-cover w-full h-full'
                     errorMessage='Restaurant Featured Image is Missing'
                 />

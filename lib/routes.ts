@@ -12,7 +12,7 @@ export const API_ROUTES = {
         queryKey: "signUp" as const,
     },
     cuisine: {
-        endpoint: "/cuisine" as const,
+        endpoint: "/food/cuisine" as const,
         queryKey: "cuisine" as const,
     },
     city: {
@@ -20,25 +20,29 @@ export const API_ROUTES = {
         queryKey: "city" as const,
     },
     product: {
-        endpoint: "/product-private" as const,
+        endpoint: "/food/product-private" as const,
         queryKey: "product-" as const,
     },
     menu: {
-        endpoint: "/menu-private" as const,
+        endpoint: "/food/menu-private" as const,
         queryKey: "menu-" as const,
     },
     restaurant: {
-        endpoint: "/restaurant-private" as const,
+        endpoint: "/food/restaurant-private" as const,
         queryKey: "restaurant" as const,
     },
     singleCusineRestaurants: {
-        endpoint: "/restaurant/cuisine" as const,
+        endpoint: "/food/restaurant/cuisine" as const,
         queryKey: "singleCusineRestaurants" as const,
     },
     restImage: {
-        endpoint: "/restaurant-image" as const,
+        endpoint: "/food/uploads" as const,
         queryKey: "restImage" as const,
     },
+    property: {
+        endPoint: "/lodging/property" as const,
+        queryKey: "property" as const,
+    }
 };
 
 

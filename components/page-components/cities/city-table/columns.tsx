@@ -14,6 +14,7 @@ import { API_ROUTES } from "@/lib/routes"
 import toast from "react-hot-toast"
 import { useQueryClient } from "@tanstack/react-query"
 import { TCity } from "@/lib/types/address.types"
+import { TableBadge } from "@/components/table/table-badge"
 
 export const columns: ColumnDef<TCity>[] = [
 
@@ -42,6 +43,30 @@ export const columns: ColumnDef<TCity>[] = [
                     <div className="text-sm font-medium capitalize">{row.original.name}</div>
                 </div>
             )
+        }
+    },
+
+    {
+        accessorKey: "addresses",
+        header: "Linked With",
+        cell: ({ row }) => {
+
+            return (
+                <div className="flex items-center gap-2">
+                    <div className="text-sm font-medium capitalize">{row.original.totalAddresses}</div>
+                </div>
+            )
+        }
+    },
+
+    {
+        accessorKey: "pincodes",
+        header: "Pincodes",
+        cell: ({ row }) => {
+            const data = row.original?.pincodes;
+            return <div className="flex flex-wrap gap-2 max-w-[300px]">
+                {data?.map((menu) => <TableBadge key={menu} label={menu} />)}
+            </div>
         }
     },
 

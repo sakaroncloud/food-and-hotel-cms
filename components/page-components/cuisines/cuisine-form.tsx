@@ -4,7 +4,7 @@ import { ChooseNewImageCard } from "@/components/choose-image-card/new-choose-im
 import { CustomFormField } from "@/components/form/custom-form-field"
 import { FormFieldWrapper, FormFooter } from "@/components/form/form-field-wrapper"
 import { Form } from "@/components/ui/form"
-import { submitCusine } from "@/lib/actions/action.cuisine"
+import { submitCusine } from "@/lib/actions/food/action.cuisine"
 import { API_ROUTES } from "@/lib/routes"
 import { TDefaultImage } from "@/lib/types/upload.type"
 import { cuisineFormSchema, TCuisineForm } from "@/schemas/fooding/schema.cuisine"
@@ -43,7 +43,7 @@ export const CuisineForm = ({ defaultImages, formValues }: Props) => {
 
   const onSubmit = (values: TCuisineForm) => {
     startTransition(async () => {
-      const response = await submitCusine(values, formValues?.id);
+      const response = await submitCusine(values, formValues?.slug);
       if (response.success == true) {
         toast.success(response.message)
 

@@ -25,6 +25,14 @@ export const AsyncDropZone = ({ setShowLibrary }: Props) => {
     }: any) => {
 
         try {
+            if (file instanceof File) {
+                if (file.size > 1024 * 1024) {
+                    toast.error("File size should be less than 1MB")
+                    onError(new Error("File size should be less than 1MB"));
+                    setFileList([]);
+                    return
+                }
+            }
             const formData = new FormData();
             formData.append("images", file as any); //
 
@@ -68,10 +76,12 @@ export const AsyncDropZone = ({ setShowLibrary }: Props) => {
     return (
         <div >
             <Dragger
+
                 name="file"
                 multiple={false}
                 listType="picture-card"
                 customRequest={handleCustomRequest}
+
                 fileList={fileList}
                 onChange={handleChange}
                 className="w-full pb-4"
