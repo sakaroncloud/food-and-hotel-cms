@@ -13,7 +13,7 @@ import { Tag, TagInput } from "emblor";
 import React, { useEffect, useState } from "react"
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover"
 import { Button } from "../ui/button"
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils/utils"
 import { Check, ChevronsUpDown } from "lucide-react"
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "../ui/command"
 import Select from 'react-select'
@@ -331,7 +331,6 @@ export const DynamicTagField = ({ ...props }: TDynamicTagField) => {
                             className="sm:min-w-[450px]"
                             setTags={(newTags) => {
                                 setTags(newTags);
-                                console.log(newTags)
                                 form.setValue(props.fieldId, newTags as [Tag, ...Tag[]]);
                             }}
                             activeTagIndex={activeTagIndex}

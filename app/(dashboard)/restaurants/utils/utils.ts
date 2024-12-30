@@ -1,6 +1,6 @@
 import { CardItemProps } from "@/lib/types/global.type"
 import { Restaurant } from "@/lib/types/restaurant.types"
-import { formatDate } from "@/lib/utils"
+import { formatDate } from "@/lib/utils/utils"
 import { Calendar, CircleDollarSign, HandPlatter, Utensils } from "lucide-react"
 
 export const generateRestaurantCards = (restaurant: Restaurant.TRestaurant) => {

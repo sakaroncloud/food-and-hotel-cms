@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import React, { PropsWithChildren, Suspense } from "react";
 type Props = {
     title: string;

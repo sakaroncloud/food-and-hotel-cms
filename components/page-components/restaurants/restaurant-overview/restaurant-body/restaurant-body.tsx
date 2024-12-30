@@ -22,7 +22,6 @@ export const RestaurantBody = async ({ restaurantSlug }: Props) => {
 
     if (!restaurant) return null
 
-    console.log(restaurant)
 
     const cards = generateRestaurantCards(restaurant)
 

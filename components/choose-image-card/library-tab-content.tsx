@@ -5,7 +5,7 @@ import { useFormContext } from "react-hook-form";
 import { ChooseImageLoadMoreBtn } from "./choose-image-load-more-btn";
 import { ChooseImageDialogClose } from "./dialog-close";
 import { TAsyncGallery } from "@/lib/types/upload.type";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { BACKEND_URL } from "@/lib/constants";
 
 type LibraryProps = {

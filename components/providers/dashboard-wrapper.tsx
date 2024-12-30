@@ -5,7 +5,7 @@ import { Separator } from '../ui/separator'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from '../ui/breadcrumb'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { getBreadCrumb } from '@/lib/utils'
+import { getBreadCrumb } from '@/lib/utils/utils'
 
 type Props = {
   children: React.ReactNode;

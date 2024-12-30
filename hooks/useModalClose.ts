@@ -21,11 +21,9 @@ export const useModalClose = (options: Props) => {
     }, [options.formState])
 
     const handleOpenChange = () => {
-        console.log(Date.now())
         const isUserFormModified = localStorage.getItem(options.formName)
         if (isUserFormModified) {
             if (isUserFormModified == "true") {
-                console.log("true")
                 if (options.openModal && showExitConfirmation) {
                     setShowExitConfirmation(false)
                     options.setOpenModal(false)

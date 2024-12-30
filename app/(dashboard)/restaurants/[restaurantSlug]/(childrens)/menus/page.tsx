@@ -1,7 +1,7 @@
 import { MenusTable } from '@/components/page-components/restaurants/pages/menus/table/menu-table'
 import { MenuAddModalButton } from '@/components/page-components/restaurants/pages/menus/table/product-add-button'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utils/utils'
 import Link from 'next/link'
 
 type Props = {

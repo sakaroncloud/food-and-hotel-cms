@@ -46,7 +46,6 @@ export const SubmitHandler = async (option: Option) => {
             }
             else if (typeof error === "object") {
                 if (Array.isArray(error)) {
-                    console.log(error)
                     return { message: error[0] || "Something went wrong. Please try again later." };
                 }
                 return { message: error?.message || "Something went wrong. Please try again later." }

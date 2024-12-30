@@ -4,7 +4,7 @@ import { DashboardProvider } from '@/components/providers/dashboard-wrapper'
 import { API_ROUTES } from '@/lib/routes'
 import { Property } from '@/lib/types/property.types'
 import { ResponseWithNoMeta } from '@/lib/types/response.type'
-import { TPropertyAmenitiesServerForm } from '@/schemas/lodging/property-amenities.schema'
+import { parsePAmenitiesFromServerToClient } from '@/lib/utils/aminities.utils'
 import { TPropertyBasicForm } from '@/schemas/lodging/property-basic.schema'
 import { notFound } from 'next/navigation'
 type Props = {
@@ -34,14 +34,11 @@ const EditPropertyPage = async ({ params }: Props) => {
         })),
     }
 
-    const amenitiesData = result?.data?.amenities
-    console.log(amenitiesData.accessibility.carParking, "accessibility")
+    const aminities = parsePAmenitiesFromServerToClient(result.data?.amenities)
 
-
-    console.log(Date.now())
     return (
         <DashboardProvider>
-            <EditPropertyWrapper generalFormValues={generalData} />
+            <EditPropertyWrapper generalFormValues={generalData} amenities={aminities} />
         </DashboardProvider>
     )
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { ImSpinner7 } from "react-icons/im";
 import { Button, ButtonProps } from "../ui/button";
 

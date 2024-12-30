@@ -1,4 +1,4 @@
-import { TPropertyAmenitiesServerForm } from "@/schemas/lodging/property-amenities.schema";
+import { TPropertyAmenities } from "@/schemas/lodging/property-amenities.schema";
 import { ELanguage } from "./language.types";
 import { TBaseWithDescription } from "./shared.types";
 
@@ -15,6 +15,6 @@ export namespace Property {
         checkInEndTime: string;
         checkOutTime: string;
         languages: ELanguage[];
-        amenities: TPropertyAmenitiesServerForm
+        amenities?: TPropertyAmenities
     };
 }

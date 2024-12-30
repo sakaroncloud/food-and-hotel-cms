@@ -1,5 +1,5 @@
 import { CardItemProps } from "@/lib/types/global.type";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { ClassNameValue } from "tailwind-merge";

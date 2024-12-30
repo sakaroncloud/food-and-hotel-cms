@@ -2,7 +2,7 @@ import React, { forwardRef, PropsWithChildren } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeftIcon } from "lucide-react";
 import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { Button } from "@/components/ui/button";
 import SubmitButton from "./submit-button";
 

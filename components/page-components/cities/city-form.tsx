@@ -5,7 +5,7 @@ import { FormFieldWrapper, FormFooter } from "@/components/form/form-field-wrapp
 import { Form, } from "@/components/ui/form"
 import { submitCity } from "@/lib/actions/action.city"
 import { API_ROUTES } from "@/lib/routes"
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils/utils"
 import { cityFormSchema, TCityForm } from "@/schemas/fooding/schema.location"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useQueryClient } from "@tanstack/react-query"
@@ -40,7 +40,6 @@ export const CityForm = ({ formValues }: Props) => {
 
     startTransition(async () => {
       const response = await submitCity(values, formValues?.id);
-      console.log(response.data)
       if (response.success == true) {
         toast.success(response.message)
 

@@ -2,7 +2,7 @@ import { z } from "zod";
 
 const commonAmenitySchema = z.object({
     status: z.boolean(),
-    description: z.string().optional().nullable()
+    description: z.string()
 })
 
 const othersClientSchema = z.array(
@@ -10,11 +10,9 @@ const othersClientSchema = z.array(
         id: z.string(),
         text: z.string(),
     })
-).transform((values) => values.map((value) => value.text));
+)
 
-const othersServerSchema = z.array(
-    z.string()
-);
+const othersServerSchema = othersClientSchema.transform((values) => values.map((value) => value.text));
 
 const basePropertyAmenitiesSchema = z.object({
     general: z.object({
@@ -47,7 +45,19 @@ const basePropertyAmenitiesSchema = z.object({
     })
 })
 
+const serverToClientOthers = z.array(
+    z.string()
+).transform((values) => values.map((value, i) => ({
+    id: i.toString(),
+    text: value,
+})))
 
+
+
+
+/**
+ * This is used in amenities form in client
+ */
 export const propertyAmenitiesClientSchema = basePropertyAmenitiesSchema.extend({
     general: basePropertyAmenitiesSchema.shape.general.extend({
         others: othersClientSchema, // No transformation needed on the client
@@ -63,7 +73,31 @@ export const propertyAmenitiesClientSchema = basePropertyAmenitiesSchema.extend(
     }),
 });
 
-export const propertyAmenitiesServerSchema = basePropertyAmenitiesSchema.extend({
+/**
+ * This is used to transform the data from server form to - client form
+ * This is only used to parse - not to submit
+ */
+export const propertyAmenitiesServerToClientSchema = basePropertyAmenitiesSchema.extend({
+    general: basePropertyAmenitiesSchema.shape.general.extend({
+        others: serverToClientOthers, // No transformation needed on the client
+    }),
+    kidsAndFamily: basePropertyAmenitiesSchema.shape.kidsAndFamily.extend({
+        others: serverToClientOthers, // No transformation needed on the client
+    }),
+    accessibility: basePropertyAmenitiesSchema.shape.accessibility.extend({
+        others: serverToClientOthers, // No transformation needed on the client
+    }),
+    safety: basePropertyAmenitiesSchema.shape.safety.extend({
+        others: serverToClientOthers, // No transformation needed on the client
+    }),
+});
+
+
+/**
+ * This is used to transform the data from client form to - amenities DTO form
+ * This is only used to parse - not to submit
+ */
+export const propertyAmenitiesClientToServerSchema = basePropertyAmenitiesSchema.extend({
     general: basePropertyAmenitiesSchema.shape.general.extend({
         others: othersServerSchema, // No transformation needed on the client
     }),
@@ -79,7 +113,7 @@ export const propertyAmenitiesServerSchema = basePropertyAmenitiesSchema.extend(
 });
 
 export type TPropertyAmenitiesClientForm = z.infer<typeof propertyAmenitiesClientSchema>;
-export type TPropertyAmenitiesServerForm = z.infer<typeof propertyAmenitiesServerSchema>;
+export type TPropertyAmenities = z.infer<typeof propertyAmenitiesClientToServerSchema>;
 
 
 const defaultObject = {

@@ -58,7 +58,6 @@ export const AsyncDropZone = ({ setShowLibrary }: Props) => {
             } else {
                 // Handle server-side errors
                 onError(new Error(response?.message || "Upload failed"));
-                console.log(response)
                 toast.error(response?.message?.[0] || `upload failed.`);
             }
         } catch (error) {

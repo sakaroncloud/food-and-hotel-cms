@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import PlaceholderSquare from "@/public/placeholder-square.png";
 import PlaceholderRectangle from "@/public/placeholder-rectangle.png";
 import PlaceholderPortrait from "@/public/placeholder-portrait.png";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 
 type Props = {
   errorClassName?: string;

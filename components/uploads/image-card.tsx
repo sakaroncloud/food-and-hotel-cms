@@ -16,8 +16,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 
-import { formatDate } from "@/lib/utils";
-import { formatFileSize } from "@/lib/utils";
+import { formatDate } from "@/lib/utils/utils";
+import { formatFileSize } from "@/lib/utils/utils";
 import SubmitButton from "../form/submit-button";
 import { CustomAlertDialog } from "./form/custom-alert-dialog";
 import { TAsyncImage } from "@/lib/types/upload.type";

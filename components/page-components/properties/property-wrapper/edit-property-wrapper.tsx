@@ -5,12 +5,13 @@ import { PropertyNavTabs } from "./property-nav-tabs"
 import { PropertyBasicForm } from "../property-basic-form"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { TPropertyBasicForm } from "@/schemas/lodging/property-basic.schema"
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils/utils"
 import { PropertyAmenityForm } from "../property-amenity-form"
+import { TPropertyAmenitiesClientForm } from "@/schemas/lodging/property-amenities.schema"
 
 type Props = {
     generalFormValues: TPropertyBasicForm & { id: string, slug: string };
-    amenities?: null;
+    amenities?: TPropertyAmenitiesClientForm;
     rules?: null;
     nearestLocations?: null;
 }

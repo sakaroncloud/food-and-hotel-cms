@@ -18,7 +18,6 @@ export async function submitRestaurant(formData: TRestaurantForm, param?: string
         dayOfWeek: validationFields.data?.dayOfWeek?.map((day) => day.value),
         cuisines: validationFields.data.cuisines?.map((cuisine) => cuisine.value)
     }
-    console.log(formattedValues)
 
 
     return await SubmitHandler({

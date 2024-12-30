@@ -33,7 +33,6 @@ export const PropertyBasicForm = ({ formValues }: Props) => {
             const response = await submitProperty(values, formValues?.id);
             if (response.success == true) {
                 toast.success(response.message)
-                console.log(response.data)
                 if (!formValues) {
                     router.push(`/properties/${response.data.slug}/edit`)
                 }

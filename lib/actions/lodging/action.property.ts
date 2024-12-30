@@ -4,7 +4,7 @@ import { SubmitHandler } from "../global.action";
 import { API_ROUTES } from "../../routes";
 import { propertyBasicFormSchema, TPropertyBasicForm } from "@/schemas/lodging/property-basic.schema";
 import dayjs from "dayjs";
-import { propertyAmenitiesServerSchema, TPropertyAmenitiesServerForm } from "@/schemas/lodging/property-amenities.schema";
+import { propertyAmenitiesClientToServerSchema, TPropertyAmenitiesClientForm } from "@/schemas/lodging/property-amenities.schema";
 
 
 export async function submitProperty(formData: TPropertyBasicForm, param?: string) {
@@ -34,14 +34,20 @@ export async function submitProperty(formData: TPropertyBasicForm, param?: strin
 
 }
 
-export async function submitPropertyAmenities(formData: TPropertyAmenitiesServerForm, param: string) {
-    const validationFields = propertyAmenitiesServerSchema.safeParse(formData)
+/**
+ * 
+ * @param formData | TPropertyAmenitiesClientForm
+ * @param param 
+ * @returns 
+ */
+export async function submitPropertyAmenities(formData: TPropertyAmenitiesClientForm, param: string) {
+    const validationFields = propertyAmenitiesClientToServerSchema.safeParse(formData)
     if (!validationFields.success) {
         return {
             message: "Data tempered",
         };
     }
-    console.log(JSON.stringify(validationFields.data))
+
     return await SubmitHandler({
         ENDPOINT: API_ROUTES.property.endPoint + "/" + param + "/amenities",
         METHOD: "PATCH",

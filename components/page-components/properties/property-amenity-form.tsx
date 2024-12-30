@@ -33,9 +33,7 @@ export const PropertyAmenityForm = ({ id, slug, formValues }: Props) => {
             const response = await submitPropertyAmenities(values, id);
             if (response.success == true) {
 
-                console.log(response)
                 toast.success(response.message)
-                console.log(response.data)
                 if (!formValues) {
 
                 }
@@ -178,7 +176,7 @@ export const PropertyAmenityForm = ({ id, slug, formValues }: Props) => {
                     </div>
                     <DynamicTagField
                         fieldId='general.others'
-                        defaultTags={[]}
+                        defaultTags={formValues?.general?.others}
                         placeholder='Hey, what else you want to add?'
                         label='Others (Hit Enter to add)'
                         className='w-full'
@@ -243,7 +241,7 @@ export const PropertyAmenityForm = ({ id, slug, formValues }: Props) => {
 
                     <DynamicTagField
                         fieldId='kidsAndFamily.others'
-                        defaultTags={[]}
+                        defaultTags={formValues?.kidsAndFamily?.others}
                         placeholder='Hey, what else you want to add?'
                         label='Others (Hit Enter to add)'
                         className='w-full'
@@ -328,7 +326,7 @@ export const PropertyAmenityForm = ({ id, slug, formValues }: Props) => {
 
                     <DynamicTagField
                         fieldId='accessibility.others'
-                        defaultTags={[]}
+                        defaultTags={formValues?.accessibility?.others}
                         placeholder='Hey, what else you want to add?'
                         label='Others (Hit Enter to add)'
                         className='w-full'
@@ -414,7 +412,7 @@ export const PropertyAmenityForm = ({ id, slug, formValues }: Props) => {
 
                     <DynamicTagField
                         fieldId='safety.others'
-                        defaultTags={[]}
+                        defaultTags={formValues?.safety?.others}
                         placeholder='Hey, what else you want to add?'
                         label='Others (Hit Enter to add)'
                         className='w-full'

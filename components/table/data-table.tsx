@@ -28,7 +28,7 @@ import React from "react"
 import { Input } from "@/components/ui/input"
 import { DataTablePagination } from "./pagination"
 import { DataTableViewOptions } from "./column-visibility-toggle"
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils/utils"
 
 interface DataTableProps<TData, TValue> {
     searchKey?: string;

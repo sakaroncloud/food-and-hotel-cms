@@ -1,6 +1,6 @@
 import { ProductsTable } from '@/components/page-components/restaurants/pages/products/table/product-table'
 import { AddItemButton } from '@/components/uploads/add-item-button'
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utils/utils'
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import Link from 'next/link'
 
