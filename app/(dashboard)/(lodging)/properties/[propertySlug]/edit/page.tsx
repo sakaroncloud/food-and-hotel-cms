@@ -4,8 +4,8 @@ import { DashboardProvider } from '@/components/providers/dashboard-wrapper'
 import { API_ROUTES } from '@/lib/routes'
 import { Property } from '@/lib/types/property.types'
 import { ResponseWithNoMeta } from '@/lib/types/response.type'
-import { parsePAmenitiesFromServerToClient, parsePRulesFromServerToClient } from '@/lib/utils/property.utils'
-import { TPropertyBasicForm } from '@/schemas/lodging/property-basic.schema'
+import { parsePAmenitiesFromServerToClient, parsePLocationsFromServerToClient, parsePRulesFromServerToClient } from '@/lib/utils/property.utils'
+import { TPropertyBasicForm } from '@/schemas/lodging/property/property-basic.schema'
 import { notFound } from 'next/navigation'
 type Props = {
     params: Promise<{ propertySlug: string }>
@@ -36,11 +36,11 @@ const EditPropertyPage = async ({ params }: Props) => {
 
     const aminities = parsePAmenitiesFromServerToClient(result.data?.amenities)
     const rules = parsePRulesFromServerToClient(result.data?.rules)
-
+    const locations = parsePLocationsFromServerToClient(result.data?.nearestLocations)
 
     return (
         <DashboardProvider>
-            <EditPropertyWrapper generalFormValues={generalData} amenities={aminities} rules={rules} />
+            <EditPropertyWrapper generalFormValues={generalData} amenities={aminities} rules={rules} nearestLocations={locations} />
         </DashboardProvider>
     )
 }

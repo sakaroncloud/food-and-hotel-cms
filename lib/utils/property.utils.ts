@@ -1,5 +1,6 @@
-import { propertyAmenitiesServerToClientSchema, TPropertyAmenitiesClientForm } from "@/schemas/lodging/property-amenities.schema"
-import { propertyRulesServerToClientSchema, TPropertyRulesClientForm } from "@/schemas/lodging/property-rules.schema"
+import { propertyAmenitiesServerToClientSchema, TPropertyAmenitiesClientForm } from "@/schemas/lodging/property/property-amenities.schema"
+import { propertyLocationsSchema, propertyLocationsServerSchema, TPropertyLocationsForm } from "@/schemas/lodging/property/property-locations.schema"
+import { propertyRulesServerToClientSchema, TPropertyRulesClientForm } from "@/schemas/lodging/property/property-rules.schema"
 
 
 /**
@@ -32,4 +33,14 @@ export const parsePRulesFromServerToClient = (rulesFromServer: any): TPropertyRu
     return undefined
 }
 
+
+export const parsePLocationsFromServerToClient = (locationsFromServer: any): TPropertyLocationsForm | undefined => {
+    const validatedFields = propertyLocationsServerSchema.safeParse(locationsFromServer)
+    if (validatedFields.success) {
+        return {
+            places: validatedFields.data
+        }
+    }
+    return undefined
+}
 

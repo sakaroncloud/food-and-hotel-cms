@@ -2,10 +2,11 @@
 
 import { SubmitHandler } from "../global.action";
 import { API_ROUTES } from "../../routes";
-import { propertyBasicFormSchema, TPropertyBasicForm } from "@/schemas/lodging/property-basic.schema";
+import { propertyBasicFormSchema, TPropertyBasicForm } from "@/schemas/lodging/property/property-basic.schema";
 import dayjs from "dayjs";
-import { propertyAmenitiesClientToServerSchema, TPropertyAmenitiesClientForm } from "@/schemas/lodging/property-amenities.schema";
-import { propertyRulesClientToServerSchema, TPropertyRulesClientForm } from "@/schemas/lodging/property-rules.schema";
+import { propertyAmenitiesClientToServerSchema, TPropertyAmenitiesClientForm } from "@/schemas/lodging/property/property-amenities.schema";
+import { propertyRulesClientToServerSchema, TPropertyRulesClientForm } from "@/schemas/lodging/property/property-rules.schema";
+import { propertyLocationsSchema, TPropertyLocationsForm } from "@/schemas/lodging/property/property-locations.schema";
 
 
 export async function submitProperty(formData: TPropertyBasicForm, param?: string) {
@@ -66,6 +67,21 @@ export async function submitPropertyRules(formData: TPropertyRulesClientForm, pa
     }
     return await SubmitHandler({
         ENDPOINT: API_ROUTES.property.endPoint + "/" + param + "/rules",
+        METHOD: "PATCH",
+        DATA: validationFields.data,
+    })
+
+}
+
+export async function submitPropertyLocations(formData: TPropertyLocationsForm, param: string) {
+    const validationFields = propertyLocationsSchema.safeParse(formData)
+    if (!validationFields.success) {
+        return {
+            message: "Data tempered",
+        };
+    }
+    return await SubmitHandler({
+        ENDPOINT: API_ROUTES.property.endPoint + "/" + param + "/nearest-locations",
         METHOD: "PATCH",
         DATA: validationFields.data,
     })

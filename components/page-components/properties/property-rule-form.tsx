@@ -2,7 +2,7 @@ import { CustomFormField, DynamicTagField } from "@/components/form/custom-form-
 import { FormFieldWrapper, FormFooter } from "@/components/form/form-field-wrapper";
 import { Form } from "@/components/ui/form";
 import { submitPropertyRules } from "@/lib/actions/lodging/action.property";
-import { propertyRulesClientSchema, propertyRulesDefaultValues, TPropertyRulesClientForm } from "@/schemas/lodging/property-rules.schema";
+import { propertyRulesClientSchema, propertyRulesDefaultValues, TPropertyRulesClientForm } from "@/schemas/lodging/property/property-rules.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";

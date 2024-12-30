@@ -4,27 +4,58 @@ import { useState } from "react"
 import { PropertyNavTabs } from "./property-nav-tabs"
 import { PropertyBasicForm } from "../property-basic-form"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
-import { TPropertyBasicForm } from "@/schemas/lodging/property-basic.schema"
+import { TPropertyBasicForm } from "@/schemas/lodging/property/property-basic.schema"
 import { cn } from "@/lib/utils/utils"
 import { PropertyAmenityForm } from "../property-amenity-form"
-import { TPropertyAmenitiesClientForm } from "@/schemas/lodging/property-amenities.schema"
+import { TPropertyAmenitiesClientForm } from "@/schemas/lodging/property/property-amenities.schema"
 import { PropertyRuleForm } from "../property-rule-form"
-import { TPropertyRulesClientForm } from "@/schemas/lodging/property-rules.schema"
+import { TPropertyRulesClientForm } from "@/schemas/lodging/property/property-rules.schema"
+import { PropertyLocationsForm } from "../property-locations-form"
+import { TPropertyLocationsForm } from "@/schemas/lodging/property/property-locations.schema"
 
 type Props = {
     generalFormValues: TPropertyBasicForm & { id: string, slug: string };
     amenities?: TPropertyAmenitiesClientForm;
     rules?: TPropertyRulesClientForm;
-    nearestLocations?: null;
+    nearestLocations?: TPropertyLocationsForm;
 }
 
 
-export const EditPropertyWrapper = ({ amenities, generalFormValues, rules }: Props) => {
+export const EditPropertyWrapper = ({ amenities, generalFormValues, nearestLocations, rules }: Props) => {
     const [activeTab, setActiveTab] = useState(0)
+
+    const tabs = [
+        {
+            label: "General Info",
+            value: "general",
+            published: true
+        },
+        {
+            label: "Amenities",
+            value: "amenities",
+            published: amenities !== undefined && amenities !== null
+        },
+        {
+            label: "Nearest Locations",
+            value: "nearestLocations",
+            published: nearestLocations !== undefined && nearestLocations !== null
+        },
+        {
+            label: "Rules",
+            value: "rules",
+            published: rules !== undefined && rules !== null
+        },
+
+        {
+            label: "Gallery",
+            value: "gallery",
+            published: false
+        }
+    ]
 
     return (
         <div className="space-y-6">
-            <PropertyNavTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+            <PropertyNavTabs activeTab={activeTab} setActiveTab={setActiveTab} tabs={tabs} />
             <ScrollArea className="px-4 h-[calc(100vh-200px)]">
                 <ScrollBar />
                 <div className={cn("hidden", activeTab == 0 && "block")}>
@@ -38,7 +69,10 @@ export const EditPropertyWrapper = ({ amenities, generalFormValues, rules }: Pro
                     />
                 </div>
                 <div className={cn("hidden", activeTab == 2 && "block")}>
-                    Nearest Locations
+                    <PropertyLocationsForm
+                        id={generalFormValues.id}
+                        formValues={nearestLocations}
+                    />
                 </div>
                 <div className={cn("hidden", activeTab == 3 && "block")}>
                     <PropertyRuleForm

@@ -1,7 +1,7 @@
-import { TPropertyAmenities } from "@/schemas/lodging/property-amenities.schema";
+import { TPropertyAmenities } from "@/schemas/lodging/property/property-amenities.schema";
 import { ELanguage } from "./language.types";
 import { TBaseWithDescription } from "./shared.types";
-import { TPropertyRules } from "@/schemas/lodging/property-rules.schema";
+import { TPropertyRules, TPropertyRulesClientForm } from "@/schemas/lodging/property/property-rules.schema";
 
 export namespace Property {
     // Main Restaurant Type
@@ -18,5 +18,11 @@ export namespace Property {
         languages: ELanguage[];
         amenities?: TPropertyAmenities;
         rules?: TPropertyRules;
+        nearestLocations?: TPropertyLocation[]
     };
+
+    export type TPropertyLocation = {
+        name: string;
+        distance: number;
+    }
 }
