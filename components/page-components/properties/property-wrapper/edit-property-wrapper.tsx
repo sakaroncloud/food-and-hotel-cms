@@ -8,16 +8,18 @@ import { TPropertyBasicForm } from "@/schemas/lodging/property-basic.schema"
 import { cn } from "@/lib/utils/utils"
 import { PropertyAmenityForm } from "../property-amenity-form"
 import { TPropertyAmenitiesClientForm } from "@/schemas/lodging/property-amenities.schema"
+import { PropertyRuleForm } from "../property-rule-form"
+import { TPropertyRulesClientForm } from "@/schemas/lodging/property-rules.schema"
 
 type Props = {
     generalFormValues: TPropertyBasicForm & { id: string, slug: string };
     amenities?: TPropertyAmenitiesClientForm;
-    rules?: null;
+    rules?: TPropertyRulesClientForm;
     nearestLocations?: null;
 }
 
 
-export const EditPropertyWrapper = ({ amenities, generalFormValues }: Props) => {
+export const EditPropertyWrapper = ({ amenities, generalFormValues, rules }: Props) => {
     const [activeTab, setActiveTab] = useState(0)
 
     return (
@@ -39,7 +41,10 @@ export const EditPropertyWrapper = ({ amenities, generalFormValues }: Props) => 
                     Nearest Locations
                 </div>
                 <div className={cn("hidden", activeTab == 3 && "block")}>
-                    Rules
+                    <PropertyRuleForm
+                        id={generalFormValues?.id}
+                        formValues={rules}
+                    />
                 </div>
                 <div className={cn("hidden", activeTab == 4 && "block")}>
                     Gallery

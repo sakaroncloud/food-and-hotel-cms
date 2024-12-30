@@ -15,8 +15,7 @@ type Props = {
     slug: string;
 }
 
-export const PropertyAmenityForm = ({ id, slug, formValues }: Props) => {
-    const router = useRouter()
+export const PropertyAmenityForm = ({ id, formValues }: Props) => {
     const form = useForm<TPropertyAmenitiesClientForm>({
         resolver: zodResolver(propertyAmenitiesClientSchema),
         defaultValues: formValues ? {
@@ -417,8 +416,6 @@ export const PropertyAmenityForm = ({ id, slug, formValues }: Props) => {
                         label='Others (Hit Enter to add)'
                         className='w-full'
                     />
-
-
                 </FormFieldWrapper>
 
                 <FormFooter

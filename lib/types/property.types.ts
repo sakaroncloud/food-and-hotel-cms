@@ -1,6 +1,7 @@
 import { TPropertyAmenities } from "@/schemas/lodging/property-amenities.schema";
 import { ELanguage } from "./language.types";
 import { TBaseWithDescription } from "./shared.types";
+import { TPropertyRules } from "@/schemas/lodging/property-rules.schema";
 
 export namespace Property {
     // Main Restaurant Type
@@ -15,6 +16,7 @@ export namespace Property {
         checkInEndTime: string;
         checkOutTime: string;
         languages: ELanguage[];
-        amenities?: TPropertyAmenities
+        amenities?: TPropertyAmenities;
+        rules?: TPropertyRules;
     };
 }
