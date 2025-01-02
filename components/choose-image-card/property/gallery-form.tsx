@@ -12,31 +12,33 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { PlusCircleIcon, X } from "lucide-react";
+import { PlusCircleIcon, Upload, X } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 
 import { ErrorMessage } from "@hookform/error-message";
-import { LibraryContent } from "./library-tab-content";
-import { Button } from "../ui/button";
-import { AsyncDropZone } from "../uploads/form/async-dropzone";
 import { TAsyncGallery, TDefaultImage } from "@/lib/types/upload.type";
 import { BACKEND_URL } from "@/lib/constants";
-import FallbackImage from "../fallback-image";
-import { API_ROUTES } from "@/lib/routes";
+import FallbackImage from "@/components/fallback-image";
+import { AsyncDropZone } from "@/components/uploads/form/async-dropzone";
+import { LibraryContent } from "../library-tab-content";
 
 type Props = {
     fieldId: string;
     label: string;
     imageURL?: string;
     allowMultiple: boolean | undefined;
-    defaultImages?: TDefaultImage[] | undefined
+    defaultImages?: TDefaultImage[] | undefined;
+    fetchEndPoint: string;
+    uploadEndPoint: string;
 };
-export const ChooseNewImageCard = (
+export const GalleryForm = (
     {
         fieldId,
         label,
         allowMultiple,
+        fetchEndPoint,
+        uploadEndPoint,
         defaultImages
     }: Props
 ) => {
@@ -44,17 +46,17 @@ export const ChooseNewImageCard = (
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
         useLoadMoreFetch({
             pageParam: 1,
-            endPoint: API_ROUTES.restImage.endpoint,
-            queryKey: API_ROUTES.restImage.queryKey,
+            endPoint: fetchEndPoint,
+            queryKey: fetchEndPoint,
             take: 10,
         });
 
     const gallery: TAsyncGallery = useMemo(() => data?.pages?.flatMap((page) => page?.data).filter(Boolean) ?? [], [data]);
 
-
     const form = useFormContext();
     const [showLibrary, setShowLibrary] = useState(false);
     const value = form.watch(fieldId);
+
     return (
         <div className="space-y-2">
             <Dialog>
@@ -108,9 +110,9 @@ export const ChooseNewImageCard = (
                             </div>
                         )
                     ) : (
-                        <Button type="button" variant="outline" className="space-x-3">
-                            Choose {label}
-                        </Button>
+                        <div className="border flex items-center justify-center border-dashed cursor-pointer size-20 rounded-xl">
+                            <Upload className="text-gray-500 size-5" />
+                        </div>
                     )}
                 </DialogTrigger>
                 <DialogContent className="max-w-[96vw] h-[96vh] w-full flex flex-col justify-between overflow-y-scroll">
@@ -137,7 +139,7 @@ export const ChooseNewImageCard = (
                             </TabsList>
                             <TabsContent value="upload">
                                 {/* Upload Content */}
-                                <AsyncDropZone setShowLibrary={setShowLibrary} endPoint={API_ROUTES.restImage.endpoint} />
+                                <AsyncDropZone setShowLibrary={setShowLibrary} endPoint={uploadEndPoint} />
                             </TabsContent>
                             <TabsContent value="library">
                                 <LibraryContent

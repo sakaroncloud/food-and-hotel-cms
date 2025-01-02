@@ -2,26 +2,32 @@
 
 import { useState } from "react"
 import { PropertyNavTabs } from "./property-nav-tabs"
-import { PropertyBasicForm } from "../property-basic-form"
+import { PropertyBasicForm } from "../form/property-basic-form"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { TPropertyBasicForm } from "@/schemas/lodging/property/property-basic.schema"
 import { cn } from "@/lib/utils/utils"
-import { PropertyAmenityForm } from "../property-amenity-form"
+import { PropertyAmenityForm } from "../form/property-amenity-form"
 import { TPropertyAmenitiesClientForm } from "@/schemas/lodging/property/property-amenities.schema"
-import { PropertyRuleForm } from "../property-rule-form"
+import { PropertyRuleForm } from "../form/property-rule-form"
 import { TPropertyRulesClientForm } from "@/schemas/lodging/property/property-rules.schema"
-import { PropertyLocationsForm } from "../property-locations-form"
+import { PropertyLocationsForm } from "../form/property-locations-form"
 import { TPropertyLocationsForm } from "@/schemas/lodging/property/property-locations.schema"
+import { PropertyGalleryForm } from "../form/property-gallery-form"
+import { TAsyncGallery } from "@/lib/types/upload.type"
+import { PropertyAddressForm } from "../form/property-address-form"
+import { TAddressForm } from "@/schemas/schema.address"
 
 type Props = {
     generalFormValues: TPropertyBasicForm & { id: string, slug: string };
     amenities?: TPropertyAmenitiesClientForm;
     rules?: TPropertyRulesClientForm;
     nearestLocations?: TPropertyLocationsForm;
+    galleries?: TAsyncGallery;
+    address?: TAddressForm;
 }
 
 
-export const EditPropertyWrapper = ({ amenities, generalFormValues, nearestLocations, rules }: Props) => {
+export const EditPropertyWrapper = ({ address, amenities, galleries, generalFormValues, nearestLocations, rules }: Props) => {
     const [activeTab, setActiveTab] = useState(0)
 
     const tabs = [
@@ -49,7 +55,13 @@ export const EditPropertyWrapper = ({ amenities, generalFormValues, nearestLocat
         {
             label: "Gallery",
             value: "gallery",
-            published: false
+            published: galleries !== undefined && galleries !== null
+        },
+
+        {
+            label: "Address",
+            value: "address",
+            published: address !== undefined && address !== null
         }
     ]
 
@@ -81,7 +93,16 @@ export const EditPropertyWrapper = ({ amenities, generalFormValues, nearestLocat
                     />
                 </div>
                 <div className={cn("hidden", activeTab == 4 && "block")}>
-                    Gallery
+                    <PropertyGalleryForm propertyId={generalFormValues?.id} defaultImages={
+                        galleries?.map((gallery) => ({ id: gallery.id, url: gallery.url })) || []
+                    } />
+                </div>
+
+                <div className={cn("hidden", activeTab == 5 && "block")}>
+                    <PropertyAddressForm
+                        propertyId={generalFormValues?.id}
+                        formValues={address}
+                    />
                 </div>
             </ScrollArea>
         </div>

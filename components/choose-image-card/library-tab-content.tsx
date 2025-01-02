@@ -78,7 +78,9 @@ export const LibraryContent = ({ gallery, allowMultiple, fieldId, value, hasNext
                                         .includes(true) &&
                                     "border-blue-500 border-4"
                                 )}
-                            />
+                            >
+                                {image.originalName}
+                            </div>
                         </div>
                     );
                 })}

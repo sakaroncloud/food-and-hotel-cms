@@ -1,6 +1,7 @@
 "use client"
 
 import { ChooseNewImageCard } from "@/components/choose-image-card/new-choose-image-card"
+import { GalleryForm } from "@/components/choose-image-card/property/gallery-form"
 import { CustomFormField } from "@/components/form/custom-form-field"
 import { FormFieldWrapper, FormFooter } from "@/components/form/form-field-wrapper"
 import { Form } from "@/components/ui/form"
@@ -102,10 +103,6 @@ export const RestaurantForm = ({ defaultFeaturedImage, defaultLogo, formValues }
                         placeholder="Please make sure while enabling this, non-veg cannot be added in Pure Veg Restaurant"
                         className="w-full"
                     />
-
-
-
-
                 </FormFieldWrapper>
 
                 <FormFieldWrapper
@@ -184,13 +181,14 @@ export const RestaurantForm = ({ defaultFeaturedImage, defaultLogo, formValues }
                     className="flex flex-col gap-6"
                 >
 
-                    <ChooseNewImageCard
+                    <GalleryForm
+                        allowMultiple={false}
                         fieldId={"featuredImage"}
                         label={"Featured Image"}
-                        allowMultiple={false}
                         defaultImages={defaultFeaturedImage}
+                        fetchEndPoint={API_ROUTES.restImage.endpoint}
+                        uploadEndPoint={API_ROUTES.restImage.endpoint}
                     />
-
                 </FormFieldWrapper>
 
                 {/* ----------- Logo ------- */}

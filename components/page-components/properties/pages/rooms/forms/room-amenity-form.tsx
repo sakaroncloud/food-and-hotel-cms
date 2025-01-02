@@ -1,42 +1,35 @@
 import { CustomFormField, DynamicTagField } from '@/components/form/custom-form-field';
 import { FormFieldWrapper, FormFooter } from '@/components/form/form-field-wrapper';
-import { Form, } from '@/components/ui/form';
-import { submitPropertyAmenities } from '@/lib/actions/lodging/action.property';
-import { propertyAmenitiesClientSchema, propertyAmenitiesDefaultValues, TPropertyAmenitiesClientForm } from '@/schemas/lodging/property/property-amenities.schema';
+import { Form } from '@/components/ui/form';
+import { updateRoomAmenities } from '@/lib/actions/lodging/action.room';
+import { roomAmenitiesClientSchema, roomAmenitiesDefaultValues, TRoomAmenitiesClientForm } from '@/schemas/lodging/room/room-amenities.schema'
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
 import React, { useTransition } from 'react'
-import { useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast';
 
 type Props = {
-    formValues?: TPropertyAmenitiesClientForm | null;
-    id: string;
-    slug: string;
+    formValues?: TRoomAmenitiesClientForm | null;
+    roomID: string | number;
 }
 
-export const PropertyAmenityForm = ({ id, formValues }: Props) => {
-    const form = useForm<TPropertyAmenitiesClientForm>({
-        resolver: zodResolver(propertyAmenitiesClientSchema),
+export const RoomAmenityForm = ({ formValues, roomID }: Props) => {
+    const form = useForm<TRoomAmenitiesClientForm>({
+        resolver: zodResolver(roomAmenitiesClientSchema),
         defaultValues: formValues ? {
             ...formValues,
 
-        } : propertyAmenitiesDefaultValues
+        } : roomAmenitiesDefaultValues
     })
 
     const [isPending, startTransition] = useTransition();
 
-
-    const onSubmit = (values: TPropertyAmenitiesClientForm) => {
+    const onSubmit = (values: TRoomAmenitiesClientForm) => {
+        console.log(values)
         startTransition(async () => {
-            const response = await submitPropertyAmenities(values, id);
+            const response = await updateRoomAmenities(values, roomID);
             if (response.success == true) {
-
                 toast.success(response.message)
-                if (!formValues) {
-
-                }
-                // TODO: if successfull, redirect to property edit page - to submit others details
             }
             else {
                 toast.error(response.message || "Something went wrong")
@@ -52,31 +45,12 @@ export const PropertyAmenityForm = ({ id, formValues }: Props) => {
                     label='General Amenities'
                     className='flex justify-between flex-1 '
                 >
-
-                    {/*frontDesk  */}
-                    <div className='w-full flex justify-between gap-4'>
-                        <CustomFormField
-                            elementName='checkbox'
-                            fieldId='general.frontDesk.status'
-                            label='Front Desk'
-                            placeholder='Check if front desk or receiption is available'
-                            className='w-full  shadow-none'
-                        />
-                        <CustomFormField
-                            elementName='input'
-                            fieldId='general.frontDesk.description'
-                            className='w-full'
-                            label='Write short note'
-                        />
-                    </div>
-
-
                     {/*wifi  */}
                     <div className='w-full flex justify-between gap-4'>
                         <CustomFormField
                             elementName='checkbox'
                             fieldId='general.wifi.status'
-                            label='Wi-Fi'
+                            label='Wifi'
                             placeholder='Check if wifi is available'
                             className='w-full  shadow-none'
                         />
@@ -89,90 +63,92 @@ export const PropertyAmenityForm = ({ id, formValues }: Props) => {
                     </div>
 
 
-                    {/*gym  */}
+                    {/*phone  */}
                     <div className='w-full flex justify-between gap-4'>
                         <CustomFormField
                             elementName='checkbox'
-                            fieldId='general.gym.status'
-                            label='Gym'
-                            placeholder='Check if gym is available'
+                            fieldId='general.phone.status'
+                            label='Phone'
+                            placeholder='Check if telephone is available'
                             className='w-full  shadow-none'
                         />
                         <CustomFormField
                             elementName='input'
-                            fieldId='general.gym.description'
+                            fieldId='general.phone.description'
                             className='w-full'
                             label='Write short note'
                         />
                     </div>
 
-                    {/*laundry  */}
+
+                    {/*ac  */}
                     <div className='w-full flex justify-between gap-4'>
                         <CustomFormField
                             elementName='checkbox'
-                            fieldId='general.laundry.status'
-                            label='Laundry'
-                            placeholder='Check if laundry is available'
+                            fieldId='general.ac.status'
+                            label='AC'
+                            placeholder='Check if ac is available'
                             className='w-full  shadow-none'
                         />
                         <CustomFormField
                             elementName='input'
-                            fieldId='general.laundry.description'
+                            fieldId='general.ac.description'
                             className='w-full'
                             label='Write short note'
                         />
                     </div>
 
-                    {/*spa  */}
+                    {/*television  */}
                     <div className='w-full flex justify-between gap-4'>
                         <CustomFormField
                             elementName='checkbox'
-                            fieldId='general.spa.status'
-                            label='Spa'
-                            placeholder='Check if spa is available'
+                            fieldId='general.television.status'
+                            label='Television'
+                            placeholder='Check if television is available'
                             className='w-full  shadow-none'
                         />
                         <CustomFormField
                             elementName='input'
-                            fieldId='general.spa.description'
+                            fieldId='general.television.description'
                             className='w-full'
                             label='Write short note'
                         />
                     </div>
 
-                    {/*pool  */}
+                    {/*miniFridge  */}
                     <div className='w-full flex justify-between gap-4'>
                         <CustomFormField
                             elementName='checkbox'
-                            fieldId='general.pool.status'
-                            label='Swimming Pool'
-                            placeholder='Check if swimming pool is available'
+                            fieldId='general.miniFridge.status'
+                            label='Mini Fridge'
+                            placeholder='Check if mini fridge is available'
                             className='w-full  shadow-none'
                         />
                         <CustomFormField
                             elementName='input'
-                            fieldId='general.pool.description'
+                            fieldId='general.miniFridge.description'
                             className='w-full'
                             label='Write short note'
                         />
                     </div>
 
-                    {/*dining  */}
+                    {/*coffeeMake  */}
                     <div className='w-full flex justify-between gap-4'>
                         <CustomFormField
                             elementName='checkbox'
-                            fieldId='general.dining.status'
-                            label='Dining'
-                            placeholder='Is Dining available ?'
+                            fieldId='general.coffeeMaker.status'
+                            label='Coffee Maker'
+                            placeholder='Check if Coffee Maker is available'
                             className='w-full  shadow-none'
                         />
                         <CustomFormField
                             elementName='input'
-                            fieldId='general.dining.description'
+                            fieldId='general.coffeeMaker.description'
                             className='w-full'
                             label='Write short note'
                         />
                     </div>
+
                     <DynamicTagField
                         fieldId='general.others'
                         defaultTags={formValues?.general?.others}
@@ -181,24 +157,42 @@ export const PropertyAmenityForm = ({ id, formValues }: Props) => {
                         className='w-full'
                     />
                 </FormFieldWrapper>
+                {/* Bathroom */}
                 <FormFieldWrapper
-                    description='Select all the kids/family related amenities that are available'
-                    label='Kids/Family Amenities'
+                    description='Select all bathroom related amenities that are available'
+                    label='Bathroom'
                     className='flex justify-between flex-1 '
                 >
 
-                    {/*kidsAndFamily  */}
+                    {/*privateBathroom  */}
                     <div className='w-full flex justify-between gap-4'>
                         <CustomFormField
                             elementName='checkbox'
-                            fieldId='kidsAndFamily.childFriendly.status'
-                            label='Child Friendly'
-                            placeholder='Is Child Friendly?'
+                            fieldId='bathroom.privateBathroom.status'
+                            label='Private Bathroom'
+                            placeholder='Check if private bathroom is available'
                             className='w-full  shadow-none'
                         />
                         <CustomFormField
                             elementName='input'
-                            fieldId='kidsAndFamily.childFriendly.description'
+                            fieldId='bathroom.privateBathroom.description'
+                            className='w-full'
+                            label='Write short note'
+                        />
+                    </div>
+
+                    {/* hotWater */}
+                    <div className='w-full flex justify-between gap-4'>
+                        <CustomFormField
+                            elementName='checkbox'
+                            fieldId='bathroom.hotWater.status'
+                            label='Hotwater (Geyser)'
+                            placeholder='Do have hot water?'
+                            className='w-full  shadow-none'
+                        />
+                        <CustomFormField
+                            elementName='input'
+                            fieldId='bathroom.hotWater.description'
                             className='w-full'
                             label='Write short note'
                         />
@@ -207,40 +201,71 @@ export const PropertyAmenityForm = ({ id, formValues }: Props) => {
                     <div className='w-full flex justify-between gap-4'>
                         <CustomFormField
                             elementName='checkbox'
-                            fieldId='kidsAndFamily.familyFriendly.status'
-                            label='Family Friendly'
-                            placeholder='Is family Friendly?'
+                            fieldId='bathroom.shower.status'
+                            label='Shower'
+                            placeholder='Do have Shower?'
                             className='w-full  shadow-none'
                         />
                         <CustomFormField
                             elementName='input'
-                            fieldId='kidsAndFamily.familyFriendly.description'
+                            fieldId='bathroom.shower.description'
                             className='w-full'
                             label='Write short note'
                         />
-
-
                     </div>
 
                     <div className='w-full flex justify-between gap-4'>
                         <CustomFormField
                             elementName='checkbox'
-                            fieldId='kidsAndFamily.babyChange.status'
-                            label='Baby Change'
-                            placeholder='Do have baby change?'
+                            fieldId='bathroom.bathtub.status'
+                            label='Bathtub'
+                            placeholder='Do have Bathtub?'
                             className='w-full  shadow-none'
                         />
                         <CustomFormField
                             elementName='input'
-                            fieldId='kidsAndFamily.babyChange.description'
+                            fieldId='bathroom.bathtub.description'
+                            className='w-full'
+                            label='Write short note'
+                        />
+                    </div>
+
+
+                    <div className='w-full flex justify-between gap-4'>
+                        <CustomFormField
+                            elementName='checkbox'
+                            fieldId='bathroom.hairDryer.status'
+                            label='Hair Dryer'
+                            placeholder='Do have Hair Dryer?'
+                            className='w-full  shadow-none'
+                        />
+                        <CustomFormField
+                            elementName='input'
+                            fieldId='bathroom.hairDryer.description'
+                            className='w-full'
+                            label='Write short note'
+                        />
+                    </div>
+
+                    <div className='w-full flex justify-between gap-4'>
+                        <CustomFormField
+                            elementName='checkbox'
+                            fieldId='bathroom.toiletries.status'
+                            label='Toiletries'
+                            placeholder='Do have Toiletries?'
+                            className='w-full  shadow-none'
+                        />
+                        <CustomFormField
+                            elementName='input'
+                            fieldId='bathroom.toiletries.description'
                             className='w-full'
                             label='Write short note'
                         />
                     </div>
 
                     <DynamicTagField
-                        fieldId='kidsAndFamily.others'
-                        defaultTags={formValues?.kidsAndFamily?.others}
+                        fieldId='bathroom.others'
+                        defaultTags={formValues?.bathroom?.others}
                         placeholder='Hey, what else you want to add?'
                         label='Others (Hit Enter to add)'
                         className='w-full'
@@ -248,84 +273,84 @@ export const PropertyAmenityForm = ({ id, formValues }: Props) => {
 
                 </FormFieldWrapper>
 
-                {/* Accessibility */}
+                {/* bedroom */}
 
                 <FormFieldWrapper
-                    description='Select all the accessibilities related amenities that are available'
-                    label='Accessibilities'
+                    description='Select all the bedroom related amenities that are available'
+                    label='Bedroom'
                     className='flex justify-between flex-1 '
                 >
-                    {/*elevator  */}
+                    {/*hangers  */}
                     <div className='w-full flex justify-between gap-4'>
                         <CustomFormField
                             elementName='checkbox'
-                            fieldId='accessibility.elevator.status'
-                            label='Elevator'
-                            placeholder='Have elevator?'
+                            fieldId='bedroom.hangers.status'
+                            label='Hangers'
+                            placeholder='Have hangers?'
                             className='w-full  shadow-none'
                         />
                         <CustomFormField
                             elementName='input'
-                            fieldId='accessibility.elevator.description'
+                            fieldId='bedroom.hangers.description'
                             className='w-full'
                             label='Write short note'
                         />
                     </div>
 
-                    {/*carParking  */}
+                    {/*extraPillowAndBlanket  */}
                     <div className='w-full flex justify-between gap-4'>
                         <CustomFormField
                             elementName='checkbox'
-                            fieldId='accessibility.carParking.status'
+                            fieldId='bedroom.extraPillowAndBlanket.status'
                             label='Car Parking'
-                            placeholder='Have carParking?'
+                            placeholder='Do you provide extra pillow and blanket?'
                             className='w-full  shadow-none'
                         />
                         <CustomFormField
                             elementName='input'
-                            fieldId='accessibility.carParking.description'
+                            fieldId='bedroom.extraPillowAndBlanket.description'
                             className='w-full'
                             label='Write short note'
                         />
                     </div>
 
-                    {/*wheelChair  */}
+                    {/*iron  */}
                     <div className='w-full flex justify-between gap-4'>
                         <CustomFormField
                             elementName='checkbox'
-                            fieldId='accessibility.wheelChair.status'
-                            label='Wheel Chair'
-                            placeholder='Wheel Chair Friendly?'
+                            fieldId='bedroom.iron.status'
+                            label='Iron'
+                            placeholder='Have iron?'
                             className='w-full  shadow-none'
                         />
                         <CustomFormField
                             elementName='input'
-                            fieldId='accessibility.wheelChair.description'
+                            fieldId='bedroom.iron.description'
                             className='w-full'
                             label='Write short note'
                         />
                     </div>
 
-                    {/* stroller  */}
+                    {/* laptopDesk  */}
                     <div className='w-full flex justify-between gap-4'>
                         <CustomFormField
                             elementName='checkbox'
-                            fieldId='accessibility.stroller.status'
-                            label='Stroller'
-                            placeholder='Stroller Friendly?'
+                            fieldId='bedroom.laptopDesk.status'
+                            label='Laptop Desk'
+                            placeholder='Have Laptop Desk?'
                             className='w-full  shadow-none'
                         />
                         <CustomFormField
                             elementName='input'
-                            fieldId='accessibility.stroller.description'
+                            fieldId='bedroom.laptopDesk.description'
                             className='w-full'
                             label='Write short note'
                         />
                     </div>
 
                     <DynamicTagField
-                        fieldId='accessibility.others'
-                        defaultTags={formValues?.accessibility?.others}
+                        fieldId='bedroom.others'
+                        defaultTags={formValues?.bedroom?.others}
                         placeholder='Hey, what else you want to add?'
                         label='Others (Hit Enter to add)'
                         className='w-full'
@@ -340,18 +365,18 @@ export const PropertyAmenityForm = ({ id, formValues }: Props) => {
                     label='Safety'
                     className='flex justify-between flex-1 '
                 >
-                    {/*Security Guards  */}
+                    {/*smokeAlarm */}
                     <div className='w-full flex justify-between gap-4'>
                         <CustomFormField
                             elementName='checkbox'
-                            fieldId='safety.securityGuards.status'
-                            label='Security Personnel'
-                            placeholder='Have Security Personnel?'
+                            fieldId='safety.smokeAlarm.status'
+                            label='Smoke Alarm'
+                            placeholder='Have Smoke Alarm?'
                             className='w-full  shadow-none'
                         />
                         <CustomFormField
                             elementName='input'
-                            fieldId='safety.securityGuards.description'
+                            fieldId='safety.smokeAlarm.description'
                             className='w-full'
                             label='Write short note'
                         />
@@ -374,40 +399,6 @@ export const PropertyAmenityForm = ({ id, formValues }: Props) => {
                         />
                     </div>
 
-                    {/*cctv  */}
-                    <div className='w-full flex justify-between gap-4'>
-                        <CustomFormField
-                            elementName='checkbox'
-                            fieldId='safety.cctv.status'
-                            label='CCTV'
-                            placeholder='Have CCTV?'
-                            className='w-full  shadow-none'
-                        />
-                        <CustomFormField
-                            elementName='input'
-                            fieldId='safety.cctv.description'
-                            className='w-full'
-                            label='Write short note'
-                        />
-                    </div>
-
-                    {/*emergencyExit  */}
-                    <div className='w-full flex justify-between gap-4'>
-                        <CustomFormField
-                            elementName='checkbox'
-                            fieldId='safety.emergencyExit.status'
-                            label='Emergency Exit'
-                            placeholder='Have Emergency Exit?'
-                            className='w-full  shadow-none'
-                        />
-                        <CustomFormField
-                            elementName='input'
-                            fieldId='safety.emergencyExit.description'
-                            className='w-full'
-                            label='Write short note'
-                        />
-
-                    </div>
 
                     <DynamicTagField
                         fieldId='safety.others'

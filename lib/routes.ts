@@ -39,9 +39,17 @@ export const API_ROUTES = {
         endpoint: "/food/uploads" as const,
         queryKey: "restImage" as const,
     },
+    propertyImage: {
+        endpoint: "/lodging/uploads/property" as const,
+        queryKey: "propertyImage" as const,
+    },
     property: {
-        endPoint: "/lodging/property" as const,
+        endpoint: "/lodging/property" as const,
         queryKey: "property" as const,
+    },
+    room: {
+        endpoint: "/lodging/room" as const,
+        queryKey: "room" as const,
     }
 };
 

@@ -12,9 +12,10 @@ const { Dragger } = Upload;
 
 type Props = {
     setShowLibrary?: React.Dispatch<React.SetStateAction<boolean>>;
+    endPoint: string;
 };
 
-export const AsyncDropZone = ({ setShowLibrary }: Props) => {
+export const AsyncDropZone = ({ endPoint, setShowLibrary }: Props) => {
     const [fileList, setFileList] = useState<any[]>([]);
     const queryClient = useQueryClient()
 
@@ -38,7 +39,7 @@ export const AsyncDropZone = ({ setShowLibrary }: Props) => {
 
             const response = await UploadHandler(
                 formData,
-                API_ROUTES.restImage.endpoint,
+                endPoint,
             );
 
             if (response.statusCode == 201) {
@@ -48,7 +49,7 @@ export const AsyncDropZone = ({ setShowLibrary }: Props) => {
                 onSuccess(response, file);
                 // Update file list
                 setFileList([]);
-                queryClient.invalidateQueries({ queryKey: [API_ROUTES.restImage.queryKey] })
+                queryClient.invalidateQueries()
 
                 // Optionally show the library if `setShowLibrary` exists
                 if (setShowLibrary) {

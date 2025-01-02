@@ -3,13 +3,11 @@ import { BACKEND_URL } from "@/lib/constants";
 import { API_ROUTES } from "@/lib/routes";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
-type TQueryKey = typeof API_ROUTES[keyof typeof API_ROUTES]["queryKey"]
-type TEndPoint = typeof API_ROUTES[keyof typeof API_ROUTES]["endpoint"]
 
 type TLoadMore = {
     pageParam: number;
-    endPoint: TEndPoint;
-    queryKey: TQueryKey;
+    endPoint: string;
+    queryKey: string;
     take?: number;
     imageName?: string
 };

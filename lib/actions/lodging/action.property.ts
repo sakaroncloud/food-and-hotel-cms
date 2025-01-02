@@ -26,14 +26,12 @@ export async function submitProperty(formData: TPropertyBasicForm, param?: strin
     formattedValues.checkInEndTime = dayjs(`1970-01-01T${formattedValues.checkInEndTime}`).format("HH:mm");
     formattedValues.checkOutTime = dayjs(`1970-01-01T${formattedValues.checkOutTime}`).format("HH:mm");
 
-
     return await SubmitHandler({
-        ENDPOINT: API_ROUTES.property.endPoint,
+        ENDPOINT: API_ROUTES.property.endpoint,
         METHOD: param ? "PATCH" : "POST",
         DATA: formattedValues,
         PARAM: param
     })
-
 }
 
 /**
@@ -51,7 +49,7 @@ export async function submitPropertyAmenities(formData: TPropertyAmenitiesClient
     }
 
     return await SubmitHandler({
-        ENDPOINT: API_ROUTES.property.endPoint + "/" + param + "/amenities",
+        ENDPOINT: API_ROUTES.property.endpoint + "/" + param + "/amenities",
         METHOD: "PATCH",
         DATA: validationFields.data,
     })
@@ -66,7 +64,7 @@ export async function submitPropertyRules(formData: TPropertyRulesClientForm, pa
         };
     }
     return await SubmitHandler({
-        ENDPOINT: API_ROUTES.property.endPoint + "/" + param + "/rules",
+        ENDPOINT: API_ROUTES.property.endpoint + "/" + param + "/rules",
         METHOD: "PATCH",
         DATA: validationFields.data,
     })
@@ -81,7 +79,7 @@ export async function submitPropertyLocations(formData: TPropertyLocationsForm, 
         };
     }
     return await SubmitHandler({
-        ENDPOINT: API_ROUTES.property.endPoint + "/" + param + "/nearest-locations",
+        ENDPOINT: API_ROUTES.property.endpoint + "/" + param + "/nearest-locations",
         METHOD: "PATCH",
         DATA: validationFields.data,
     })

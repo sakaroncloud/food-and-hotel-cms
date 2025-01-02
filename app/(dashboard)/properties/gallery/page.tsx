@@ -6,7 +6,6 @@ import { UploadDropDownButton } from "@/components/uploads/upload-header-action"
 
 const PropertyMediaPage = () => {
     return (
-
         <DashboardProvider >
             <TableWrapperWithFilter title="Uploads" headerActions={
                 <div className="flex gap-6 items-center">

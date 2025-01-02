@@ -5,11 +5,9 @@ type Props = {
     hasNextPage: boolean | undefined,
     isFetchingNextPage: boolean,
     fetchNextPage: (options?: FetchNextPageOptions) => Promise<InfiniteQueryObserverResult<InfiniteData<any, unknown>, Error>>
-
 }
 
 export const ChooseImageLoadMoreBtn = ({
-
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage,

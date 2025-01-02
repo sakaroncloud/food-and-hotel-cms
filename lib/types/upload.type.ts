@@ -17,6 +17,7 @@ export type TAsyncUpload = {
 };
 
 export type TAsyncImage = {
+    id: string;
     url: string;
     originalName: string;
     memeType: string;

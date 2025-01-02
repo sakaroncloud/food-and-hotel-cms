@@ -29,6 +29,9 @@ type TCustomFormFieldProps = {
     label?: string;
     showError?: boolean;
     placeholder?: string;
+    min?: number;
+    max?: number;
+    step?: number | "any";
     className?: string;
     elementName: "input" | "select" | "checkbox" | "radio" | "textarea" | "searchselect" | "multiselect" | "timepicker"
     isMulti?: boolean;
@@ -53,7 +56,7 @@ type TCustomFormFieldProps = {
 type TFieldProps = TCustomFormFieldProps & {
     field: ControllerRenderProps<FieldValues, string>,
 }
-const RenderField = ({ children, className, defaultTime, elementName, defaultValue, field, isMulti = false, formLabel, fieldId, label, showError = true, placeholder, inputType, selectOptions }: TFieldProps) => {
+const RenderField = ({ children, className, step, min, max, defaultTime, elementName, defaultValue, field, isMulti = false, formLabel, fieldId, label, showError = true, placeholder, inputType, selectOptions }: TFieldProps) => {
     const form = useFormContext()
     switch (elementName) {
         case "input":
@@ -74,7 +77,7 @@ const RenderField = ({ children, className, defaultTime, elementName, defaultVal
                                 />
                             </div> :
 
-                            inputType === "number" ? <Input {...field} placeholder={placeholder} min={0} type={inputType} />
+                            inputType === "number" ? <Input {...field} step={step} placeholder={placeholder} min={min || 0} max={max || 1000000} type={inputType} />
                                 : <Input placeholder={placeholder}  {...field} type={inputType || "text"} />}
                     </FormControl>
                     {showError && <FormMessage />}
