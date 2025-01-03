@@ -97,3 +97,56 @@ export function convertFileSize(bytes: number) {
 }
 
 
+
+
+type TSlug = {
+  propertySlug?: string;
+  roomSlug?: string;
+  restaurantSlug?: string;
+  productSlug?: string;
+};
+
+export const getIDsFromSlug = (option: TSlug) => {
+  /**
+   * Utility function to extract IDs from a slug using a regex pattern
+   */
+  const extractIDs = (slug: string | undefined, pattern: RegExp): (string | undefined)[] => {
+    const match = slug?.match(pattern);
+    return match ? match.slice(1) : [];
+  };
+
+  /**
+   * Extract IDs for Restaurant
+   */
+  const [restaurantID] = extractIDs(option?.restaurantSlug, /--(\d+)$/);
+
+  /**
+   * Extract IDs for Product and Menu
+   */
+  const [productID, productRestaurantID] = extractIDs(option?.productSlug, /P(\d+)R(\d+)/);
+  const [menuID, menuRestaurantID] = extractIDs(option?.productSlug, /M(\d+)R(\d+)/);
+
+  /**
+   * Extract IDs for Property and Room
+   */
+  const [propertyID] = extractIDs(option?.propertySlug, /--(\d+)$/);
+  const [roomID, roomPropertyId] = extractIDs(option?.roomSlug, /R(\d+)P(\d+)/);
+
+  /**
+   * Validation for slug integrity
+   */
+  const isSlugTempered = (
+    (productID && (!productRestaurantID || !restaurantID)) ||
+    (menuID && (!menuRestaurantID || !restaurantID)) ||
+    (roomID && (!roomPropertyId || !propertyID))
+  );
+
+  return {
+    slugTempered: isSlugTempered,
+    restaurantID,
+    productID,
+    menuID,
+    propertyID,
+    roomID
+  };
+};

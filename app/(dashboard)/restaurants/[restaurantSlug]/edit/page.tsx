@@ -1,17 +1,21 @@
 import { EditRestaurantWrapper } from '@/components/page-components/restaurants/edit-restaurant-wrapper'
 import { DashboardProvider } from '@/components/providers/dashboard-wrapper'
-
-type Props = {
-    params: Promise<{ restaurantSlug: string }>
-}
+import { TParams } from '@/lib/types/global.type'
+import { getIDsFromSlug } from '@/lib/utils/utils'
 
 
 
-const EditRestaurantPage = async ({ params }: Props) => {
-    const restaurantSlug = (await params).restaurantSlug
+
+const EditRestaurantPage = async ({ params }: TParams) => {
+    const { restaurantSlug } = (await params)
+
+    const { restaurantID } = getIDsFromSlug({
+        restaurantSlug
+    })
+
     return (
         <DashboardProvider>
-            <EditRestaurantWrapper restaurantSlug={restaurantSlug} />
+            <EditRestaurantWrapper />
         </DashboardProvider>
     )
 }

@@ -58,7 +58,7 @@ export const RestaurantHeroSection = async ({
                     <FallbackImage
                         type='rectangle'
                         alt='Restaurant Logo Image'
-                        src={restaurant?.logo?.url || ""}
+                        src={restaurant?.logo?.url || "/"}
                         width={150}
                         height={150}
                         className='object-cover w-[150px] h-[150px] rounded-full absolute z-50'

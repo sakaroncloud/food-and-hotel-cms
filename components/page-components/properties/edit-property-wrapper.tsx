@@ -1,22 +1,21 @@
 "use client"
 
 import { useState } from "react"
-import { PropertyNavTabs } from "./property-nav-tabs"
-import { PropertyBasicForm } from "../form/property-basic-form"
+import { PropertyBasicForm } from "./form/property-basic-form"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { TPropertyBasicForm } from "@/schemas/lodging/property/property-basic.schema"
 import { cn } from "@/lib/utils/utils"
-import { PropertyAmenityForm } from "../form/property-amenity-form"
+import { PropertyAmenityForm } from "./form/property-amenity-form"
 import { TPropertyAmenitiesClientForm } from "@/schemas/lodging/property/property-amenities.schema"
-import { PropertyRuleForm } from "../form/property-rule-form"
+import { PropertyRuleForm } from "./form/property-rule-form"
 import { TPropertyRulesClientForm } from "@/schemas/lodging/property/property-rules.schema"
-import { PropertyLocationsForm } from "../form/property-locations-form"
+import { PropertyLocationsForm } from "./form/property-locations-form"
 import { TPropertyLocationsForm } from "@/schemas/lodging/property/property-locations.schema"
-import { PropertyGalleryForm } from "../form/property-gallery-form"
-import { PropertyAddressForm } from "../form/property-address-form"
+import { PropertyGalleryForm } from "./form/property-gallery-form"
+import { PropertyAddressForm } from "./form/property-address-form"
 import { TAddressForm } from "@/schemas/schema.address"
-import { TPropertyGalleryClientForm } from "@/schemas/lodging/property/property.gallery.schema"
 import { TAsyncGallery } from "@/lib/types/upload.type"
+import { MultiStepTabs } from "@/components/form/multi-step-tabs"
 
 type Props = {
     generalFormValues: TPropertyBasicForm & { id: string, slug: string };
@@ -70,7 +69,7 @@ export const EditPropertyWrapper = ({ address, amenities, galleries, generalForm
 
     return (
         <div className="space-y-6">
-            <PropertyNavTabs activeTab={activeTab} setActiveTab={setActiveTab} tabs={tabs} />
+            <MultiStepTabs activeTab={activeTab} setActiveTab={setActiveTab} tabs={tabs} />
             <ScrollArea className="px-4 h-[calc(100vh-200px)]">
                 <ScrollBar />
                 <div className={cn("hidden", activeTab == 0 && "block")}>

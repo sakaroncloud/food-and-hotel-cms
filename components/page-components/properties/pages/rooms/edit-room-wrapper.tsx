@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { PropertyNavTabs } from "../../property-wrapper/property-nav-tabs"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils/utils"
 import { TRoomBasicForm } from "@/schemas/lodging/room/room-basic.schema"
@@ -10,11 +9,15 @@ import { TRoomAmenitiesClientForm } from "@/schemas/lodging/room/room-amenities.
 import { RoomAmenityForm } from "./forms/room-amenity-form"
 import { RoomRuleForm } from "./forms/room-rule-form"
 import { TRoomRulesClientForm } from "@/schemas/lodging/room/room-rules.schema"
+import { RoomGalleryForm } from "./forms/room-gallery-form"
+import { TAsyncGallery } from "@/lib/types/upload.type"
+import { MultiStepTabs } from "@/components/form/multi-step-tabs"
 type Props = {
     generalFormValues: TRoomBasicForm;
     roomId: string;
     roomAmenities?: TRoomAmenitiesClientForm;
     rules?: TRoomRulesClientForm;
+    galleries?: TAsyncGallery;
 }
 
 export const EditRoomWrapper = ({ ...props }: Props) => {
@@ -41,7 +44,7 @@ export const EditRoomWrapper = ({ ...props }: Props) => {
         {
             label: "Gallery",
             value: "gallery",
-            published: true
+            published: props.galleries !== undefined && props.galleries !== null && props.galleries?.length > 0
         },
 
 
@@ -49,7 +52,7 @@ export const EditRoomWrapper = ({ ...props }: Props) => {
 
     return (
         <div className="space-y-6">
-            <PropertyNavTabs activeTab={activeTab} setActiveTab={setActiveTab} tabs={tabs} />
+            <MultiStepTabs activeTab={activeTab} setActiveTab={setActiveTab} tabs={tabs} />
             <ScrollArea className="px-4 h-[calc(100vh-200px)]">
                 <ScrollBar />
                 <div className={cn("hidden", activeTab == 0 && "block")}>
@@ -61,6 +64,7 @@ export const EditRoomWrapper = ({ ...props }: Props) => {
                 </div>
                 <div className={cn("hidden", activeTab == 1 && "block")}>
                     <RoomAmenityForm
+                        propertyID={props.generalFormValues.propertyID}
                         formValues={props.roomAmenities}
                         roomID={props.roomId} />
                 </div>
@@ -71,7 +75,11 @@ export const EditRoomWrapper = ({ ...props }: Props) => {
                     />
                 </div>
                 <div className={cn("hidden", activeTab == 3 && "block")}>
-                    Gallery
+                    <RoomGalleryForm
+                        propertyID={props.generalFormValues.propertyID}
+                        roomID={props.roomId}
+                        defaultImages={props.galleries}
+                    />
                 </div>
             </ScrollArea>
         </div>

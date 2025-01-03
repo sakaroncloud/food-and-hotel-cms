@@ -12,11 +12,8 @@ type Props = {
     setActiveTab: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export const PropertyNavTabs = ({ activeTab, setActiveTab, tabs }: Props) => {
-
-
+export const MultiStepTabs = ({ activeTab, setActiveTab, tabs }: Props) => {
     return (
-
         <div className="flex items-center justify-between gap-4 p-4 bg-white shadow-md rounded-xl">
             {tabs.map((tab, i) => {
                 return (

@@ -42,7 +42,7 @@ export const columns: ColumnDef<Restaurant.TRestaurant & {
                 const image = row.original.logo?.url
                 return (
                     <div className="flex items-center gap-2">
-                        <div className="p-1 border border-slate-200 bg-white rounded-lg size-[41px] flex items-center justify-center"> <FallbackImage type="square" src={image || ""} alt={row.original.name} width={40} height={40} className="rounded-lg size-[40px] object-contain" /></div>
+                        <div className="p-1 border border-slate-200 bg-white rounded-lg size-[41px] flex items-center justify-center"> <FallbackImage type="square" src={image || "/"} alt={row.original.name} width={40} height={40} className="rounded-lg size-[40px] object-contain" /></div>
                         <div className="text-sm font-medium capitalize">{row.original.name}</div>
                     </div>
                 )

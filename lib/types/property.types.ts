@@ -1,11 +1,13 @@
 import { TPropertyAmenities } from "@/schemas/lodging/property/property-amenities.schema";
 import { ELanguage } from "./language.types";
 import { TBaseWithDescription } from "./shared.types";
-import { TPropertyRules, TPropertyRulesClientForm } from "@/schemas/lodging/property/property-rules.schema";
+import { TPropertyRules, } from "@/schemas/lodging/property/property-rules.schema";
 import { TAsyncGallery } from "./upload.type";
 import { TAddress } from "./address.types";
 import { TRoomAmenities } from "@/schemas/lodging/room/room-amenities.schema";
 import { TRoomRules } from "@/schemas/lodging/room/room-rules.schema";
+
+
 export enum EBedType {
     KING_BED = "King Bed",
     DOUBLE_BED = "Double Bed",
@@ -39,6 +41,7 @@ export namespace Property {
         uploads?: TAsyncGallery;
         address?: TAddress;
         totalRooms: number;
+        totalUploads: number;
     };
 
     export type TRoom = TBaseWithDescription & {
@@ -50,7 +53,8 @@ export namespace Property {
             quantity: number;
         }[],
         amenities?: TRoomAmenities;
-        rules?: TRoomRules
+        rules?: TRoomRules;
+        galleries?: TAsyncGallery
     }
 
     export type TPropertyLocation = {

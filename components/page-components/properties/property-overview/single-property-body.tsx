@@ -40,7 +40,7 @@ export const SinglePropertyBody = async ({ propertyId }: Props) => {
 
                 <RestaurantBodyCard
                     Icon={GalleryHorizontalIcon}
-                    value={10}
+                    value={property.totalUploads}
                     label={"Media"}
                     iconColor={"text-blue-500"}
                     link={`/properties/${property.slug}/medias`}

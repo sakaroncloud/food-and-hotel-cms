@@ -11,15 +11,19 @@ import toast from 'react-hot-toast';
 type Props = {
     formValues?: TRoomAmenitiesClientForm | null;
     roomID: string | number;
+    propertyID: string | number;
 }
 
-export const RoomAmenityForm = ({ formValues, roomID }: Props) => {
+export const RoomAmenityForm = ({ formValues, roomID, propertyID }: Props) => {
     const form = useForm<TRoomAmenitiesClientForm>({
         resolver: zodResolver(roomAmenitiesClientSchema),
         defaultValues: formValues ? {
             ...formValues,
 
-        } : roomAmenitiesDefaultValues
+        } : {
+            ...roomAmenitiesDefaultValues,
+            propertyID: parseInt(propertyID as string)
+        }
     })
 
     const [isPending, startTransition] = useTransition();
@@ -37,6 +41,8 @@ export const RoomAmenityForm = ({ formValues, roomID }: Props) => {
         })
     };
 
+
+    console.log(form.formState.errors)
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
@@ -381,25 +387,6 @@ export const RoomAmenityForm = ({ formValues, roomID }: Props) => {
                             label='Write short note'
                         />
                     </div>
-
-                    {/*SmokeAlarm  */}
-                    <div className='w-full flex justify-between gap-4'>
-                        <CustomFormField
-                            elementName='checkbox'
-                            fieldId='safety.smokeAlarm.status'
-                            label='Smoke Alarm'
-                            placeholder='Have Smoke Alarm?'
-                            className='w-full  shadow-none'
-                        />
-                        <CustomFormField
-                            elementName='input'
-                            fieldId='safety.smokeAlarm.description'
-                            className='w-full'
-                            label='Write short note'
-                        />
-                    </div>
-
-
                     <DynamicTagField
                         fieldId='safety.others'
                         defaultTags={formValues?.safety?.others}

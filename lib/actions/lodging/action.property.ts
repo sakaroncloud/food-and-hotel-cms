@@ -8,6 +8,7 @@ import { propertyAmenitiesClientToServerSchema, TPropertyAmenitiesClientForm } f
 import { propertyRulesClientToServerSchema, TPropertyRulesClientForm } from "@/schemas/lodging/property/property-rules.schema";
 import { propertyLocationsSchema, TPropertyLocationsForm } from "@/schemas/lodging/property/property-locations.schema";
 import { propertyGallerySchema, TPropertyGalleryClientForm } from "@/schemas/lodging/property/property.gallery.schema";
+import { roomGallerySchema, TRoomGalleryClientForm } from "@/schemas/lodging/room/room.gallery.schema";
 
 
 export async function submitProperty(formData: TPropertyBasicForm, param?: string) {
@@ -88,7 +89,7 @@ export async function submitPropertyLocations(formData: TPropertyLocationsForm, 
 }
 
 
-export async function submitPropertyGallery(formData: TPropertyGalleryClientForm, param: string) {
+export async function submitPropertyGallery(formData: TPropertyGalleryClientForm, param: string | number) {
 
     const validationFields = propertyGallerySchema.safeParse(formData)
     if (!validationFields.success) {
@@ -104,3 +105,20 @@ export async function submitPropertyGallery(formData: TPropertyGalleryClientForm
     })
 }
 
+
+export async function submitRoomGallery(formData: TRoomGalleryClientForm, param: string | number) {
+
+    const validationFields = roomGallerySchema.safeParse(formData)
+    if (!validationFields.success) {
+        return {
+            message: "Data tempered",
+        };
+    }
+
+
+    return await SubmitHandler({
+        ENDPOINT: API_ROUTES.room.endpoint + "/" + param + "/gallery",
+        METHOD: "PATCH",
+        DATA: validationFields.data,
+    })
+}

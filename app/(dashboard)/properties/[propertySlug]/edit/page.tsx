@@ -1,5 +1,5 @@
 import { getData } from '@/app/data'
-import { EditPropertyWrapper } from '@/components/page-components/properties/property-wrapper/edit-property-wrapper'
+import { EditPropertyWrapper } from '@/components/page-components/properties/edit-property-wrapper'
 import { API_ROUTES } from '@/lib/routes'
 import { Property } from '@/lib/types/property.types'
 import { ResponseWithNoMeta } from '@/lib/types/response.type'
@@ -9,7 +9,6 @@ import { notFound } from 'next/navigation'
 type Props = {
     params: Promise<{ propertySlug: string }>
 }
-
 
 const EditPropertyPage = async ({ params }: Props) => {
     const propertySlug = (await params).propertySlug

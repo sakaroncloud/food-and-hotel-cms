@@ -1,38 +1,37 @@
 import { GalleryForm } from '@/components/choose-image-card/property/gallery-form'
 import { FormFieldWrapper, FormFooter } from '@/components/form/form-field-wrapper'
 import { Form } from '@/components/ui/form'
-import { submitPropertyGallery } from '@/lib/actions/lodging/action.property'
+import { submitRoomGallery } from '@/lib/actions/lodging/action.property'
 import { API_ROUTES } from '@/lib/routes'
 import { TDefaultImage } from '@/lib/types/upload.type'
-import { propertyGallerySchema, TPropertyGalleryClientForm } from '@/schemas/lodging/property/property.gallery.schema'
+import { roomGallerySchema, TRoomGalleryClientForm } from '@/schemas/lodging/room/room.gallery.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import React, { useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
 type Props = {
-    propertyId: string;
-    roomId?: string;
+    propertyID: string | number;
+    roomID: string;
     defaultImages?: TDefaultImage[];
 }
 
-
-
-export const PropertyGalleryForm = ({ defaultImages, propertyId }: Props) => {
+export const RoomGalleryForm = ({ defaultImages, propertyID, roomID }: Props) => {
 
     const formValues = {
-        galleryIds: defaultImages ? defaultImages.map((image) => image.id) : []
+        galleryIds: defaultImages ? defaultImages.map((image) => image.id) : [],
+        propertyID: parseInt(propertyID as string)
     }
-    const form = useForm<TPropertyGalleryClientForm>({
-        resolver: zodResolver(propertyGallerySchema),
-        defaultValues: formValues || {}
+    const form = useForm<TRoomGalleryClientForm>({
+        resolver: zodResolver(roomGallerySchema),
+        defaultValues: formValues
     })
 
     const [isPending, startTransition] = useTransition();
 
-    const onSubmit = (values: TPropertyGalleryClientForm) => {
+    const onSubmit = (values: TRoomGalleryClientForm) => {
         startTransition(async () => {
-            const response = await submitPropertyGallery(values, propertyId);
+            const response = await submitRoomGallery(values, roomID);
             if (response.success == true) {
                 toast.success(response.message)
             }
@@ -54,8 +53,8 @@ export const PropertyGalleryForm = ({ defaultImages, propertyId }: Props) => {
                         allowMultiple={true}
                         fieldId={"galleryIds"}
                         label={"Gallery"}
-                        fetchEndPoint={API_ROUTES.propertyImage.endpoint + "/" + propertyId}
-                        uploadEndPoint={API_ROUTES.propertyImage.endpoint + "/" + propertyId}
+                        fetchEndPoint={API_ROUTES.propertyImage.endpoint + "/" + propertyID}
+                        uploadEndPoint={API_ROUTES.propertyImage.endpoint + "/" + propertyID}
                     />
                 </FormFieldWrapper>
 

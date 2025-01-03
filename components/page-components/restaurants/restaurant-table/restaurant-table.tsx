@@ -23,6 +23,7 @@ export const RestaurantTable = async ({ showDeleted }: Props) => {
         isDeleted: showDeleted,
     }))
 
+
     return (
         <DataTable columns={columns} data={filteredData || []} showDeleted={showDeleted} />)
 }
