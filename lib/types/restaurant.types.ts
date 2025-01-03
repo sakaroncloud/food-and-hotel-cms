@@ -56,6 +56,7 @@ export namespace Restaurant {
     /** Defines the main restaurant entity */
     export type TRestaurant = TBaseWithDescription & {
         hasGlobalOffer?: TGlobalOffer;
+        description: string;
         email?: string;
         phone: string;
         isPureVeg: boolean;

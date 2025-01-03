@@ -28,7 +28,7 @@ export const serverToClientOthers = z.array(
     text: value,
 })))
 
-export const roomRulesClientToServerSchema = baseRoomRulesSchema.extend({
+export const roomRulesClient2ServerSchema = baseRoomRulesSchema.extend({
     others: othersServerSchema, // No transformation needed on the client
 });
 
@@ -40,7 +40,7 @@ export const roomRulesClientSchema = baseRoomRulesSchema.extend({
 export type TRoomRulesClientForm = z.infer<typeof roomRulesClientSchema>;
 export type TRoomRules = Omit<TRoomRulesClientForm, "propertyID">
 // Use this to transform the data from server form to - client form
-export const roomRulesServerToClientSchema = baseRoomRulesSchema.extend({
+export const roomRulesServer2ClientSchema = baseRoomRulesSchema.extend({
     others: serverToClientOthers,
 });
 

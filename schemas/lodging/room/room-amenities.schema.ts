@@ -77,7 +77,7 @@ export const roomAmenitiesClientSchema = baseRoomAmenitiesSchema.extend({
  * This is used to transform the data from server form to - client form
  * This is only used to parse - not to submit
  */
-export const roomAmenitiesServerToClientSchema = baseRoomAmenitiesSchema.extend({
+export const roomAmenitiesServer2ClientSchema = baseRoomAmenitiesSchema.extend({
     general: baseRoomAmenitiesSchema.shape.general.extend({
         others: serverToClientOthers, // No transformation needed on the client
     }),
@@ -97,7 +97,7 @@ export const roomAmenitiesServerToClientSchema = baseRoomAmenitiesSchema.extend(
  * This is used to transform the data from client form to - amenities DTO form
  * This is only used to parse - not to submit
  */
-export const roomAmenitiesClientToServerSchema = baseRoomAmenitiesSchema.extend({
+export const roomAmenitiesClient2ServerSchema = baseRoomAmenitiesSchema.extend({
     general: baseRoomAmenitiesSchema.shape.general.extend({
         others: othersServerSchema, // No transformation needed on the client
     }),
@@ -113,7 +113,7 @@ export const roomAmenitiesClientToServerSchema = baseRoomAmenitiesSchema.extend(
 });
 
 export type TRoomAmenitiesClientForm = z.infer<typeof roomAmenitiesClientSchema>;
-export type TRoomAmenities = Omit<z.infer<typeof roomAmenitiesClientToServerSchema>, 'propertyID'>;
+export type TRoomAmenities = Omit<z.infer<typeof roomAmenitiesClient2ServerSchema>, 'propertyID'>;
 
 
 const defaultObject = {

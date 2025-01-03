@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 
 type Props = {
-    formValues?: TRestaurantBasicForm & { id: string, slug: string };
+    formValues?: TRestaurantBasicForm & { id: number };
 }
 
 export const RestaurantBasicForm = ({ formValues }: Props) => {

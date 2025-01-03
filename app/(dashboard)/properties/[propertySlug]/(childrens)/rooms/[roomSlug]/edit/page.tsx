@@ -3,7 +3,7 @@ import { EditRoomWrapper } from '@/components/page-components/properties/pages/r
 import { API_ROUTES } from '@/lib/routes'
 import { Property } from '@/lib/types/property.types'
 import { ResponseWithNoMeta } from '@/lib/types/response.type'
-import { parseRoomAmenitiesFromServerToClient, parseRoomGeneralInfoFromServerToClient, parseRoomRulesFromServerToClient } from '@/lib/utils/property.utils'
+import { parseRoomAmenitiesFromServer2Client, parseRoomGeneralInfoFromServer2Client, parseRoomRulesFromServer2Client } from '@/lib/utils/property.utils'
 import { getIDsFromSlug } from '@/lib/utils/utils'
 import { notFound } from 'next/navigation'
 type Props = {
@@ -31,7 +31,7 @@ const RoomEditPage = async ({ params }: Props) => {
 
     if (!result?.data) notFound()
 
-    const generalInfo = parseRoomGeneralInfoFromServerToClient({
+    const generalInfo = parseRoomGeneralInfoFromServer2Client({
         ...result.data,
         propertyID: +propertyID
     })
@@ -39,12 +39,12 @@ const RoomEditPage = async ({ params }: Props) => {
     if (!generalInfo) notFound()
 
 
-    const amenities = parseRoomAmenitiesFromServerToClient({
+    const amenities = parseRoomAmenitiesFromServer2Client({
         ...result.data?.amenities,
         propertyID: +propertyID
     })
 
-    const rules = parseRoomRulesFromServerToClient({
+    const rules = parseRoomRulesFromServer2Client({
         ...result.data?.rules,
         propertyID: +propertyID
     })

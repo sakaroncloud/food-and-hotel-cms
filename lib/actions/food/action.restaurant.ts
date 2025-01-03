@@ -5,7 +5,7 @@ import { SubmitHandler } from "../global.action";
 import { API_ROUTES } from "../../routes";
 import { restaurantBasicFormSchema, TRestaurantBasicForm } from "@/schemas/fooding/restaurant/restaurant-basic.schema";
 
-export async function submitRestaurantBasic(formData: TRestaurantBasicForm, param?: string) {
+export async function submitRestaurantBasic(formData: TRestaurantBasicForm, param?: string | number) {
     const validationFields = restaurantBasicFormSchema.safeParse(formData)
     if (!validationFields.success) {
         return {

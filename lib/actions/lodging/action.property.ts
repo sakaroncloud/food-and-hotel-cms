@@ -4,8 +4,8 @@ import { SubmitHandler } from "../global.action";
 import { API_ROUTES } from "../../routes";
 import { propertyBasicFormSchema, TPropertyBasicForm } from "@/schemas/lodging/property/property-basic.schema";
 import dayjs from "dayjs";
-import { propertyAmenitiesClientToServerSchema, TPropertyAmenitiesClientForm } from "@/schemas/lodging/property/property-amenities.schema";
-import { propertyRulesClientToServerSchema, TPropertyRulesClientForm } from "@/schemas/lodging/property/property-rules.schema";
+import { propertyAmenitiesClient2ServerSchema, TPropertyAmenitiesClientForm } from "@/schemas/lodging/property/property-amenities.schema";
+import { propertyRulesClient2ServerSchema, TPropertyRulesClientForm } from "@/schemas/lodging/property/property-rules.schema";
 import { propertyLocationsSchema, TPropertyLocationsForm } from "@/schemas/lodging/property/property-locations.schema";
 import { propertyGallerySchema, TPropertyGalleryClientForm } from "@/schemas/lodging/property/property.gallery.schema";
 import { roomGallerySchema, TRoomGalleryClientForm } from "@/schemas/lodging/room/room.gallery.schema";
@@ -43,7 +43,7 @@ export async function submitProperty(formData: TPropertyBasicForm, param?: strin
  * @returns 
  */
 export async function submitPropertyAmenities(formData: TPropertyAmenitiesClientForm, param: string) {
-    const validationFields = propertyAmenitiesClientToServerSchema.safeParse(formData)
+    const validationFields = propertyAmenitiesClient2ServerSchema.safeParse(formData)
     if (!validationFields.success) {
         return {
             message: "Data tempered",
@@ -59,7 +59,7 @@ export async function submitPropertyAmenities(formData: TPropertyAmenitiesClient
 }
 
 export async function submitPropertyRules(formData: TPropertyRulesClientForm, param: string) {
-    const validationFields = propertyRulesClientToServerSchema.safeParse(formData)
+    const validationFields = propertyRulesClient2ServerSchema.safeParse(formData)
     if (!validationFields.success) {
         return {
             message: "Data tempered",

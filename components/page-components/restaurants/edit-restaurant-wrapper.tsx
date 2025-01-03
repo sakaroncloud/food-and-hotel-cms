@@ -8,15 +8,18 @@ import { cn } from "@/lib/utils/utils"
 import { TAddressForm } from "@/schemas/schema.address"
 import { TAsyncGallery } from "@/lib/types/upload.type"
 import { MultiStepTabs } from "@/components/form/multi-step-tabs"
+import { TRestaurantBasicForm } from "@/schemas/fooding/restaurant/restaurant-basic.schema"
+import { notFound } from "next/navigation"
+import { RestaurantBasicForm } from "./forms/restaurant-basic-form"
 
 type Props = {
-    generalFormValues?: TPropertyBasicForm & { id: string, slug: string };
+    generalFormValues?: TRestaurantBasicForm & { id: number };
     galleries?: TAsyncGallery;
     address?: TAddressForm;
 }
 
 
-export const EditRestaurantWrapper = ({ address, galleries, generalFormValues, }: Props) => {
+export const EditRestaurantWrapper = ({ address, galleries, generalFormValues }: Props) => {
     const [activeTab, setActiveTab] = useState(0)
 
     const tabs = [
@@ -57,9 +60,9 @@ export const EditRestaurantWrapper = ({ address, galleries, generalFormValues, }
     ]
 
 
-    // if (!generalFormValues) {
-    //     notFound()
-    // }
+    if (!generalFormValues) {
+        notFound()
+    }
 
     return (
         <div className="space-y-6">
@@ -67,6 +70,9 @@ export const EditRestaurantWrapper = ({ address, galleries, generalFormValues, }
             <ScrollArea className="px-4 h-[calc(100vh-200px)]">
                 <ScrollBar />
                 <div className={cn("hidden", activeTab == 0 && "block")}>
+                    <RestaurantBasicForm
+                        formValues={generalFormValues}
+                    />
                 </div>
                 <div className={cn("hidden", activeTab == 1 && "block")}>
 

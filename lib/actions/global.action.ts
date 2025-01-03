@@ -6,7 +6,7 @@ import { getSession } from "./session";
 
 type Option = {
     ENDPOINT: string;
-    PARAM?: string;
+    PARAM?: string | number;
     METHOD: "POST" | "PATCH" | "DELETE"
     DATA: any;
 }

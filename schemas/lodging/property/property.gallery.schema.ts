@@ -4,7 +4,7 @@ export const propertyGallerySchema = z.object({
     galleryIds: z.array(z.string().uuid()).optional(),
 })
 
-export const propertyGalleryServerToClientSchema = z.object({
+export const propertyGalleryServer2ClientSchema = z.object({
     galleryIds: z.array(
         z.object({
             id: z.string(),
