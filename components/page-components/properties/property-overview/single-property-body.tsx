@@ -3,7 +3,7 @@ import { API_ROUTES } from "@/lib/routes";
 import { Property } from "@/lib/types/property.types";
 import { ResponseWithNoMeta } from "@/lib/types/response.type";
 import { RestaurantBodyCard } from "../../restaurants/restaurant-overview/restaurant-body/restaurant-body-card";
-import { Calendar, CircleDollarSign, DoorClosed } from "lucide-react";
+import { Calendar, CircleDollarSign, DoorClosed, GalleryHorizontalIcon } from "lucide-react";
 import { formatDate } from "@/lib/utils/utils";
 
 type Props = {
@@ -36,6 +36,14 @@ export const SinglePropertyBody = async ({ propertyId }: Props) => {
                     label={"Total Rooms"}
                     iconColor={"text-blue-500"}
                     link={`/properties/${property.slug}/rooms`}
+                />
+
+                <RestaurantBodyCard
+                    Icon={GalleryHorizontalIcon}
+                    value={10}
+                    label={"Media"}
+                    iconColor={"text-blue-500"}
+                    link={`/properties/${property.slug}/medias`}
                 />
 
                 <RestaurantBodyCard

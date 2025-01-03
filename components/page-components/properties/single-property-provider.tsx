@@ -1,5 +1,5 @@
 import React from 'react'
-import { PropertyHeroSection } from './property-overview/property-overview-header';
+import { PropertyHeroSection } from './property-overview/property-hero-section';
 
 type Props = {
     propertySlug: string;

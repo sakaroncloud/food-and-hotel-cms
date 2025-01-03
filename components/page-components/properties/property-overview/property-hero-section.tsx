@@ -31,16 +31,15 @@ export const PropertyHeroSection = async ({ propertyId }: Props) => {
     ]
         .filter(Boolean) // Removes undefined or empty values
 
-    const galleries = result?.data?.galleries
-    console.log(formattedAddress)
+    // const galleries = result?.data?.galleries
     return (
         <div>
             <div className='h-[220px] bg-slate-100 shadow-sm rounded-xl relative flex gap-6 flex-wrap'>
-                {galleries?.map((gallery) => (
+                {/* {galleries?.map((gallery) => (
                     <div key={gallery.id} className='w-[300px] h-[200px] bg-slate-100 shadow-sm rounded-xl relative'>
-                        <FallbackImage type='rectangle' height={220} width={300} src={BACKEND_URL + "/" + gallery.url} alt={"image"} className='object-cover w-full h-full' />
+                        <FallbackImage type='rectangle' height={220} width={300} src={ gallery.url} alt={"image"} className='object-cover w-full h-full' />
                     </div>
-                ))}
+                ))} */}
             </div>
 
             <div className='p-2 rounded-xl max-w-[1300px] mx-auto  flex items-end gap-4'>

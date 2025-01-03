@@ -36,6 +36,7 @@ export namespace Property {
         rules?: TPropertyRules;
         nearestLocations?: TPropertyLocation[];
         galleries?: TAsyncGallery;
+        uploads?: TAsyncGallery;
         address?: TAddress;
         totalRooms: number;
     };

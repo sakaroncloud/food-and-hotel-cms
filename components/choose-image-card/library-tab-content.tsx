@@ -7,6 +7,7 @@ import { ChooseImageDialogClose } from "./dialog-close";
 import { TAsyncGallery } from "@/lib/types/upload.type";
 import { cn } from "@/lib/utils/utils";
 import { BACKEND_URL } from "@/lib/constants";
+import FallbackImage from "../fallback-image";
 
 type LibraryProps = {
     gallery: TAsyncGallery,
@@ -59,8 +60,9 @@ export const LibraryContent = ({ gallery, allowMultiple, fieldId, value, hasNext
                                 }
                             }}
                         >
-                            <Image
-                                src={BACKEND_URL + "/" + image.url}
+                            <FallbackImage
+                                type="square"
+                                src={image.url}
                                 alt={image.originalName}
                                 width={200}
                                 height={200}
@@ -68,7 +70,7 @@ export const LibraryContent = ({ gallery, allowMultiple, fieldId, value, hasNext
                             />
                             <div
                                 className={cn(
-                                    "absolute inset-0 size-[140px]  hover:border-blue-500 border-2 border-transparent rounded transition-all  ease-in",
+                                    "absolute inset-0 size-[140px] flex p-1 items-end bg-gray-100/10 group  hover:border-blue-500 border-2 border-transparent rounded transition-all  ease-in",
                                     !allowMultiple &&
                                     value === image.id &&
                                     "border-blue-500 border-4",
@@ -79,7 +81,9 @@ export const LibraryContent = ({ gallery, allowMultiple, fieldId, value, hasNext
                                     "border-blue-500 border-4"
                                 )}
                             >
-                                {image.originalName}
+                                <span className="inline-block text-[10px] text-white line-clamp-1 bg-primary rounded-xl px-2 py-1 ">
+                                    {image.originalName}
+                                </span>
                             </div>
                         </div>
                     );

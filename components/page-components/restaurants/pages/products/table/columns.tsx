@@ -45,7 +45,7 @@ export const columns: ColumnDef<Restaurant.Product.TProduct & {
                 return (
                     <div className="flex items-center gap-2">
                         <div className="p-1 border border-slate-200 bg-white rounded-lg size-[41px] flex items-center justify-center">
-                            <FallbackImage type="square" src={BACKEND_URL + "/" + image} alt={row.original.name} width={40} height={40} errorMessage="No Image" errorClassName="h-10 w-10 text-xs text-primary" className="rounded-lg object-cover h-full w-full" />
+                            <FallbackImage type="square" src={image || ""} alt={row.original.name} width={40} height={40} errorMessage="No Image" errorClassName="h-10 w-10 text-xs text-primary" className="rounded-lg object-cover h-full w-full" />
                         </div>
                         <div className="text-sm font-medium capitalize">{row.original.name}</div>
                     </div>

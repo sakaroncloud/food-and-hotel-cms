@@ -1,4 +1,4 @@
-import { PropertyHeroSection } from "@/components/page-components/properties/property-overview/property-overview-header"
+import { PropertyHeroSection } from "@/components/page-components/properties/property-overview/property-hero-section"
 import { SinglePropertyBody } from "@/components/page-components/properties/property-overview/single-property-body"
 
 type Props = {

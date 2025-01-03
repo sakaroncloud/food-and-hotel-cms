@@ -10,6 +10,7 @@ import {
 import Image from "next/image";
 
 import Logo from "@/public/logo.png"
+import FallbackImage from "../fallback-image";
 
 type Props = {
     cardTitle: string;
@@ -22,7 +23,8 @@ const AuthWrapper = ({ children, cardTitle, cardDescription }: Props) => {
 
         <div className="space-y-4">
             <div className="w-fit mx-auto">
-                <Image
+                <FallbackImage
+                    type="rectangle"
                     src={Logo}
                     alt="Site Logo"
                     height={80}

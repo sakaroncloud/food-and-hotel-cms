@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/sidebar"
 import Image from "next/image"
 import Logo from "@/public/white-logo-icon.png"
+import FallbackImage from "../fallback-image"
 
 export function SidebarLogoArea() {
 
@@ -22,7 +23,8 @@ export function SidebarLogoArea() {
                     className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                 >
                     <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-sidebar-primary-foreground">
-                        <Image className="size-4" src={Logo}
+                        <FallbackImage className="size-4" src={Logo}
+                            type="square"
                             height={30}
                             width={30}
                             alt="logo"

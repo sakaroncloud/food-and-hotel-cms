@@ -7,6 +7,8 @@ import { roomBasicFormSchema, TRoomBasicForm } from "@/schemas/lodging/room/room
 import { Property } from "../types/property.types"
 import { roomAmenitiesServerToClientSchema, TRoomAmenities, TRoomAmenitiesClientForm } from "@/schemas/lodging/room/room-amenities.schema"
 import { roomRulesServerToClientSchema, TRoomRulesClientForm } from "@/schemas/lodging/room/room-rules.schema"
+import { TAsyncGallery } from "../types/upload.type"
+import { propertyGalleryServerToClientSchema, TPropertyGalleryClientForm } from "@/schemas/lodging/property/property.gallery.schema"
 
 
 /**
@@ -107,6 +109,17 @@ export const parseRoomAmenitiesFromServerToClient = (roomFromServer?: any): TRoo
 export const parseRoomRulesFromServerToClient = (roomFromServer?: any): TRoomRulesClientForm | undefined => {
     console.log(roomFromServer)
     const validatedFields = roomRulesServerToClientSchema.safeParse(roomFromServer)
+    if (validatedFields.success) {
+        return validatedFields.data
+    }
+    return undefined
+}
+
+export const parsePropertyGalleryFromServerToClient = (gallery: any): TPropertyGalleryClientForm | undefined => {
+    const validatedFields = propertyGalleryServerToClientSchema.safeParse({
+        galleryIds: gallery
+    })
+
     if (validatedFields.success) {
         return validatedFields.data
     }

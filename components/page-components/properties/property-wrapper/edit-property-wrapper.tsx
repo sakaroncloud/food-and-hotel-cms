@@ -13,9 +13,10 @@ import { TPropertyRulesClientForm } from "@/schemas/lodging/property/property-ru
 import { PropertyLocationsForm } from "../form/property-locations-form"
 import { TPropertyLocationsForm } from "@/schemas/lodging/property/property-locations.schema"
 import { PropertyGalleryForm } from "../form/property-gallery-form"
-import { TAsyncGallery } from "@/lib/types/upload.type"
 import { PropertyAddressForm } from "../form/property-address-form"
 import { TAddressForm } from "@/schemas/schema.address"
+import { TPropertyGalleryClientForm } from "@/schemas/lodging/property/property.gallery.schema"
+import { TAsyncGallery } from "@/lib/types/upload.type"
 
 type Props = {
     generalFormValues: TPropertyBasicForm & { id: string, slug: string };
@@ -55,7 +56,7 @@ export const EditPropertyWrapper = ({ address, amenities, galleries, generalForm
         {
             label: "Gallery",
             value: "gallery",
-            published: galleries !== undefined && galleries !== null
+            published: galleries !== undefined && galleries !== null && galleries?.length > 0
         },
 
         {
@@ -64,6 +65,8 @@ export const EditPropertyWrapper = ({ address, amenities, galleries, generalForm
             published: address !== undefined && address !== null
         }
     ]
+
+
 
     return (
         <div className="space-y-6">
@@ -93,9 +96,9 @@ export const EditPropertyWrapper = ({ address, amenities, galleries, generalForm
                     />
                 </div>
                 <div className={cn("hidden", activeTab == 4 && "block")}>
-                    <PropertyGalleryForm propertyId={generalFormValues?.id} defaultImages={
-                        galleries?.map((gallery) => ({ id: gallery.id, url: gallery.url })) || []
-                    } />
+                    <PropertyGalleryForm propertyId={generalFormValues?.id}
+                        defaultImages={galleries}
+                    />
                 </div>
 
                 <div className={cn("hidden", activeTab == 5 && "block")}>

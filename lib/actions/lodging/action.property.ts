@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 import { propertyAmenitiesClientToServerSchema, TPropertyAmenitiesClientForm } from "@/schemas/lodging/property/property-amenities.schema";
 import { propertyRulesClientToServerSchema, TPropertyRulesClientForm } from "@/schemas/lodging/property/property-rules.schema";
 import { propertyLocationsSchema, TPropertyLocationsForm } from "@/schemas/lodging/property/property-locations.schema";
+import { propertyGallerySchema, TPropertyGalleryClientForm } from "@/schemas/lodging/property/property.gallery.schema";
 
 
 export async function submitProperty(formData: TPropertyBasicForm, param?: string) {
@@ -86,4 +87,20 @@ export async function submitPropertyLocations(formData: TPropertyLocationsForm, 
 
 }
 
+
+export async function submitPropertyGallery(formData: TPropertyGalleryClientForm, param: string) {
+
+    const validationFields = propertyGallerySchema.safeParse(formData)
+    if (!validationFields.success) {
+        return {
+            message: "Data tempered",
+        };
+    }
+
+    return await SubmitHandler({
+        ENDPOINT: API_ROUTES.property.endpoint + "/" + param + "/gallery",
+        METHOD: "PATCH",
+        DATA: validationFields.data,
+    })
+}
 

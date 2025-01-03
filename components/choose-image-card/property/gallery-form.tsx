@@ -75,7 +75,7 @@ export const GalleryForm = (
                                         return (
                                             <div className="w-fit relative" key={index}>
                                                 <FallbackImage
-                                                    src={BACKEND_URL + "/" + image.url}
+                                                    src={image.url}
                                                     alt="image"
                                                     type="rectangle"
                                                     height={200}

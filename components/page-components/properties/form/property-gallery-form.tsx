@@ -1,12 +1,14 @@
 import { GalleryForm } from '@/components/choose-image-card/property/gallery-form'
-import { FormFieldWrapper } from '@/components/form/form-field-wrapper'
+import { FormFieldWrapper, FormFooter } from '@/components/form/form-field-wrapper'
 import { Form } from '@/components/ui/form'
+import { submitPropertyGallery } from '@/lib/actions/lodging/action.property'
 import { API_ROUTES } from '@/lib/routes'
 import { TDefaultImage } from '@/lib/types/upload.type'
+import { propertyGallerySchema, TPropertyGalleryClientForm } from '@/schemas/lodging/property/property.gallery.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import React from 'react'
+import React, { useTransition } from 'react'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import toast from 'react-hot-toast'
 
 type Props = {
     propertyId: string;
@@ -14,22 +16,36 @@ type Props = {
     defaultImages?: TDefaultImage[];
 }
 
-const schema = z.object({
-    galleryIds: z.array(z.string().uuid()).optional(),
-})
 
-export const PropertyGalleryForm = ({ defaultImages, propertyId, roomId }: Props) => {
+
+export const PropertyGalleryForm = ({ defaultImages, propertyId }: Props) => {
+
     const formValues = {
         galleryIds: defaultImages ? defaultImages.map((image) => image.id) : []
     }
-    const form = useForm<z.infer<typeof schema>>({
-        resolver: zodResolver(schema),
+    const form = useForm<TPropertyGalleryClientForm>({
+        resolver: zodResolver(propertyGallerySchema),
         defaultValues: formValues || {}
     })
 
+    const [isPending, startTransition] = useTransition();
+
+    const onSubmit = (values: TPropertyGalleryClientForm) => {
+        console.log(values, "values")
+        startTransition(async () => {
+            const response = await submitPropertyGallery(values, propertyId);
+            if (response.success == true) {
+                toast.success(response.message)
+            }
+            else {
+                toast.error(response.message || "Something went wrong")
+            }
+        })
+    };
+
     return (
         <Form {...form}>
-            <form>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
                 <FormFieldWrapper
                     description='Upload your property image gallery here Image size should not be more than  2 MB'
                     label='Gallery'
@@ -43,6 +59,11 @@ export const PropertyGalleryForm = ({ defaultImages, propertyId, roomId }: Props
                         uploadEndPoint={API_ROUTES.propertyImage.endpoint + "/" + propertyId}
                     />
                 </FormFieldWrapper>
+
+                <FormFooter
+                    buttonLabel={"Update Gallery"}
+                    pending={isPending}
+                />
             </form>
         </Form>
     )

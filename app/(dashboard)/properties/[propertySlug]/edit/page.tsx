@@ -3,7 +3,7 @@ import { EditPropertyWrapper } from '@/components/page-components/properties/pro
 import { API_ROUTES } from '@/lib/routes'
 import { Property } from '@/lib/types/property.types'
 import { ResponseWithNoMeta } from '@/lib/types/response.type'
-import { parsePAddressFromServerToClient, parsePAmenitiesFromServerToClient, parsePLocationsFromServerToClient, parsePRulesFromServerToClient } from '@/lib/utils/property.utils'
+import { parsePAddressFromServerToClient, parsePAmenitiesFromServerToClient, parsePLocationsFromServerToClient, parsePropertyGalleryFromServerToClient, parsePRulesFromServerToClient } from '@/lib/utils/property.utils'
 import { TPropertyBasicForm } from '@/schemas/lodging/property/property-basic.schema'
 import { notFound } from 'next/navigation'
 type Props = {
@@ -37,8 +37,12 @@ const EditPropertyPage = async ({ params }: Props) => {
     const aminities = parsePAmenitiesFromServerToClient(result.data?.amenities)
     const rules = parsePRulesFromServerToClient(result.data?.rules)
     const locations = parsePLocationsFromServerToClient(result.data?.nearestLocations)
-    const galleries = result.data?.galleries
+
     const address = parsePAddressFromServerToClient(result.data?.address)
+    const galleries = result.data.galleries
+
+
+
 
     return (
         <EditPropertyWrapper address={address} galleries={galleries} generalFormValues={generalData} amenities={aminities} rules={rules} nearestLocations={locations} />

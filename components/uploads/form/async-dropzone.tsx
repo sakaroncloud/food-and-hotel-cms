@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { InboxOutlined } from "@ant-design/icons";
 import type { UploadProps } from "antd";
 import { Upload } from "antd";
-import { API_ROUTES } from "@/lib/routes";
 import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
 import { UploadHandler } from "@/lib/actions/action.upload";
@@ -13,9 +12,10 @@ const { Dragger } = Upload;
 type Props = {
     setShowLibrary?: React.Dispatch<React.SetStateAction<boolean>>;
     endPoint: string;
+    multiple?: boolean;
 };
 
-export const AsyncDropZone = ({ endPoint, setShowLibrary }: Props) => {
+export const AsyncDropZone = ({ endPoint, setShowLibrary, multiple = false }: Props) => {
     const [fileList, setFileList] = useState<any[]>([]);
     const queryClient = useQueryClient()
 
@@ -43,6 +43,7 @@ export const AsyncDropZone = ({ endPoint, setShowLibrary }: Props) => {
             );
 
             if (response.statusCode == 201) {
+                console.log(Date.now())
                 // Display success message
                 toast.success(`Uploaded successfully.`);
                 // Call `onSuccess` with a proper response
@@ -76,9 +77,8 @@ export const AsyncDropZone = ({ endPoint, setShowLibrary }: Props) => {
     return (
         <div >
             <Dragger
-
                 name="file"
-                multiple={false}
+                multiple={multiple}
                 listType="picture-card"
                 customRequest={handleCustomRequest}
 

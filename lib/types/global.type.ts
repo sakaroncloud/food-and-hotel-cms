@@ -13,3 +13,11 @@ export type CardItemProps = TCardLabel & {
     Icon: LucideIcon;
     iconColor: ClassNameValue;
 }
+
+type TSlug = "propertySlug" | "roomSlug" | "restaurantSlug" | "citySlug"
+
+export type TParams = {
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+    params: Promise<Record<TSlug, string>>;
+}
+

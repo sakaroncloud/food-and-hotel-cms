@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils/utils";
 
 type Props = {
   errorClassName?: string;
-  src: string | StaticImageData;
+  src: (string | StaticImageData);
   type: "square" | "rectangle" | "portrait";
   errorMessage?: string
   alt?: string;
