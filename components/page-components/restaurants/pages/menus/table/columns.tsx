@@ -19,7 +19,7 @@ import { MenuFormModal } from "../menu-form-modal"
 import { Restaurant } from "@/lib/types/restaurant.types"
 
 export const columns: ColumnDef<Restaurant.Menu.TMenu & {
-    restaurant: Pick<Restaurant.TRestaurant, "id" | "slug">
+    restaurant: Pick<Restaurant.TRest, "id" | "slug">
 }>[] = [
         {
             accessorKey: "id",

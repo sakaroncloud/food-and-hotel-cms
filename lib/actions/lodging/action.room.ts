@@ -1,8 +1,8 @@
 import { roomBasicFormSchema, TRoomBasicForm } from "@/schemas/lodging/room/room-basic.schema";
 import { SubmitHandler } from "../global.action";
 import { API_ROUTES } from "@/lib/routes";
-import { roomAmenitiesClientSchema, roomAmenitiesClient2ServerSchema, TRoomAmenitiesClientForm } from "@/schemas/lodging/room/room-amenities.schema";
-import { roomRulesClient2ServerSchema, TRoomRulesClientForm } from "@/schemas/lodging/room/room-rules.schema";
+import { roomAmenitiesClientSchema, roomAmenitiesC2SSchema, TRoomAmenitiesClientForm } from "@/schemas/lodging/room/room-amenities.schema";
+import { roomRulesC2SSchema, TRoomRulesClientForm } from "@/schemas/lodging/room/room-rules.schema";
 
 export async function submitRoom(formData: TRoomBasicForm, param?: string) {
     const validationFields = roomBasicFormSchema.safeParse(formData)
@@ -22,7 +22,7 @@ export async function submitRoom(formData: TRoomBasicForm, param?: string) {
 
 export async function updateRoomAmenities(formData: TRoomAmenitiesClientForm, param: string | number) {
     console.log(formData)
-    const validationFields = roomAmenitiesClient2ServerSchema.safeParse(formData)
+    const validationFields = roomAmenitiesC2SSchema.safeParse(formData)
     if (!validationFields.success) {
         return {
             message: "Data tempered",
@@ -39,7 +39,7 @@ export async function updateRoomAmenities(formData: TRoomAmenitiesClientForm, pa
 }
 
 export async function updateRoomRules(formData: TRoomRulesClientForm, param: string | number) {
-    const validationFields = roomRulesClient2ServerSchema.safeParse(formData)
+    const validationFields = roomRulesC2SSchema.safeParse(formData)
     if (!validationFields.success) {
         return {
             message: "Data tempered",

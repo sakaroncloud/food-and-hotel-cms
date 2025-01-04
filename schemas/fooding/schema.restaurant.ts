@@ -48,7 +48,7 @@ export const restaurantFormSchema = z.object({
     }),
 
     isPureVeg: z.boolean().default(false),
-    featuredImage: z.string().uuid({
+    bannerImage: z.string().uuid({
         message: "Please select image"
     }).optional().nullable(),
 
@@ -80,9 +80,9 @@ export const restaurantFormSchema = z.object({
 
 })
 
-export type TRestaurantForm = z.infer<typeof restaurantFormSchema>
+export type TRestForm = z.infer<typeof restaurantFormSchema>
 
-export const restaurantDefaultValues: TRestaurantForm = {
+export const restaurantDefaultValues: TRestForm = {
     // address : null 
     // TODO: also add address while addings
     email: "",
@@ -96,7 +96,7 @@ export const restaurantDefaultValues: TRestaurantForm = {
     }],
     description: "No wonder people are stringing up lights. Gift yourself a tangy, saucy McRib for a limited time and earn points toward free food too.* It’s only here for the holidays.",
     //    email: null;
-    featuredImage: "",
+    bannerImage: "",
     // hasGlobalOffer: {
     //     heading: "13% off",
     //     subHeading: "upto Rs 50",

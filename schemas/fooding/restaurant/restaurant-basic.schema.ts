@@ -20,12 +20,12 @@ const dayOfWeekSchema = z.array(z.object({
     label: z.string()
 })).optional()
 
-const dayOfWeekServer2Client = z.array(z.nativeEnum(EWeekDay)).transform((values) => values.map((value) => ({
+const dayOfWeekS2C = z.array(z.nativeEnum(EWeekDay)).transform((values) => values.map((value) => ({
     value: value,
     label: value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()
 })))
 
-const dayOfWeekClient2Server = z.array(z.nativeEnum(EWeekDay)).transform((values) => values.map((value) => value))
+const dayOfWeekC2S = z.array(z.nativeEnum(EWeekDay)).transform((values) => values.map((value) => value))
 
 export const weekDaysOptions = Object.keys(EWeekDay).map((key) => ({
     label: key.charAt(0).toUpperCase() + key.slice(1).toLowerCase(),
@@ -62,20 +62,20 @@ export const restaurantBasicFormSchema = basicSchema.extend({
     dayOfWeek: dayOfWeekSchema,
 })
 
-export const restaurantBasicServer2ClientSchema = basicSchema.extend({
+export const restaurantBasicS2CSchema = basicSchema.extend({
     id: z.number(),
-    dayOfWeek: dayOfWeekServer2Client,
+    dayOfWeek: dayOfWeekS2C,
 })
 
-export const restaurantBasicClient2ServerSchema = basicSchema.extend({
-    dayOfWeek: dayOfWeekClient2Server,
+export const restaurantBasicC2SSchema = basicSchema.extend({
+    dayOfWeek: dayOfWeekC2S,
 })
 
-export type TRestaurantBasicForm = z.infer<typeof restaurantBasicFormSchema>
-export type TRestaurantBasicServer2Client = z.infer<typeof restaurantBasicServer2ClientSchema>
-export type TRestaurantBasicClient2Server = z.infer<typeof restaurantBasicClient2ServerSchema>
+export type TRestBasicForm = z.infer<typeof restaurantBasicFormSchema>
+export type TRestBasicS2C = z.infer<typeof restaurantBasicS2CSchema>
+export type TRestBasicC2S = z.infer<typeof restaurantBasicC2SSchema>
 
-export const restaurantBasicDefaultValues: TRestaurantBasicForm = {
+export const restaurantBasicDefaultValues: TRestBasicForm = {
     email: "",
     phone: "",
     closingTime: "",

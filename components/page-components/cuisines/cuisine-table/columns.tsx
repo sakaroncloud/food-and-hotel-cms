@@ -38,7 +38,7 @@ export const columns: ColumnDef<Restaurant.Cuisine.TCuisine>[] = [
             <DataTableColumnHeader column={column} title="Name" />
         ),
         cell: ({ row }) => {
-            const image = row.original.featuredImage?.url
+            const image = row.original.bannerImage?.url
             return (
                 <div className="flex items-center gap-2">
                     <div className="p-1 border border-slate-200 bg-white rounded-lg"> <FallbackImage type="square" src={image || "/"} alt={row.original.name} width={40} height={40} className="rounded-lg" /></div>

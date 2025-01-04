@@ -1,14 +1,14 @@
-import { propertyAmenitiesServer2ClientSchema, TPropertyAmenitiesClientForm } from "@/schemas/lodging/property/property-amenities.schema"
+import { propertyAmenitiesS2CSchema, TPropertyAmenitiesClientForm } from "@/schemas/lodging/property/property-amenities.schema"
 import { propertyLocationsSchema, propertyLocationsServerSchema, TPropertyLocationsForm } from "@/schemas/lodging/property/property-locations.schema"
-import { propertyRulesServer2ClientSchema, TPropertyRulesClientForm } from "@/schemas/lodging/property/property-rules.schema"
+import { propertyRulesS2CSchema, TPropertyRulesClientForm } from "@/schemas/lodging/property/property-rules.schema"
 import { addressFormSchema, TAddressForm } from "@/schemas/schema.address"
 import { TAddress } from "../types/address.types"
 import { roomBasicFormSchema, TRoomBasicForm } from "@/schemas/lodging/room/room-basic.schema"
 import { Property } from "../types/property.types"
-import { roomAmenitiesServer2ClientSchema, TRoomAmenities, TRoomAmenitiesClientForm } from "@/schemas/lodging/room/room-amenities.schema"
-import { roomRulesServer2ClientSchema, TRoomRulesClientForm } from "@/schemas/lodging/room/room-rules.schema"
+import { roomAmenitiesS2CSchema, TRoomAmenities, TRoomAmenitiesClientForm } from "@/schemas/lodging/room/room-amenities.schema"
+import { roomRulesS2CSchema, TRoomRulesClientForm } from "@/schemas/lodging/room/room-rules.schema"
 import { TAsyncGallery } from "../types/upload.type"
-import { propertyGalleryServer2ClientSchema, TPropertyGalleryClientForm } from "@/schemas/lodging/property/property.gallery.schema"
+import { propertyGalleryS2CSchema, TPropertyGalleryClientForm } from "@/schemas/lodging/property/property.gallery.schema"
 
 
 /**
@@ -17,8 +17,8 @@ import { propertyGalleryServer2ClientSchema, TPropertyGalleryClientForm } from "
  * 
  * @returns TPropertyAmenitiesClientForm | null
  */
-export const parsePAmenitiesFromServer2Client = (amenitiesFromServer: any): TPropertyAmenitiesClientForm | undefined => {
-    const validatedFields = propertyAmenitiesServer2ClientSchema.safeParse(amenitiesFromServer)
+export const parsePAmenitiesFromS2C = (amenitiesFromServer: any): TPropertyAmenitiesClientForm | undefined => {
+    const validatedFields = propertyAmenitiesS2CSchema.safeParse(amenitiesFromServer)
     if (validatedFields.success) {
         const data = validatedFields.data
         return data
@@ -32,8 +32,8 @@ export const parsePAmenitiesFromServer2Client = (amenitiesFromServer: any): TPro
  * 
  * @returns TPropertyRulesClientForm | null
  */
-export const parsePRulesFromServer2Client = (rulesFromServer: any): TPropertyRulesClientForm | undefined => {
-    const validatedFields = propertyRulesServer2ClientSchema.safeParse(rulesFromServer)
+export const parsePRulesFromS2C = (rulesFromServer: any): TPropertyRulesClientForm | undefined => {
+    const validatedFields = propertyRulesS2CSchema.safeParse(rulesFromServer)
     if (validatedFields.success) {
         const data = validatedFields.data
         return data
@@ -42,7 +42,7 @@ export const parsePRulesFromServer2Client = (rulesFromServer: any): TPropertyRul
 }
 
 
-export const parsePLocationsFromServer2Client = (locationsFromServer: any): TPropertyLocationsForm | undefined => {
+export const parsePLocationsFromS2C = (locationsFromServer: any): TPropertyLocationsForm | undefined => {
     const validatedFields = propertyLocationsServerSchema.safeParse(locationsFromServer)
     if (validatedFields.success) {
         return {
@@ -52,7 +52,7 @@ export const parsePLocationsFromServer2Client = (locationsFromServer: any): TPro
     return undefined
 }
 
-export const parsePAddressFromServer2Client = (addressFromServer?: TAddress): TAddressForm | undefined => {
+export const parsePAddressFromS2C = (addressFromServer?: TAddress): TAddressForm | undefined => {
     if (!addressFromServer) return undefined
     return {
         ...addressFromServer,
@@ -89,7 +89,7 @@ export const parsePAddressFromServer2Client = (addressFromServer?: TAddress): TA
 //     return propertyIdMatch ? propertyIdMatch[1] : null;
 // }
 
-export const parseRoomGeneralInfoFromServer2Client = (roomFromServer: any): TRoomBasicForm | undefined => {
+export const parseRoomGeneralInfoFromS2C = (roomFromServer: any): TRoomBasicForm | undefined => {
     const validatedFields = roomBasicFormSchema.safeParse(roomFromServer)
     if (validatedFields.success) {
         return validatedFields.data
@@ -98,25 +98,25 @@ export const parseRoomGeneralInfoFromServer2Client = (roomFromServer: any): TRoo
     return undefined
 }
 
-export const parseRoomAmenitiesFromServer2Client = (roomFromServer?: any): TRoomAmenitiesClientForm | undefined => {
-    const validatedFields = roomAmenitiesServer2ClientSchema.safeParse(roomFromServer)
+export const parseRoomAmenitiesFromS2C = (roomFromServer?: any): TRoomAmenitiesClientForm | undefined => {
+    const validatedFields = roomAmenitiesS2CSchema.safeParse(roomFromServer)
     if (validatedFields.success) {
         return validatedFields.data
     }
     return undefined
 }
 
-export const parseRoomRulesFromServer2Client = (roomFromServer?: any): TRoomRulesClientForm | undefined => {
+export const parseRoomRulesFromS2C = (roomFromServer?: any): TRoomRulesClientForm | undefined => {
     console.log(roomFromServer)
-    const validatedFields = roomRulesServer2ClientSchema.safeParse(roomFromServer)
+    const validatedFields = roomRulesS2CSchema.safeParse(roomFromServer)
     if (validatedFields.success) {
         return validatedFields.data
     }
     return undefined
 }
 
-export const parsePropertyGalleryFromServer2Client = (gallery: any): TPropertyGalleryClientForm | undefined => {
-    const validatedFields = propertyGalleryServer2ClientSchema.safeParse({
+export const parsePropertyGalleryFromS2C = (gallery: any): TPropertyGalleryClientForm | undefined => {
+    const validatedFields = propertyGalleryS2CSchema.safeParse({
         galleryIds: gallery
     })
 

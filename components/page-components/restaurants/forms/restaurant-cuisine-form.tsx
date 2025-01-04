@@ -6,7 +6,7 @@ import { submitRestaurantCuisine } from '@/lib/actions/food/action.restaurant';
 import { API_ROUTES } from '@/lib/routes';
 import { ResponseWithMeta } from '@/lib/types/response.type';
 import { Restaurant } from '@/lib/types/restaurant.types';
-import { restaurantCuisineDefaultValues, restaurantCuisineFormSchema, TRestaurantCuisineForm } from '@/schemas/fooding/restaurant/restaurant-cuisine.schema';
+import { restaurantCuisineDefaultValues, restaurantCuisineFormSchema, TRestCuisineForm } from '@/schemas/fooding/restaurant/restaurant-cuisine.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
@@ -14,7 +14,7 @@ import toast from 'react-hot-toast';
 
 type Props = {
     restaurantId: string | number;
-    formValues?: TRestaurantCuisineForm;
+    formValues?: TRestCuisineForm;
 }
 
 export const RestaurantCuisineForm = ({ restaurantId, formValues }: Props) => {
@@ -23,7 +23,7 @@ export const RestaurantCuisineForm = ({ restaurantId, formValues }: Props) => {
         queryKey: API_ROUTES.cuisine.queryKey,
     });
 
-    const form = useForm<TRestaurantCuisineForm>({
+    const form = useForm<TRestCuisineForm>({
         resolver: zodResolver(restaurantCuisineFormSchema),
         defaultValues: formValues || restaurantCuisineDefaultValues
     })
@@ -31,7 +31,7 @@ export const RestaurantCuisineForm = ({ restaurantId, formValues }: Props) => {
     const [isPending, startTransition] = useTransition();
 
 
-    const onSubmit = (values: TRestaurantCuisineForm) => {
+    const onSubmit = (values: TRestCuisineForm) => {
         console.log(values)
         startTransition(async () => {
             const response = await submitRestaurantCuisine(values, restaurantId);

@@ -12,13 +12,13 @@ export namespace Restaurant {
             description: string;
             price: number;
             preparationTime: number;
-            featuredImage?: TImage;
+            bannerImage?: TImage;
             menus?: Pick<Menu.TMenu, "id" | "name">[];
         };
 
         export type TProductsResponse = {
             products: TProduct[]
-            restaurant: Pick<TRestaurant, "id" | "slug" | "name">
+            restaurant: Pick<TRest, "id" | "slug" | "name">
         }
     }
     // Sub-NameSpace for Menus
@@ -29,15 +29,15 @@ export namespace Restaurant {
         };
         export type TMenusResponse = {
             menus: TMenu[]
-            restaurant: Pick<TRestaurant, "id" | "slug" | "name">
+            restaurant: Pick<TRest, "id" | "slug" | "name">
         }
     }
 
     export namespace Cuisine {
         export type TCuisine = TBaseWithDescription & {
             description: string;
-            featuredImage?: TImage;
-            restaurants: TRestaurant[];
+            bannerImage?: TImage;
+            restaurants: TRest[];
         };
     }
 
@@ -62,13 +62,13 @@ export namespace Restaurant {
         isPureVeg: boolean;
         isEnabled: boolean;
         logo?: TImage;
-        featuredImage?: TImage;
+        bannerImage?: TImage;
         commissionPercentage: number; // admin-only field
         address?: TAddress;
         dayOfWeek: EWeekDay[];
         openingTime: string;
         closingTime: string;
-        cuisines?: Omit<Cuisine.TCuisine, "featuredImage" | "restaurants" | "slug">[];
+        cuisines?: Omit<Cuisine.TCuisine, "bannerImage" | "restaurants" | "slug">[];
         createdAt: string;
         totalProducts: number;
         totalMenus: number;
@@ -76,7 +76,7 @@ export namespace Restaurant {
         totalUploads: number;
     };
 
-    export type TRestaurant = Omit<TSingleRestaurant, "featuredImage" | "hasGlobalOffer" | "totalProducts" | "totalMenus" | "totalCuisines" | "totalUploads"> & {
+    export type TRest = Omit<TSingleRestaurant, | "totalProducts" | "totalMenus" | "totalCuisines" | "totalUploads"> & {
 
     }
 }

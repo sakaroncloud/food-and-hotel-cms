@@ -50,18 +50,18 @@ export type TResponse<T, HasMeta extends boolean = false> = HasMeta extends true
 
 // export type TCuisine = TBaseWithSlug & {
 //     description: string;
-//     featuredImage?: TImage;
-//     restaurants: TRestaurant[];
+//     bannerImage?: TImage;
+//     restaurants: TRest[];
 // };
 
 // export type TProducts = {
 //     products: TProduct[]
-//     restaurant: Pick<TRestaurant, "id" | "slug" | "name">
+//     restaurant: Pick<TRest, "id" | "slug" | "name">
 // }
 
 // export type TMenus = {
 //     menus: TMenu[]
-//     restaurant: Pick<TRestaurant, "id" | "slug" | "name">
+//     restaurant: Pick<TRest, "id" | "slug" | "name">
 // }
 
 // export type TProduct = TBaseWithSlug & TImage & {
@@ -83,7 +83,7 @@ export type TResponse<T, HasMeta extends boolean = false> = HasMeta extends true
 //     type: EDiscountType;
 //     maxUpTo: number;
 // }
-// export type TRestaurant = TBaseWithSlug & {
+// export type TRest = TBaseWithSlug & {
 //     description: string;
 //     hasGlobalOffer?: TGlobalOffer;
 //     email: string | undefined;
@@ -91,13 +91,13 @@ export type TResponse<T, HasMeta extends boolean = false> = HasMeta extends true
 //     isPureVeg: boolean;
 //     isEnabled: boolean;
 //     logo?: TImage;
-//     featuredImage?: TImage;
+//     bannerImage?: TImage;
 //     commissionPercentage: number; // it is defined for only admin
 //     address?: TAddress;
 //     dayOfWeek: EWeekDay[];
 //     openingTime: string;
 //     closingTime: string;
-//     cuisines?: Omit<TCuisine, "featuredImage" | "restaurants" | "slug">[];
+//     cuisines?: Omit<TCuisine, "bannerImage" | "restaurants" | "slug">[];
 //     totalProducts: number;
 //     totalMenus: number;
 //     totalCuisines: number;

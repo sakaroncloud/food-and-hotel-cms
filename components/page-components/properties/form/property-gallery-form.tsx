@@ -16,10 +16,7 @@ type Props = {
     defaultImages?: TDefaultImage[];
 }
 
-
-
 export const PropertyGalleryForm = ({ defaultImages, propertyId }: Props) => {
-
     const formValues = {
         galleryIds: defaultImages ? defaultImages.map((image) => image.id) : []
     }

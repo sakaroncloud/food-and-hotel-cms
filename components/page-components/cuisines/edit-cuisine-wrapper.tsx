@@ -31,10 +31,10 @@ export const EditCuisineWrapper = async ({ cuisineSlug }: Props) => {
                     {
                         ...result?.data,
                         id: result?.data?.slug,
-                        featuredImage: result?.data?.featuredImage?.id
+                        bannerImage: result?.data?.bannerImage?.id
                     }
                 }
-                defaultImages={result?.data?.featuredImage ? [{ id: result?.data.featuredImage.id, url: result?.data.featuredImage.url }] : []}
+                defaultImages={result?.data?.bannerImage ? [{ id: result?.data.bannerImage.id, url: result?.data.bannerImage.url }] : []}
             />
         </CreatePageWrapper>
     )

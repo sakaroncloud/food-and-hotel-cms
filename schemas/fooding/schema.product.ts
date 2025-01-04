@@ -16,7 +16,7 @@ export const productFormSchema = z.object({
     description: z.string().min(3, {
         message: "Desccription must be at least 3 characters"
     }),
-    featuredImage: z.string().uuid({
+    bannerImage: z.string().uuid({
         message: "Please select image"
     }).optional(),
 })
@@ -29,6 +29,6 @@ export const productDefaultValues: TProductForm = {
     price: 0,
     preparationTime: 0,
     restaurant: "",
-    featuredImage: "",
+    bannerImage: "",
     menus: []
 }

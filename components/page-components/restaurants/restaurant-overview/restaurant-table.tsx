@@ -8,7 +8,7 @@ import { Restaurant } from '@/lib/types/restaurant.types';
 
 export const RestaurantTable = async () => {
 
-    const result = await getData<ResponseWithMeta<Restaurant.TRestaurant[]>>({
+    const result = await getData<ResponseWithMeta<Restaurant.TRest[]>>({
         endPoint: API_ROUTES.restaurant.endpoint,
         tags: ["restaurant"]
     });

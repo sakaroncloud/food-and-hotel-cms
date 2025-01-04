@@ -1,9 +1,10 @@
-import { restaurantBasicServer2ClientSchema, TRestaurantBasicClient2Server, TRestaurantBasicForm } from "@/schemas/fooding/restaurant/restaurant-basic.schema"
-import { restaurantCuisineServer2ClientSchema, TRestaurantCuisineForm } from "@/schemas/fooding/restaurant/restaurant-cuisine.schema"
+import { restaurantBasicS2CSchema, TRestBasicC2S, TRestBasicForm } from "@/schemas/fooding/restaurant/restaurant-basic.schema"
+import { restBrandingS2CSchema, TRestBrandingForm } from "@/schemas/fooding/restaurant/restaurant-branding.schema"
+import { restaurantCuisineS2CSchema, TRestCuisineForm } from "@/schemas/fooding/restaurant/restaurant-cuisine.schema"
 import dayjs from "dayjs"
 
-export const parseRestaurantBasicFormFromServer2Client = (restaurantFromServer: TRestaurantBasicClient2Server): TRestaurantBasicForm & { id: number } | undefined => {
-    const validatedFields = restaurantBasicServer2ClientSchema.safeParse(restaurantFromServer)
+export const parseRestBasicFormFromS2C = (restaurantFromServer: TRestBasicC2S): TRestBasicForm & { id: number } | undefined => {
+    const validatedFields = restaurantBasicS2CSchema.safeParse(restaurantFromServer)
 
     if (validatedFields.success) {
         return {
@@ -15,10 +16,20 @@ export const parseRestaurantBasicFormFromServer2Client = (restaurantFromServer: 
     return undefined
 }
 
-export const parseRestCuisineFromServer2Client = (cuisineFromServer: any): TRestaurantCuisineForm | undefined => {
-    const validatedFields = restaurantCuisineServer2ClientSchema.safeParse(cuisineFromServer)
+export const parseRestCuisineFromS2C = (cuisineFromServer: any): TRestCuisineForm | undefined => {
+    const validatedFields = restaurantCuisineS2CSchema.safeParse(cuisineFromServer)
     if (validatedFields.success) {
         return validatedFields.data
     }
+    return undefined
+}
+
+export const parseRestBrandingFromS2C = (brandingsFromServer: any): TRestBrandingForm | undefined => {
+
+    const validatedFields = restBrandingS2CSchema.safeParse(brandingsFromServer)
+    if (validatedFields.success) {
+        return validatedFields.data
+    }
+
     return undefined
 }

@@ -12,7 +12,7 @@ type Props = {
 
 export const RestaurantTable = async ({ showDeleted }: Props) => {
 
-    const result = await getData<ResponseWithMeta<Restaurant.TRestaurant[]>>({
+    const result = await getData<ResponseWithMeta<Restaurant.TRest[]>>({
         endPoint: API_ROUTES.restaurant.endpoint + "?deleted=" + showDeleted,
         tags: ["restaurant"]
     });

@@ -16,7 +16,7 @@ import { API_ROUTES } from "@/lib/routes"
 import toast from "react-hot-toast"
 import { Restaurant } from "@/lib/types/restaurant.types"
 
-export const columns: ColumnDef<Restaurant.TRestaurant & {
+export const columns: ColumnDef<Restaurant.TRest & {
     isDeleted?: boolean | undefined
 }>[] = [
 

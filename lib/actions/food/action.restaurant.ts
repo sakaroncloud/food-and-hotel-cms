@@ -1,12 +1,13 @@
 "use server"
 
-import { restaurantFormSchema, TRestaurantForm } from "@/schemas/fooding/schema.restaurant";
+import { restaurantFormSchema, TRestForm } from "@/schemas/fooding/schema.restaurant";
 import { SubmitHandler } from "../global.action";
 import { API_ROUTES } from "../../routes";
-import { restaurantBasicFormSchema, TRestaurantBasicForm } from "@/schemas/fooding/restaurant/restaurant-basic.schema";
-import { restaurantCuisineClient2ServerSchema, TRestaurantCuisineForm } from "@/schemas/fooding/restaurant/restaurant-cuisine.schema";
+import { restaurantBasicFormSchema, TRestBasicForm } from "@/schemas/fooding/restaurant/restaurant-basic.schema";
+import { restaurantCuisineC2SSchema, TRestCuisineForm } from "@/schemas/fooding/restaurant/restaurant-cuisine.schema";
+import { restBrandingFormSchema, TRestBrandingForm } from "@/schemas/fooding/restaurant/restaurant-branding.schema";
 
-export async function submitRestaurantBasic(formData: TRestaurantBasicForm, param?: string | number) {
+export async function submitRestaurantBasic(formData: TRestBasicForm, param?: string | number) {
     const validationFields = restaurantBasicFormSchema.safeParse(formData)
     if (!validationFields.success) {
         return {
@@ -26,7 +27,7 @@ export async function submitRestaurantBasic(formData: TRestaurantBasicForm, para
 }
 
 
-export async function submitRestaurant(formData: TRestaurantForm, param?: string) {
+export async function submitRestaurant(formData: TRestForm, param?: string) {
     const validationFields = restaurantFormSchema.safeParse(formData)
     if (!validationFields.success) {
         return {
@@ -55,8 +56,8 @@ export async function submitRestaurant(formData: TRestaurantForm, param?: string
  * Restaurant Cuisine
  */
 
-export async function submitRestaurantCuisine(formData: TRestaurantCuisineForm, param: string | number) {
-    const validationFields = restaurantCuisineClient2ServerSchema.safeParse(formData)
+export async function submitRestaurantCuisine(formData: TRestCuisineForm, param: string | number) {
+    const validationFields = restaurantCuisineC2SSchema.safeParse(formData)
     if (!validationFields.success) {
         return {
             message: "Data tempered",
@@ -72,3 +73,26 @@ export async function submitRestaurantCuisine(formData: TRestaurantCuisineForm, 
     })
 }
 
+
+/**
+ * Restaurant Branding
+ */
+
+
+export async function updateRestaurantBrandings(formData: TRestBrandingForm, param: string | number) {
+    const validationFields = restBrandingFormSchema.safeParse(formData)
+    if (!validationFields.success) {
+        return {
+            message: "Data tempered",
+        };
+    }
+
+    console.log(validationFields.data)
+
+
+    return await SubmitHandler({
+        ENDPOINT: API_ROUTES.restaurant.endpoint + "/" + param + "/brandings",
+        METHOD: "PATCH",
+        DATA: validationFields.data,
+    })
+}

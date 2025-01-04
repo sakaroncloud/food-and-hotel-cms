@@ -32,10 +32,10 @@ const EditProductPage = async ({ params }: Props) => {
                 formValues={{
                     ...product,
                     menus: product?.menus?.map((menu) => ({ value: menu.id, label: menu.name })) || [],
-                    featuredImage: product?.featuredImage?.id,
+                    bannerImage: product?.bannerImage?.id,
                     restaurant: restaurantSlug
                 }}
-                defaultFeaturedImage={product?.featuredImage ? [{ id: product.featuredImage.id, url: product.featuredImage.url }] : []}
+                defaultFeaturedImage={product?.bannerImage ? [{ id: product.bannerImage.id, url: product.bannerImage.url }] : []}
                 restaurantSlug={restaurantSlug} />
         </CreatePageWrapper>
     )

@@ -5,7 +5,7 @@ import { API_ROUTES } from '@/lib/routes'
 import { TParams } from '@/lib/types/global.type'
 import { ResponseWithNoMeta } from '@/lib/types/response.type'
 import { Restaurant } from '@/lib/types/restaurant.types'
-import { parseRestaurantBasicFormFromServer2Client, parseRestCuisineFromServer2Client } from '@/lib/utils/restaurant.utils'
+import { parseRestBasicFormFromS2C, parseRestBrandingFromS2C, parseRestCuisineFromS2C } from '@/lib/utils/restaurant.utils'
 import { getIDsFromSlug } from '@/lib/utils/utils'
 import { notFound } from 'next/navigation'
 
@@ -23,7 +23,7 @@ const EditRestaurantPage = async ({ params }: TParams) => {
         notFound()
     }
 
-    const result = await getData<ResponseWithNoMeta<Restaurant.TRestaurant>>({
+    const result = await getData<ResponseWithNoMeta<Restaurant.TRest>>({
         endPoint: API_ROUTES.restaurant.endpoint,
         param: restaurantId,
         tags: ["restaurant", restaurantId]
@@ -31,16 +31,22 @@ const EditRestaurantPage = async ({ params }: TParams) => {
 
     if (!result?.data) notFound()
 
-    const generalFormValues = parseRestaurantBasicFormFromServer2Client(result?.data)
+    const generalFormValues = parseRestBasicFormFromS2C(result?.data)
 
     if (!generalFormValues) notFound()
 
-    const cuisines = parseRestCuisineFromServer2Client(result?.data)
-    console.log(cuisines)
+    const cuisines = parseRestCuisineFromS2C(result?.data)
+    const brandings = {
+        logo: result?.data?.logo,
+        bannerImage: result?.data?.bannerImage
+    }
+    console.log(brandings)
+
     return (
         <DashboardProvider>
             <EditRestaurantWrapper generalFormValues={generalFormValues}
                 cuisines={cuisines}
+                brandings={brandings}
             />
         </DashboardProvider>
     )

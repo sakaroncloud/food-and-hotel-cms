@@ -3,7 +3,7 @@ import { CustomFormField } from "@/components/form/custom-form-field"
 import { FormFieldWrapper, FormFooter } from "@/components/form/form-field-wrapper"
 import { Form } from "@/components/ui/form"
 import { submitRestaurantBasic } from "@/lib/actions/food/action.restaurant"
-import { restaurantBasicDefaultValues, restaurantBasicFormSchema, TRestaurantBasicForm, weekDaysOptions } from "@/schemas/fooding/restaurant/restaurant-basic.schema"
+import { restaurantBasicDefaultValues, restaurantBasicFormSchema, TRestBasicForm, weekDaysOptions } from "@/schemas/fooding/restaurant/restaurant-basic.schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
@@ -12,12 +12,12 @@ import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 
 type Props = {
-    formValues?: TRestaurantBasicForm & { id: number };
+    formValues?: TRestBasicForm & { id: number };
 }
 
 export const RestaurantBasicForm = ({ formValues }: Props) => {
     const router = useRouter()
-    const form = useForm<TRestaurantBasicForm>({
+    const form = useForm<TRestBasicForm>({
         resolver: zodResolver(restaurantBasicFormSchema),
         defaultValues: formValues ? {
             ...formValues,
@@ -26,7 +26,7 @@ export const RestaurantBasicForm = ({ formValues }: Props) => {
 
     const [isPending, startTransition] = useTransition();
     const queryClient = useQueryClient()
-    const onSubmit = (values: TRestaurantBasicForm) => {
+    const onSubmit = (values: TRestBasicForm) => {
         startTransition(async () => {
             const response = await submitRestaurantBasic(values, formValues?.id);
             if (response.success == true) {

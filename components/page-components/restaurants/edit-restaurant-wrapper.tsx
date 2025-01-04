@@ -5,24 +5,30 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils/utils"
 
 import { TAddressForm } from "@/schemas/schema.address"
-import { TAsyncGallery } from "@/lib/types/upload.type"
+import { TAsyncGallery, TDefaultImage } from "@/lib/types/upload.type"
 import { MultiStepTabs } from "@/components/form/multi-step-tabs"
-import { TRestaurantBasicForm } from "@/schemas/fooding/restaurant/restaurant-basic.schema"
+import { TRestBasicForm } from "@/schemas/fooding/restaurant/restaurant-basic.schema"
 import { notFound } from "next/navigation"
 import { RestaurantBasicForm } from "./forms/restaurant-basic-form"
 import { RestaurantCuisineForm } from "./forms/restaurant-cuisine-form"
 import { result } from "lodash"
-import { TRestaurantCuisineForm } from "@/schemas/fooding/restaurant/restaurant-cuisine.schema"
+import { TRestCuisineForm } from "@/schemas/fooding/restaurant/restaurant-cuisine.schema"
+import { RestaurantBrandingForm } from "./forms/restaurant-branding-form"
+import { TRestBrandingForm } from "@/schemas/fooding/restaurant/restaurant-branding.schema"
 
 type Props = {
-    generalFormValues: TRestaurantBasicForm & { id: number };
+    generalFormValues: TRestBasicForm & { id: number };
     galleries?: TAsyncGallery;
     address?: TAddressForm;
-    cuisines?: TRestaurantCuisineForm;
+    cuisines?: TRestCuisineForm;
+    brandings?: {
+        logo?: TDefaultImage;
+        bannerImage?: TDefaultImage;
+    };
 }
 
 
-export const EditRestaurantWrapper = ({ address, cuisines, galleries, generalFormValues }: Props) => {
+export const EditRestaurantWrapper = ({ address, brandings, cuisines, galleries, generalFormValues }: Props) => {
     const [activeTab, setActiveTab] = useState(0)
 
     const tabs = [
@@ -34,7 +40,7 @@ export const EditRestaurantWrapper = ({ address, cuisines, galleries, generalFor
         {
             label: "Cuisines",
             value: "cuisines",
-            published: false,
+            published: cuisines !== undefined && cuisines !== null
         },
         {
             label: "Logo",
@@ -85,7 +91,10 @@ export const EditRestaurantWrapper = ({ address, cuisines, galleries, generalFor
                     />
                 </div>
                 <div className={cn("hidden", activeTab == 2 && "block")}>
-
+                    <RestaurantBrandingForm
+                        restaurantId={generalFormValues.id}
+                        defaultImages={brandings}
+                    />
                 </div>
                 <div className={cn("hidden", activeTab == 3 && "block")}>
 

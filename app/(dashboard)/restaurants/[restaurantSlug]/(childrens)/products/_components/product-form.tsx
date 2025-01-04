@@ -143,7 +143,7 @@ export const ProductForm = ({ defaultFeaturedImage, formValues, restaurantSlug }
                     className="flex flex-col gap-6"
                 >
                     {/* <ChooseNewImageCard
-                        fieldId={"featuredImage"}
+                        fieldId={"bannerImage"}
                         label={"Featured Image"}
                         allowMultiple={false}
                         defaultImages={defaultFeaturedImage}

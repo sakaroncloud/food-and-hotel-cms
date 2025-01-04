@@ -26,7 +26,7 @@ export const CuisineForm = ({ defaultImages, formValues }: Props) => {
     resolver: zodResolver(cuisineFormSchema),
     defaultValues: formValues || {
       description: "",
-      featuredImage: "",
+      bannerImage: "",
       name: ""
     }
   })
@@ -83,7 +83,7 @@ export const CuisineForm = ({ defaultImages, formValues }: Props) => {
           <GalleryForm
             defaultImages={defaultImages || []}
             allowMultiple={false}
-            fieldId={"featuredImage"}
+            fieldId={"bannerImage"}
             label={"Icon for Cuisine"}
             fetchEndPoint={API_ROUTES.allRestImage.endpoint}
             uploadEndPoint={API_ROUTES.allRestImage.endpoint}

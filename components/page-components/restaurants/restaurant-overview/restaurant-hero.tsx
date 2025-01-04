@@ -50,7 +50,7 @@ export const RestaurantHeroSection = async ({
                 <FallbackImage
                     type='rectangle'
                     alt='Restaurant Featured Image'
-                    src={restaurant?.featuredImage?.url || "/"}
+                    src={restaurant?.bannerImage?.url || "/"}
                     width={1000}
                     height={220}
                     quality={100}

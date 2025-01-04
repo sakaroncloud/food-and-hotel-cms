@@ -10,7 +10,7 @@ import { API_ROUTES } from "@/lib/routes"
 import { ResponseWithMeta } from "@/lib/types/response.type"
 import { Restaurant } from "@/lib/types/restaurant.types"
 import { TDefaultImage } from "@/lib/types/upload.type"
-import { discountTypeOptions, restaurantDefaultValues, restaurantFormSchema, TRestaurantForm, weekDaysOptions } from "@/schemas/fooding/schema.restaurant"
+import { discountTypeOptions, restaurantDefaultValues, restaurantFormSchema, TRestForm, weekDaysOptions } from "@/schemas/fooding/schema.restaurant"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
@@ -19,7 +19,7 @@ import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 
 type Props = {
-    formValues?: TRestaurantForm & { id: string, slug: string };
+    formValues?: TRestForm & { id: string, slug: string };
     defaultLogo?: TDefaultImage[];
     defaultFeaturedImage?: TDefaultImage[];
 }
@@ -31,7 +31,7 @@ export const RestaurantForm = ({ defaultFeaturedImage, defaultLogo, formValues }
     });
 
     const router = useRouter()
-    const form = useForm<TRestaurantForm>({
+    const form = useForm<TRestForm>({
         resolver: zodResolver(restaurantFormSchema),
         defaultValues: formValues ? {
             ...formValues,
@@ -41,7 +41,7 @@ export const RestaurantForm = ({ defaultFeaturedImage, defaultLogo, formValues }
 
     const [isPending, startTransition] = useTransition();
     const queryClient = useQueryClient()
-    const onSubmit = (values: TRestaurantForm) => {
+    const onSubmit = (values: TRestForm) => {
         startTransition(async () => {
             const response = await submitRestaurant(values, formValues?.id);
             if (response.success == true) {
@@ -182,7 +182,7 @@ export const RestaurantForm = ({ defaultFeaturedImage, defaultLogo, formValues }
 
                     <GalleryForm
                         allowMultiple={false}
-                        fieldId={"featuredImage"}
+                        fieldId={"bannerImage"}
                         label={"Featured Image"}
                         defaultImages={defaultFeaturedImage}
                         fetchEndPoint={API_ROUTES.singleRestImage.endpoint}

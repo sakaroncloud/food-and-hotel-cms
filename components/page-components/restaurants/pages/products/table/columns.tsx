@@ -20,7 +20,7 @@ import { Restaurant } from "@/lib/types/restaurant.types"
 import { TableBadge } from "@/components/table/table-badge"
 
 export const columns: ColumnDef<Restaurant.Product.TProduct & {
-    restaurant: Pick<Restaurant.TRestaurant, "id" | "slug">
+    restaurant: Pick<Restaurant.TRest, "id" | "slug">
 }>[] = [
 
         {
@@ -41,7 +41,7 @@ export const columns: ColumnDef<Restaurant.Product.TProduct & {
                 <DataTableColumnHeader column={column} title="Name" />
             ),
             cell: ({ row }) => {
-                const image = row.original?.featuredImage?.url
+                const image = row.original?.bannerImage?.url
                 return (
                     <div className="flex items-center gap-2">
                         <div className="p-1 border border-slate-200 bg-white rounded-lg size-[41px] flex items-center justify-center">
