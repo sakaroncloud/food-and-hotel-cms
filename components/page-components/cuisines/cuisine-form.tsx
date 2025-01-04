@@ -35,17 +35,21 @@ export const CuisineForm = ({ defaultImages, formValues }: Props) => {
   const [isPending, startTransition] = useTransition();
 
 
+
   const onSubmit = (values: TCuisineForm) => {
     startTransition(async () => {
       const response = await submitCusine(values, formValues?.slug);
       if (response.success == true) {
         toast.success(response.message)
+        router.push(`/restaurants/cuisines/${response.data.slug}`)
       }
       else {
         toast.error(response.message)
       }
     })
   };
+
+
 
   return (
     <Form {...form}>
@@ -81,8 +85,8 @@ export const CuisineForm = ({ defaultImages, formValues }: Props) => {
             allowMultiple={false}
             fieldId={"featuredImage"}
             label={"Icon for Cuisine"}
-            fetchEndPoint={API_ROUTES.restImage.endpoint}
-            uploadEndPoint={API_ROUTES.restImage.endpoint}
+            fetchEndPoint={API_ROUTES.allRestImage.endpoint}
+            uploadEndPoint={API_ROUTES.allRestImage.endpoint}
           />
         </FormFieldWrapper>
 

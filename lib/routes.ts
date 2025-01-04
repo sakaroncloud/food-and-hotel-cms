@@ -35,9 +35,13 @@ export const API_ROUTES = {
         endpoint: "/fooding/restaurant/cuisine" as const,
         queryKey: "singleCusineRestaurants" as const,
     },
-    restImage: {
+    singleRestImage: {
         endpoint: "/fooding/uploads/restaurant" as const,
-        queryKey: "restImage" as const,
+        queryKey: "singleRestImage" as const,
+    },
+    allRestImage: {
+        endpoint: "/fooding/uploads" as const,
+        queryKey: "allRestImage" as const,
     },
     propertyImage: {
         endpoint: "/lodging/uploads/property" as const,

@@ -95,7 +95,7 @@ export const GalleryForm = (
                             <div className="w-fit relative">
                                 <FallbackImage
                                     src={
-                                        BACKEND_URL + "/" + (gallery?.find((image) => image?.id === value)?.url ||
+                                        (gallery?.find((image) => image?.id === value)?.url ||
                                             defaultImages?.find((image) => image?.id === value)?.url || "/")
                                     }
                                     alt="image"

@@ -16,8 +16,8 @@ const RestaurantMediaPage = async ({ params }: TParams) => {
                 <DropzoneTriggerer />
             </div>
         } >
-            <DropzoneAndMediaWrapper uploadEndPoint={API_ROUTES.restImage.endpoint + "/" + restaurantId}
-                fetchEndPoint={API_ROUTES.restImage.endpoint + "/" + restaurantId}
+            <DropzoneAndMediaWrapper uploadEndPoint={API_ROUTES.singleRestImage.endpoint + "/" + restaurantId}
+                fetchEndPoint={API_ROUTES.singleRestImage.endpoint + "/" + restaurantId}
                 multiple={true}
             />
         </TableWrapperWithFilter>

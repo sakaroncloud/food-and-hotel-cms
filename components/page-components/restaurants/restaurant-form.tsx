@@ -185,8 +185,8 @@ export const RestaurantForm = ({ defaultFeaturedImage, defaultLogo, formValues }
                         fieldId={"featuredImage"}
                         label={"Featured Image"}
                         defaultImages={defaultFeaturedImage}
-                        fetchEndPoint={API_ROUTES.restImage.endpoint}
-                        uploadEndPoint={API_ROUTES.restImage.endpoint}
+                        fetchEndPoint={API_ROUTES.singleRestImage.endpoint}
+                        uploadEndPoint={API_ROUTES.singleRestImage.endpoint}
                     />
                 </FormFieldWrapper>
 

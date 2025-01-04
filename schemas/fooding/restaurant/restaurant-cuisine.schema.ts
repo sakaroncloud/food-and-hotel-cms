@@ -8,7 +8,19 @@ export const restaurantCuisineFormSchema = z.object({
 })
 
 
-export const restaurantCuisineClient2ServerSchema = restaurantCuisineFormSchema.transform((values) => values?.cuisines?.map((option) => option.value))
+export const restaurantCuisineClient2ServerSchema = restaurantCuisineFormSchema.transform((values) => ({
+    cuisines: values?.cuisines?.map((option) => option.value)
+}))
+
+export const restaurantCuisineServer2ClientSchema = z.object({
+    cuisines: z.array(z.object({
+        name: z.string(),
+        slug: z.string()
+    })).optional().transform((values) => values?.map((value) => ({
+        label: value.name,
+        value: value.slug
+    })))
+})
 
 export type TRestaurantCuisineClient2Server = z.infer<typeof restaurantCuisineClient2ServerSchema>
 

@@ -29,11 +29,7 @@ export const PropertyRuleForm = ({ id, formValues }: Props) => {
         startTransition(async () => {
             const response = await submitPropertyRules(values, id);
             if (response.success == true) {
-
                 toast.success(response.message)
-                if (!formValues) {
-
-                }
             }
             else {
                 toast.error(response.message || "Something went wrong")

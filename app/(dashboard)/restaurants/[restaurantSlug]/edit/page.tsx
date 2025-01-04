@@ -5,7 +5,7 @@ import { API_ROUTES } from '@/lib/routes'
 import { TParams } from '@/lib/types/global.type'
 import { ResponseWithNoMeta } from '@/lib/types/response.type'
 import { Restaurant } from '@/lib/types/restaurant.types'
-import { parseRestaurantBasicFormFromServer2Client } from '@/lib/utils/restaurant.utils'
+import { parseRestaurantBasicFormFromServer2Client, parseRestCuisineFromServer2Client } from '@/lib/utils/restaurant.utils'
 import { getIDsFromSlug } from '@/lib/utils/utils'
 import { notFound } from 'next/navigation'
 
@@ -35,9 +35,12 @@ const EditRestaurantPage = async ({ params }: TParams) => {
 
     if (!generalFormValues) notFound()
 
+    const cuisines = parseRestCuisineFromServer2Client(result?.data)
+    console.log(cuisines)
     return (
         <DashboardProvider>
             <EditRestaurantWrapper generalFormValues={generalFormValues}
+                cuisines={cuisines}
             />
         </DashboardProvider>
     )

@@ -44,8 +44,8 @@ export const ChooseNewsImageCard = (
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
         useLoadMoreFetch({
             pageParam: 1,
-            endPoint: API_ROUTES.restImage.endpoint,
-            queryKey: API_ROUTES.restImage.queryKey,
+            endPoint: API_ROUTES.singleRestImage.endpoint,
+            queryKey: API_ROUTES.singleRestImage.queryKey,
             take: 10,
         });
 
@@ -137,7 +137,7 @@ export const ChooseNewsImageCard = (
                             </TabsList>
                             <TabsContent value="upload">
                                 {/* Upload Content */}
-                                <AsyncDropZone setShowLibrary={setShowLibrary} endPoint={API_ROUTES.restImage.endpoint} />
+                                <AsyncDropZone setShowLibrary={setShowLibrary} endPoint={API_ROUTES.singleRestImage.endpoint} />
                             </TabsContent>
                             <TabsContent value="library">
                                 <LibraryContent

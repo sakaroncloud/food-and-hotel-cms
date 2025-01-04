@@ -13,6 +13,7 @@ export const RestaurantTable = async () => {
         tags: ["restaurant"]
     });
 
+
     return (
         <DataTable columns={columns} data={result?.data || []} />)
 }

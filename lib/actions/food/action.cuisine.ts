@@ -8,6 +8,7 @@ export async function submitCusine(formData: TCuisineForm, param?: string) {
 
 
     const validationFields = cuisineFormSchema.safeParse(formData)
+    console.log(validationFields.data)
     if (!validationFields.success) {
         return {
             message: "Submission failed",

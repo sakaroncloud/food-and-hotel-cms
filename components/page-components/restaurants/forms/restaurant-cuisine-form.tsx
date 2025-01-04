@@ -2,15 +2,22 @@ import { CustomFormField } from '@/components/form/custom-form-field';
 import { FormFieldWrapper, FormFooter } from '@/components/form/form-field-wrapper';
 import { Form } from '@/components/ui/form';
 import { useFetch } from '@/hooks/useFetch';
+import { submitRestaurantCuisine } from '@/lib/actions/food/action.restaurant';
 import { API_ROUTES } from '@/lib/routes';
 import { ResponseWithMeta } from '@/lib/types/response.type';
 import { Restaurant } from '@/lib/types/restaurant.types';
 import { restaurantCuisineDefaultValues, restaurantCuisineFormSchema, TRestaurantCuisineForm } from '@/schemas/fooding/restaurant/restaurant-cuisine.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { startTransition } from 'react';
+import { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
-export const RestaurantCuisineForm = () => {
+type Props = {
+    restaurantId: string | number;
+    formValues?: TRestaurantCuisineForm;
+}
+
+export const RestaurantCuisineForm = ({ restaurantId, formValues }: Props) => {
     const { data: cuisines } = useFetch<ResponseWithMeta<Restaurant.Cuisine.TCuisine[]>>({
         endPoint: API_ROUTES.cuisine.endpoint + "?skipPagination=true",
         queryKey: API_ROUTES.cuisine.queryKey,
@@ -18,11 +25,22 @@ export const RestaurantCuisineForm = () => {
 
     const form = useForm<TRestaurantCuisineForm>({
         resolver: zodResolver(restaurantCuisineFormSchema),
-        defaultValues: restaurantCuisineDefaultValues
+        defaultValues: formValues || restaurantCuisineDefaultValues
     })
 
+    const [isPending, startTransition] = useTransition();
+
+
     const onSubmit = (values: TRestaurantCuisineForm) => {
+        console.log(values)
         startTransition(async () => {
+            const response = await submitRestaurantCuisine(values, restaurantId);
+            if (response.success == true) {
+                toast.success(response.message)
+            }
+            else {
+                toast.error(response.message || "Something went wrong")
+            }
 
         })
     };
@@ -39,17 +57,17 @@ export const RestaurantCuisineForm = () => {
                         className="w-full"
                         isMulti={true}
                         selectOptions={
-                            cuisines?.data?.map((cuisine) => ({ value: cuisine.id, label: cuisine.name })) || []
+                            cuisines?.data?.map((cuisine) => ({ value: cuisine.slug, label: cuisine.name })) || []
                         }
                         defaultValue={
-                            restaurantCuisineDefaultValues.cuisines
+                            formValues?.cuisines || restaurantCuisineDefaultValues.cuisines
                         }
                     />
                 </FormFieldWrapper>
 
                 <FormFooter
                     buttonLabel={"Update"}
-                    pending={false}
+                    pending={isPending}
 
                 />
             </form>

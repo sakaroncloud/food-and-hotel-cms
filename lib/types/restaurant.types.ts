@@ -76,7 +76,7 @@ export namespace Restaurant {
         totalUploads: number;
     };
 
-    export type TRestaurant = Omit<TSingleRestaurant, "featuredImage" | "hasGlobalOffer" | "cuisines" | "totalProducts" | "totalMenus" | "totalCuisines" | "totalUploads"> & {
+    export type TRestaurant = Omit<TSingleRestaurant, "featuredImage" | "hasGlobalOffer" | "totalProducts" | "totalMenus" | "totalCuisines" | "totalUploads"> & {
 
     }
 }

@@ -11,15 +11,18 @@ import { TRestaurantBasicForm } from "@/schemas/fooding/restaurant/restaurant-ba
 import { notFound } from "next/navigation"
 import { RestaurantBasicForm } from "./forms/restaurant-basic-form"
 import { RestaurantCuisineForm } from "./forms/restaurant-cuisine-form"
+import { result } from "lodash"
+import { TRestaurantCuisineForm } from "@/schemas/fooding/restaurant/restaurant-cuisine.schema"
 
 type Props = {
     generalFormValues: TRestaurantBasicForm & { id: number };
     galleries?: TAsyncGallery;
     address?: TAddressForm;
+    cuisines?: TRestaurantCuisineForm;
 }
 
 
-export const EditRestaurantWrapper = ({ address, galleries, generalFormValues }: Props) => {
+export const EditRestaurantWrapper = ({ address, cuisines, galleries, generalFormValues }: Props) => {
     const [activeTab, setActiveTab] = useState(0)
 
     const tabs = [
@@ -64,6 +67,7 @@ export const EditRestaurantWrapper = ({ address, galleries, generalFormValues }:
         notFound()
     }
 
+
     return (
         <div className="space-y-6">
             <MultiStepTabs activeTab={activeTab} setActiveTab={setActiveTab} tabs={tabs} />
@@ -75,7 +79,10 @@ export const EditRestaurantWrapper = ({ address, galleries, generalFormValues }:
                     />
                 </div>
                 <div className={cn("hidden", activeTab == 1 && "block")}>
-                    <RestaurantCuisineForm />
+                    <RestaurantCuisineForm
+                        restaurantId={generalFormValues.id}
+                        formValues={cuisines}
+                    />
                 </div>
                 <div className={cn("hidden", activeTab == 2 && "block")}>
 
