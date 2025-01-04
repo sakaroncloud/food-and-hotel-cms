@@ -1,3 +1,4 @@
+import { GalleryProvider } from "@/components/providers/gallery-context"
 import { AppSidebar } from "@/components/sidebar/app-sidebar"
 
 import {
@@ -9,12 +10,14 @@ type Props = {
 }
 const DashboardLayout = ({ children }: Props) => {
     return (
-        <SidebarProvider  >
-            <AppSidebar />
-            <SidebarInset>
-                {children}
-            </SidebarInset>
-        </SidebarProvider>
+        <GalleryProvider>
+            <SidebarProvider  >
+                <AppSidebar />
+                <SidebarInset>
+                    {children}
+                </SidebarInset>
+            </SidebarProvider>
+        </GalleryProvider>
     )
 }
 

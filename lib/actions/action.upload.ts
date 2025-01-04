@@ -1,5 +1,3 @@
-"use server"
-
 import { imageNameSchema, TImageName } from "@/schemas/fooding/schema.restImage";
 import { BACKEND_URL } from "../constants";
 import { getSession } from "./session";
@@ -10,7 +8,6 @@ export const UploadHandler = async (formData: FormData, ENDPOINT: string) => {
     const session = await getSession()
 
     if (!session?.accessToken) {
-        console.error("No session or access token found");
         return { error: "Unauthorized" };
     }
 
@@ -27,22 +24,50 @@ export const UploadHandler = async (formData: FormData, ENDPOINT: string) => {
 
         if (!response.ok) {
             const errorData = await response.json();
-            console.error("Error response from API:", errorData);
-            return errorData
-        }
+            const error = errorData.message
+            if (typeof error == "string") {
+                return { message: error || "Something went wrong. Please try again later." };
+            }
+            else if (typeof error == "object") {
+                if (Array.isArray(error)) {
+                    return { message: error[0] || "Something went wrong. Please try again later." };
+                }
+                return { message: error?.message || "Something went wrong. Please try again later." }
+            }
+            return { message: "Something went wrong. Please try again later." }
 
+        }
 
         const data = await response.json();
         return data;
 
-    } catch (error) {
-        console.error("Network or server error:", error);
-        return { error: "Something went wrong. Please try again later." };
+    } catch (error: any) {
+
+        if (error instanceof TypeError && error.message.includes('fetch failed')) {
+            return {
+                message: "Error: Unable to connect to the server"
+            }
+        } else if (error?.message.includes('ECONNREFUSED')) {
+            return {
+                message: "Error: Unable to connect to the server"
+            }
+        } else {
+            return {
+                message: "Unexpected error occured"
+            }
+        }
+
     }
 };
 
-export async function updateImageName(formData: TImageName, endPoint: string, param: string) {
-    const validationFields = imageNameSchema.safeParse(formData)
+
+
+export async function updateImageName(option: {
+    formData: TImageName,
+    endPoint: string,
+    param: string
+}) {
+    const validationFields = imageNameSchema.safeParse(option.formData)
     if (!validationFields.success) {
         return {
             message: "Submission failed",
@@ -50,11 +75,12 @@ export async function updateImageName(formData: TImageName, endPoint: string, pa
         };
     }
 
+    console.log(option.endPoint)
     return SubmitHandler({
         DATA: validationFields.data,
-        ENDPOINT: endPoint,
+        ENDPOINT: option.endPoint,
         METHOD: "PATCH",
-        PARAM: param
+        PARAM: option.param
     })
 
 }

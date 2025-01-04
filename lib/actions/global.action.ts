@@ -6,7 +6,7 @@ import { getSession } from "./session";
 
 type Option = {
     ENDPOINT: string;
-    PARAM?: string;
+    PARAM?: string | number;
     METHOD: "POST" | "PATCH" | "DELETE"
     DATA: any;
 }
@@ -16,7 +16,7 @@ export const SubmitHandler = async (option: Option) => {
     if (!option.ENDPOINT || !option.METHOD) {
         return { error: "Invalid option object" };
     }
-
+    console.log(`${BACKEND_URL}${option.ENDPOINT}${option.PARAM ? "/" + option.PARAM : ""}`)
 
     const session = await getSession()
 
@@ -58,7 +58,8 @@ export const SubmitHandler = async (option: Option) => {
         revalidatePath("/(dashboard)", 'layout')
         return data;
 
-    } catch (error: any) {
+    }
+    catch (error: any) {
 
         if (error instanceof TypeError && error.message.includes('fetch failed')) {
             return {
@@ -83,7 +84,6 @@ export const deleteHandler = async (option: {
     PARAM: string,
     ENDPOINT: string,
     revalidateTag?: string[]
-
 }) => {
 
     if (!option.ENDPOINT || !option.PARAM) {
@@ -96,6 +96,8 @@ export const deleteHandler = async (option: {
         return { error: "Unauthorized" };
     }
 
+    console.log(`${BACKEND_URL}${option.ENDPOINT}${"/" + option.PARAM}`)
+
     try {
         const response = await fetch(
             `${BACKEND_URL}${option.ENDPOINT}${"/" + option.PARAM}`,
@@ -107,6 +109,8 @@ export const deleteHandler = async (option: {
                 },
             }
         );
+
+        console.log(response)
 
         if (!response.ok) {
             const errorData = await response.json();

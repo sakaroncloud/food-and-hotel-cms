@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import React, { useState, useTransition } from "react";
 import {
     Dialog,
@@ -8,9 +7,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { X } from "lucide-react";
 import { Label } from "@/components/ui/label";
-import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
@@ -21,22 +18,21 @@ import { formatFileSize } from "@/lib/utils/utils";
 import SubmitButton from "../form/submit-button";
 import { CustomAlertDialog } from "./form/custom-alert-dialog";
 import { TAsyncImage } from "@/lib/types/upload.type";
-import { BACKEND_URL } from "@/lib/constants";
 import { CustomFormField } from "../form/custom-form-field";
 import { imageNameSchema, TImageName } from "@/schemas/fooding/schema.restImage";
 import { updateImageName } from "@/lib/actions/action.upload";
-import { API_ROUTES } from "@/lib/routes";
 import { deleteHandler } from "@/lib/actions/global.action";
 import toast from "react-hot-toast";
-import { useQueryClient } from "@tanstack/react-query";
+import { InfiniteData, QueryObserverResult, RefetchOptions, useQueryClient } from "@tanstack/react-query";
+import FallbackImage from "../fallback-image";
 
 type Props = {
     image: TAsyncImage;
+    uploadEndPoint: string;
+    refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<InfiniteData<any, unknown>, Error>>
 };
 
-
-
-export const UploadImageCard = ({ image }: Props) => {
+export const UploadImageCard = ({ uploadEndPoint, image, refetch }: Props) => {
     const uploadedDate = formatDate(image.createdAt, {
         year: "numeric",
         month: "short",
@@ -59,11 +55,17 @@ export const UploadImageCard = ({ image }: Props) => {
 
     const onSubmit = async (values: TImageName) => {
         startTransition(async () => {
-            const res = await updateImageName(values, API_ROUTES.restImage.endpoint, image.id)
+            const res = await updateImageName({
+                formData: values,
+                endPoint: uploadEndPoint + "/image",
+                param: image.id
+            })
             if (res.success == true) {
                 toast.success(res.message)
+                console.log(Date.now())
+                queryClient.invalidateQueries()
+                refetch()
                 setOpen(false)
-                queryClient.invalidateQueries({ queryKey: [API_ROUTES.restImage.queryKey] })
             }
             else {
                 toast.error(res.message)
@@ -74,18 +76,20 @@ export const UploadImageCard = ({ image }: Props) => {
     const onDelete = async () => {
         startTransition(async () => {
             const res = await deleteHandler({
-                ENDPOINT: API_ROUTES.restImage.endpoint,
+                ENDPOINT: uploadEndPoint + "/image",
                 PARAM: image.id
             })
             if (res.success == true) {
                 toast.success(res.message)
+                refetch()
+                queryClient.invalidateQueries()
                 setOpen(false)
             }
             else {
                 toast.error(res.message)
                 setOpen(false)
             }
-            queryClient.invalidateQueries({ queryKey: [API_ROUTES.restImage.queryKey] })
+            queryClient.invalidateQueries()
             setDeleteModal(false)
         });
 
@@ -95,8 +99,9 @@ export const UploadImageCard = ({ image }: Props) => {
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <div className="relative h-[140px] basis-[140px]  shrink-0 rounded-xl overflow-hidden group transition-all duration-300 ease-out cursor-pointer">
-                    <Image
-                        src={BACKEND_URL + "/" + image.url}
+                    <FallbackImage
+                        type="square"
+                        src={image.url}
                         alt={"test"}
                         width={200}
                         height={200}
@@ -119,8 +124,9 @@ export const UploadImageCard = ({ image }: Props) => {
                 </div>
                 <div className="w-full flex-1 flex justify-between  h-[(calc(96vh-80px))] overflow-y-auto">
                     <div className="h-full w-8/12 flex justify-center">
-                        <Image
-                            src={BACKEND_URL + "/" + image.url}
+                        <FallbackImage
+                            type="square"
+                            src={image.url}
                             alt={"test"}
                             width={1200}
                             height={1200}
@@ -196,7 +202,7 @@ export const UploadImageCard = ({ image }: Props) => {
                                             <TableCell className="font-medium">File Url </TableCell>
                                             <TableCell>
                                                 <div className="min-h-9 flex items-center px-3 py-1 text-sm border border-input rounded-md shadow-sm ">
-                                                    {BACKEND_URL + "/" + image.url}
+                                                    {image.url}
                                                 </div>
                                             </TableCell>
                                         </TableRow>

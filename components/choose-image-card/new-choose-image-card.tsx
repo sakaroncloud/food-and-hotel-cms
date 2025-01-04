@@ -25,8 +25,6 @@ import { BACKEND_URL } from "@/lib/constants";
 import FallbackImage from "../fallback-image";
 import { API_ROUTES } from "@/lib/routes";
 
-
-
 type Props = {
     fieldId: string;
     label: string;
@@ -34,7 +32,7 @@ type Props = {
     allowMultiple: boolean | undefined;
     defaultImages?: TDefaultImage[] | undefined
 };
-export const ChooseNewImageCard = (
+export const ChooseNewsImageCard = (
     {
         fieldId,
         label,
@@ -75,7 +73,7 @@ export const ChooseNewImageCard = (
                                         return (
                                             <div className="w-fit relative" key={index}>
                                                 <FallbackImage
-                                                    src={BACKEND_URL + "/" + image.url}
+                                                    src={image.url}
                                                     alt="image"
                                                     type="rectangle"
                                                     height={200}
@@ -139,11 +137,9 @@ export const ChooseNewImageCard = (
                             </TabsList>
                             <TabsContent value="upload">
                                 {/* Upload Content */}
-                                <AsyncDropZone setShowLibrary={setShowLibrary} />
+                                <AsyncDropZone setShowLibrary={setShowLibrary} endPoint={API_ROUTES.restImage.endpoint} />
                             </TabsContent>
                             <TabsContent value="library">
-
-
                                 <LibraryContent
                                     label={label} gallery={gallery} fieldId={fieldId} value={value}
                                     hasNextPage={hasNextPage} isFetchingNextPage={isFetchingNextPage}

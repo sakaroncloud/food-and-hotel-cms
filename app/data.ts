@@ -2,12 +2,21 @@ type TOption = {
     endPoint: string;
     param?: string;
     tags: string[];
+    query?: {
+        key: string,
+        value: string
+    };
 };
 
 import { getSession } from "@/lib/actions/session";
 import { BACKEND_URL } from "@/lib/constants";
 
 export const getData = async <T>(options: TOption): Promise<T | null> => {
+
+    let queryString = ""
+    if (options.query) {
+        queryString = `?${options.query.key}=${options.query.value}`
+    }
     const session = await getSession()
 
     const fetchOption: RequestInit = {
@@ -28,7 +37,7 @@ export const getData = async <T>(options: TOption): Promise<T | null> => {
 
     try {
         const response = await fetch(
-            BACKEND_URL + options.endPoint + (options.param ? `/${options.param}` : ""),
+            BACKEND_URL + options.endPoint + (options.param ? `/${options.param + queryString}` : queryString),
             optionsWithTags,
         );
         if (!response.ok) {

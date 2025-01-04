@@ -1,3 +1,4 @@
+
 import { DataTable } from '@/components/table/data-table'
 import React from 'react'
 import { columns } from './columns'

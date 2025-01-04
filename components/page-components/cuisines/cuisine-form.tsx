@@ -1,6 +1,5 @@
 "use client"
-
-import { ChooseNewImageCard } from "@/components/choose-image-card/new-choose-image-card"
+import { GalleryForm } from "@/components/choose-image-card/property/gallery-form"
 import { CustomFormField } from "@/components/form/custom-form-field"
 import { FormFieldWrapper, FormFooter } from "@/components/form/form-field-wrapper"
 import { Form } from "@/components/ui/form"
@@ -11,7 +10,7 @@ import { cuisineFormSchema, TCuisineForm } from "@/schemas/fooding/schema.cuisin
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
-import { useEffect, useTransition } from "react"
+import { useTransition } from "react"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 
@@ -32,13 +31,8 @@ export const CuisineForm = ({ defaultImages, formValues }: Props) => {
     }
   })
 
-  useEffect(() => {
-    localStorage.setItem("userFormModified", form.formState.isDirty.toString())
-  }, [form.formState.isDirty])
-
 
   const [isPending, startTransition] = useTransition();
-  const queryClient = useQueryClient()
 
 
   const onSubmit = (values: TCuisineForm) => {
@@ -46,14 +40,6 @@ export const CuisineForm = ({ defaultImages, formValues }: Props) => {
       const response = await submitCusine(values, formValues?.slug);
       if (response.success == true) {
         toast.success(response.message)
-
-        if (formValues) {
-          queryClient.invalidateQueries({ queryKey: [API_ROUTES.cuisine.queryKey, formValues.slug] })
-        }
-        if (!formValues) {
-          router.push(response.data.slug)
-          queryClient.invalidateQueries({ queryKey: [API_ROUTES.cuisine.queryKey] })
-        }
       }
       else {
         toast.error(response.message)
@@ -84,12 +70,19 @@ export const CuisineForm = ({ defaultImages, formValues }: Props) => {
             placeholder="Describe a little about your cuisine"
             className="w-full"
           />
+        </FormFieldWrapper>
 
-          <ChooseNewImageCard
-            fieldId={"featuredImage"}
-            label={"Featured Image"}
+        <FormFieldWrapper
+          description='Upload your cuisine icon here Image size should not be more than  2 MB'
+          label='Icon'
+        >
+          <GalleryForm
+            defaultImages={defaultImages || []}
             allowMultiple={false}
-            defaultImages={defaultImages}
+            fieldId={"featuredImage"}
+            label={"Icon for Cuisine"}
+            fetchEndPoint={API_ROUTES.restImage.endpoint}
+            uploadEndPoint={API_ROUTES.restImage.endpoint}
           />
         </FormFieldWrapper>
 

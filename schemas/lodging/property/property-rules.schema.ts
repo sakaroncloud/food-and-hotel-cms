@@ -52,7 +52,7 @@ export const propertyRulesClientSchema = basePropertyRulesSchema.extend({
  * This is used to transform the data from client form to - amenities DTO form
  * This is only used to parse - not to submit
  */
-export const propertyRulesClientToServerSchema = basePropertyRulesSchema.extend({
+export const propertyRulesClient2ServerSchema = basePropertyRulesSchema.extend({
     others: clientToServerOthers
 })
 
@@ -60,7 +60,7 @@ export const propertyRulesClientToServerSchema = basePropertyRulesSchema.extend(
  * This is used to transform the data from server form to - client form
  * This is only used to parse - not to submit
  */
-export const propertyRulesServerToClientSchema = basePropertyRulesSchema.extend({
+export const propertyRulesServer2ClientSchema = basePropertyRulesSchema.extend({
     others: serverToClientOthers
 })
 
@@ -92,4 +92,4 @@ export const propertyRulesDefaultValues: TPropertyRulesClientForm = {
         text: "six"
     }]
 }
-export type TPropertyRules = z.infer<typeof propertyRulesClientToServerSchema>;
+export type TPropertyRules = z.infer<typeof propertyRulesClient2ServerSchema>;

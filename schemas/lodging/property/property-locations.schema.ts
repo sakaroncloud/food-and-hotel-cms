@@ -16,6 +16,8 @@ export const propertyLocationsServerSchema = z.array(z.object({
 }))
 
 
+
+
 export const propertyLocationsSchema = z.object({
     places: z.array(z.object({
         name: z.string().min(2, {

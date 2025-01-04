@@ -7,15 +7,15 @@ import { Restaurant } from "@/lib/types/restaurant.types";
 
 
 type Props = {
-    restaurantSlug: string;
+    restaurantId: string;
 }
 
-export const RestaurantBody = async ({ restaurantSlug }: Props) => {
+export const RestaurantBody = async ({ restaurantId }: Props) => {
 
-    const result = await getData<ResponseWithNoMeta<Restaurant.TRestaurant>>({
+    const result = await getData<ResponseWithNoMeta<Restaurant.TSingleRestaurant>>({
         endPoint: API_ROUTES.restaurant.endpoint,
-        param: restaurantSlug,
-        tags: ["restaurant", restaurantSlug]
+        param: restaurantId,
+        tags: ["restaurant", restaurantId]
     });
 
     const restaurant = result?.data
@@ -24,6 +24,8 @@ export const RestaurantBody = async ({ restaurantSlug }: Props) => {
 
 
     const cards = generateRestaurantCards(restaurant)
+
+    console.log(result.data)
 
     return (
         <div className="flex justify-between gap-4 flex-wrap h-fit">

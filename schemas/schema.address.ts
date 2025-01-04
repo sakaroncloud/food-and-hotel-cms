@@ -1,5 +1,13 @@
 import { z } from "zod";
 
+const citySchema = z.string({
+    required_error: "Please select city"
+}).uuid({
+    message: "Please select city"
+})
+
+
+
 export const addressFormSchema = z.object({
     streetOne: z.string().min(2, {
         message: "Please enter at least 2 characters"
@@ -16,13 +24,11 @@ export const addressFormSchema = z.object({
     }).optional().nullable(),
     floor: z.string().min(1, {
         message: "Please enter at least 1 characters"
-    }).optional().nullable(),
-    city: z.string({
-        required_error: "Please select city"
-    }).uuid({
-        message: "Please select city"
-    })
+    }).or(z.string().nullable().optional()),
+    city: citySchema
 })
+
+
 
 export type TAddressForm = z.infer<typeof addressFormSchema>
 

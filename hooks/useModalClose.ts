@@ -13,7 +13,6 @@ type Props = {
 }
 
 export const useModalClose = (options: Props) => {
-    console.log(options.formState, "formState")
     const [showExitConfirmation, setShowExitConfirmation] = useState(false)
 
     useEffect(() => {

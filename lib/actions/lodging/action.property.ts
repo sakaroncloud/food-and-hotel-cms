@@ -4,9 +4,11 @@ import { SubmitHandler } from "../global.action";
 import { API_ROUTES } from "../../routes";
 import { propertyBasicFormSchema, TPropertyBasicForm } from "@/schemas/lodging/property/property-basic.schema";
 import dayjs from "dayjs";
-import { propertyAmenitiesClientToServerSchema, TPropertyAmenitiesClientForm } from "@/schemas/lodging/property/property-amenities.schema";
-import { propertyRulesClientToServerSchema, TPropertyRulesClientForm } from "@/schemas/lodging/property/property-rules.schema";
+import { propertyAmenitiesClient2ServerSchema, TPropertyAmenitiesClientForm } from "@/schemas/lodging/property/property-amenities.schema";
+import { propertyRulesClient2ServerSchema, TPropertyRulesClientForm } from "@/schemas/lodging/property/property-rules.schema";
 import { propertyLocationsSchema, TPropertyLocationsForm } from "@/schemas/lodging/property/property-locations.schema";
+import { propertyGallerySchema, TPropertyGalleryClientForm } from "@/schemas/lodging/property/property.gallery.schema";
+import { roomGallerySchema, TRoomGalleryClientForm } from "@/schemas/lodging/room/room.gallery.schema";
 
 
 export async function submitProperty(formData: TPropertyBasicForm, param?: string) {
@@ -26,14 +28,12 @@ export async function submitProperty(formData: TPropertyBasicForm, param?: strin
     formattedValues.checkInEndTime = dayjs(`1970-01-01T${formattedValues.checkInEndTime}`).format("HH:mm");
     formattedValues.checkOutTime = dayjs(`1970-01-01T${formattedValues.checkOutTime}`).format("HH:mm");
 
-
     return await SubmitHandler({
-        ENDPOINT: API_ROUTES.property.endPoint,
+        ENDPOINT: API_ROUTES.property.endpoint,
         METHOD: param ? "PATCH" : "POST",
         DATA: formattedValues,
         PARAM: param
     })
-
 }
 
 /**
@@ -43,7 +43,7 @@ export async function submitProperty(formData: TPropertyBasicForm, param?: strin
  * @returns 
  */
 export async function submitPropertyAmenities(formData: TPropertyAmenitiesClientForm, param: string) {
-    const validationFields = propertyAmenitiesClientToServerSchema.safeParse(formData)
+    const validationFields = propertyAmenitiesClient2ServerSchema.safeParse(formData)
     if (!validationFields.success) {
         return {
             message: "Data tempered",
@@ -51,7 +51,7 @@ export async function submitPropertyAmenities(formData: TPropertyAmenitiesClient
     }
 
     return await SubmitHandler({
-        ENDPOINT: API_ROUTES.property.endPoint + "/" + param + "/amenities",
+        ENDPOINT: API_ROUTES.property.endpoint + "/" + param + "/amenities",
         METHOD: "PATCH",
         DATA: validationFields.data,
     })
@@ -59,14 +59,14 @@ export async function submitPropertyAmenities(formData: TPropertyAmenitiesClient
 }
 
 export async function submitPropertyRules(formData: TPropertyRulesClientForm, param: string) {
-    const validationFields = propertyRulesClientToServerSchema.safeParse(formData)
+    const validationFields = propertyRulesClient2ServerSchema.safeParse(formData)
     if (!validationFields.success) {
         return {
             message: "Data tempered",
         };
     }
     return await SubmitHandler({
-        ENDPOINT: API_ROUTES.property.endPoint + "/" + param + "/rules",
+        ENDPOINT: API_ROUTES.property.endpoint + "/" + param + "/rules",
         METHOD: "PATCH",
         DATA: validationFields.data,
     })
@@ -81,7 +81,7 @@ export async function submitPropertyLocations(formData: TPropertyLocationsForm, 
         };
     }
     return await SubmitHandler({
-        ENDPOINT: API_ROUTES.property.endPoint + "/" + param + "/nearest-locations",
+        ENDPOINT: API_ROUTES.property.endpoint + "/" + param + "/nearest-locations",
         METHOD: "PATCH",
         DATA: validationFields.data,
     })
@@ -89,3 +89,36 @@ export async function submitPropertyLocations(formData: TPropertyLocationsForm, 
 }
 
 
+export async function submitPropertyGallery(formData: TPropertyGalleryClientForm, param: string | number) {
+
+    const validationFields = propertyGallerySchema.safeParse(formData)
+    if (!validationFields.success) {
+        return {
+            message: "Data tempered",
+        };
+    }
+
+    return await SubmitHandler({
+        ENDPOINT: API_ROUTES.property.endpoint + "/" + param + "/gallery",
+        METHOD: "PATCH",
+        DATA: validationFields.data,
+    })
+}
+
+
+export async function submitRoomGallery(formData: TRoomGalleryClientForm, param: string | number) {
+
+    const validationFields = roomGallerySchema.safeParse(formData)
+    if (!validationFields.success) {
+        return {
+            message: "Data tempered",
+        };
+    }
+
+
+    return await SubmitHandler({
+        ENDPOINT: API_ROUTES.room.endpoint + "/" + param + "/gallery",
+        METHOD: "PATCH",
+        DATA: validationFields.data,
+    })
+}

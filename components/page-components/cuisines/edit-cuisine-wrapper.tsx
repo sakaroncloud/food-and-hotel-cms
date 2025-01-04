@@ -8,16 +8,16 @@ import { API_ROUTES } from '@/lib/routes'
 import { Restaurant } from '@/lib/types/restaurant.types'
 
 type Props = {
-    slug: string
+    cuisineSlug: string
 }
 
 
-export const EditCuisineWrapper = ({ slug }: Props) => {
+export const EditCuisineWrapper = ({ cuisineSlug }: Props) => {
 
 
     const { data: result } = useFetch<ResponseWithNoMeta<Restaurant.Cuisine.TCuisine>>({
         endPoint: API_ROUTES.cuisine.endpoint,
-        param: slug,
+        param: cuisineSlug,
         queryKey: API_ROUTES.cuisine.queryKey,
     });
 

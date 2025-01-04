@@ -7,7 +7,6 @@ import { Form } from '@/components/ui/form';
 import { CustomFormField } from '@/components/form/custom-form-field';
 import { productDefaultValues, productFormSchema, TProductForm } from '@/schemas/fooding/schema.product';
 import { submitProduct } from '@/lib/actions/food/product.action';
-import { ChooseNewImageCard } from '@/components/choose-image-card/new-choose-image-card';
 import { TDefaultImage } from '@/lib/types/upload.type';
 import { useRouter, } from 'next/navigation';
 import { useFetch } from '@/hooks/useFetch';
@@ -143,12 +142,12 @@ export const ProductForm = ({ defaultFeaturedImage, formValues, restaurantSlug }
                     description="This image will be used in website"
                     className="flex flex-col gap-6"
                 >
-                    <ChooseNewImageCard
+                    {/* <ChooseNewImageCard
                         fieldId={"featuredImage"}
                         label={"Featured Image"}
                         allowMultiple={false}
                         defaultImages={defaultFeaturedImage}
-                    />
+                    /> */}
                 </FormFieldWrapper>
                 <FormFooter
                     buttonLabel={formValues ? "Update" : "Add New"}
