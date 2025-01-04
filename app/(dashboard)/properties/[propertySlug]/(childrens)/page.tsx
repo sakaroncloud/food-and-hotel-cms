@@ -6,14 +6,14 @@ type Props = {
 }
 const SinglePropertyPage = async ({ params }: Props) => {
     const propertySlug = (await params).propertySlug
-    const propertyID = propertySlug.split("--")?.[1]
+    const propertyId = propertySlug.split("--")?.[1]
     return (
         <div className='bg-slate-50'>
             <PropertyHeroSection
-                propertyId={propertyID}
+                propertyId={propertyId}
             />
             <div className='p-2 rounded-xl max-w-[1300px] mx-auto  pt-6'>
-                <SinglePropertyBody propertyId={propertyID} />
+                <SinglePropertyBody propertyId={propertyId} />
             </div>
         </div>
     )

@@ -58,7 +58,8 @@ export const SubmitHandler = async (option: Option) => {
         revalidatePath("/(dashboard)", 'layout')
         return data;
 
-    } catch (error: any) {
+    }
+    catch (error: any) {
 
         if (error instanceof TypeError && error.message.includes('fetch failed')) {
             return {

@@ -10,18 +10,18 @@ type Props = {
 }
 const AddRoomPage = async ({ params }: Props) => {
     const propertySlug = (await params).propertySlug
-    const propertyID = propertySlug.split("--")?.[1]
+    const propertyId = propertySlug.split("--")?.[1]
     const result = await getData<ResponseWithNoMeta<Property.TProperty>>({
         endPoint: API_ROUTES.property.endpoint,
-        param: propertyID,
-        tags: ["property", propertyID]
+        param: propertyId,
+        tags: ["property", propertyId]
     });
     if (!result?.data) {
         notFound()
     }
     return (
         <CreatePageWrapper title='Add New Room'>
-            <RoomBasicForm propertyId={propertyID} />
+            <RoomBasicForm propertyId={propertyId} />
         </CreatePageWrapper>
     )
 }

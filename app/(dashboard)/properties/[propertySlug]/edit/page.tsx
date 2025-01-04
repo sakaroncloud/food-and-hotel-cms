@@ -12,13 +12,13 @@ type Props = {
 
 const EditPropertyPage = async ({ params }: Props) => {
     const propertySlug = (await params).propertySlug
-    const propertyID = propertySlug.split("--")?.[1]
+    const propertyId = propertySlug.split("--")?.[1]
 
-    if (!propertyID) notFound()
+    if (!propertyId) notFound()
     const result = await getData<ResponseWithNoMeta<Property.TProperty>>({
         endPoint: API_ROUTES.property.endpoint,
-        param: propertyID,
-        tags: ["property", propertyID]
+        param: propertyId,
+        tags: ["property", propertyId]
     });
 
     if (!result?.data) {

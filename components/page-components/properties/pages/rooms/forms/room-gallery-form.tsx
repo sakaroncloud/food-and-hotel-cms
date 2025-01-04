@@ -11,16 +11,16 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
 type Props = {
-    propertyID: string | number;
-    roomID: string;
+    propertyId: string | number;
+    roomId: string;
     defaultImages?: TDefaultImage[];
 }
 
-export const RoomGalleryForm = ({ defaultImages, propertyID, roomID }: Props) => {
+export const RoomGalleryForm = ({ defaultImages, propertyId, roomId }: Props) => {
 
     const formValues = {
         galleryIds: defaultImages ? defaultImages.map((image) => image.id) : [],
-        propertyID: parseInt(propertyID as string)
+        propertyId: parseInt(propertyId as string)
     }
     const form = useForm<TRoomGalleryClientForm>({
         resolver: zodResolver(roomGallerySchema),
@@ -31,7 +31,7 @@ export const RoomGalleryForm = ({ defaultImages, propertyID, roomID }: Props) =>
 
     const onSubmit = (values: TRoomGalleryClientForm) => {
         startTransition(async () => {
-            const response = await submitRoomGallery(values, roomID);
+            const response = await submitRoomGallery(values, roomId);
             if (response.success == true) {
                 toast.success(response.message)
             }
@@ -53,8 +53,8 @@ export const RoomGalleryForm = ({ defaultImages, propertyID, roomID }: Props) =>
                         allowMultiple={true}
                         fieldId={"galleryIds"}
                         label={"Gallery"}
-                        fetchEndPoint={API_ROUTES.propertyImage.endpoint + "/" + propertyID}
-                        uploadEndPoint={API_ROUTES.propertyImage.endpoint + "/" + propertyID}
+                        fetchEndPoint={API_ROUTES.propertyImage.endpoint + "/" + propertyId}
+                        uploadEndPoint={API_ROUTES.propertyImage.endpoint + "/" + propertyId}
                     />
                 </FormFieldWrapper>
 

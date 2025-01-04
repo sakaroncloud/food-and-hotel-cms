@@ -54,7 +54,7 @@ export namespace Restaurant {
 
     // Main Restaurant Type
     /** Defines the main restaurant entity */
-    export type TRestaurant = TBaseWithDescription & {
+    export type TSingleRestaurant = TBaseWithDescription & {
         hasGlobalOffer?: TGlobalOffer;
         description: string;
         email?: string;
@@ -69,9 +69,14 @@ export namespace Restaurant {
         openingTime: string;
         closingTime: string;
         cuisines?: Omit<Cuisine.TCuisine, "featuredImage" | "restaurants" | "slug">[];
+        createdAt: string;
         totalProducts: number;
         totalMenus: number;
         totalCuisines: number;
-        createdAt: string;
+        totalUploads: number;
     };
+
+    export type TRestaurant = Omit<TSingleRestaurant, "featuredImage" | "hasGlobalOffer" | "cuisines" | "totalProducts" | "totalMenus" | "totalCuisines" | "totalUploads"> & {
+
+    }
 }

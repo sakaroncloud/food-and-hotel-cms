@@ -1,9 +1,9 @@
 import { CardItemProps } from "@/lib/types/global.type"
 import { Restaurant } from "@/lib/types/restaurant.types"
 import { formatDate } from "@/lib/utils/utils"
-import { Calendar, CircleDollarSign, HandPlatter, Utensils } from "lucide-react"
+import { Calendar, CircleDollarSign, HandPlatter, Images, Utensils } from "lucide-react"
 
-export const generateRestaurantCards = (restaurant: Restaurant.TRestaurant) => {
+export const generateRestaurantCards = (restaurant: Restaurant.TSingleRestaurant) => {
 
 
     const cards: Record<string, CardItemProps> = {
@@ -32,6 +32,13 @@ export const generateRestaurantCards = (restaurant: Restaurant.TRestaurant) => {
             label: "Total Cuisines",
             Icon: Utensils,
             iconColor: "text-green-500",
+        },
+        totalUploads: {
+            value: restaurant.totalUploads,
+            label: "All Medias",
+            Icon: Images,
+            link: `/restaurants/${restaurant.slug}/medias`,
+            iconColor: "text-gren-500",
         },
         commissionPercentage: {
             value: restaurant.commissionPercentage,

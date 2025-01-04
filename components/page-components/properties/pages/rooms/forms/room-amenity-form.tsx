@@ -10,11 +10,11 @@ import toast from 'react-hot-toast';
 
 type Props = {
     formValues?: TRoomAmenitiesClientForm | null;
-    roomID: string | number;
-    propertyID: string | number;
+    roomId: string | number;
+    propertyId: string | number;
 }
 
-export const RoomAmenityForm = ({ formValues, roomID, propertyID }: Props) => {
+export const RoomAmenityForm = ({ formValues, roomId, propertyId }: Props) => {
     const form = useForm<TRoomAmenitiesClientForm>({
         resolver: zodResolver(roomAmenitiesClientSchema),
         defaultValues: formValues ? {
@@ -22,7 +22,7 @@ export const RoomAmenityForm = ({ formValues, roomID, propertyID }: Props) => {
 
         } : {
             ...roomAmenitiesDefaultValues,
-            propertyID: parseInt(propertyID as string)
+            propertyId: parseInt(propertyId as string)
         }
     })
 
@@ -31,7 +31,7 @@ export const RoomAmenityForm = ({ formValues, roomID, propertyID }: Props) => {
     const onSubmit = (values: TRoomAmenitiesClientForm) => {
         console.log(values)
         startTransition(async () => {
-            const response = await updateRoomAmenities(values, roomID);
+            const response = await updateRoomAmenities(values, roomId);
             if (response.success == true) {
                 toast.success(response.message)
             }

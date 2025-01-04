@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
-import { TPropertyBasicForm } from "@/schemas/lodging/property/property-basic.schema"
 import { cn } from "@/lib/utils/utils"
 
 import { TAddressForm } from "@/schemas/schema.address"
@@ -11,9 +10,10 @@ import { MultiStepTabs } from "@/components/form/multi-step-tabs"
 import { TRestaurantBasicForm } from "@/schemas/fooding/restaurant/restaurant-basic.schema"
 import { notFound } from "next/navigation"
 import { RestaurantBasicForm } from "./forms/restaurant-basic-form"
+import { RestaurantCuisineForm } from "./forms/restaurant-cuisine-form"
 
 type Props = {
-    generalFormValues?: TRestaurantBasicForm & { id: number };
+    generalFormValues: TRestaurantBasicForm & { id: number };
     galleries?: TAsyncGallery;
     address?: TAddressForm;
 }
@@ -75,7 +75,7 @@ export const EditRestaurantWrapper = ({ address, galleries, generalFormValues }:
                     />
                 </div>
                 <div className={cn("hidden", activeTab == 1 && "block")}>
-
+                    <RestaurantCuisineForm />
                 </div>
                 <div className={cn("hidden", activeTab == 2 && "block")}>
 

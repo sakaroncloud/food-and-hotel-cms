@@ -42,7 +42,7 @@ const baseRoomAmenitiesSchema = z.object({
     safety: z.object({
         smokeAlarm: commonAmenitySchema,
     }),
-    propertyID: z.number({
+    propertyId: z.number({
         message: "Property ID must be a number"
     }),
 })
@@ -113,7 +113,7 @@ export const roomAmenitiesClient2ServerSchema = baseRoomAmenitiesSchema.extend({
 });
 
 export type TRoomAmenitiesClientForm = z.infer<typeof roomAmenitiesClientSchema>;
-export type TRoomAmenities = Omit<z.infer<typeof roomAmenitiesClient2ServerSchema>, 'propertyID'>;
+export type TRoomAmenities = Omit<z.infer<typeof roomAmenitiesClient2ServerSchema>, 'propertyId'>;
 
 
 const defaultObject = {
@@ -121,7 +121,7 @@ const defaultObject = {
     description: ""
 }
 
-export const roomAmenitiesDefaultValues: Omit<TRoomAmenitiesClientForm, "propertyID"> = {
+export const roomAmenitiesDefaultValues: Omit<TRoomAmenitiesClientForm, "propertyId"> = {
     general: {
         wifi: defaultObject,
         phone: defaultObject,

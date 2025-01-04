@@ -12,7 +12,7 @@ export const API_ROUTES = {
         queryKey: "signUp" as const,
     },
     cuisine: {
-        endpoint: "/food/cuisine" as const,
+        endpoint: "/fooding/cuisine-private" as const,
         queryKey: "cuisine" as const,
     },
     city: {
@@ -36,7 +36,7 @@ export const API_ROUTES = {
         queryKey: "singleCusineRestaurants" as const,
     },
     restImage: {
-        endpoint: "/fooding/uploads" as const,
+        endpoint: "/fooding/uploads/restaurant" as const,
         queryKey: "restImage" as const,
     },
     propertyImage: {

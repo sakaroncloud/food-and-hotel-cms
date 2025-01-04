@@ -14,7 +14,7 @@ export const roomBasicFormSchema = z.object({
         message: "Length must be a positive number"
     }),
 
-    propertyID: z.number({
+    propertyId: z.number({
         message: "Property ID must be a number"
     }),
 

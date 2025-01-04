@@ -1,5 +1,3 @@
-
-
 import { imageNameSchema, TImageName } from "@/schemas/fooding/schema.restImage";
 import { BACKEND_URL } from "../constants";
 import { getSession } from "./session";
@@ -26,16 +24,39 @@ export const UploadHandler = async (formData: FormData, ENDPOINT: string) => {
 
         if (!response.ok) {
             const errorData = await response.json();
-            console.error("Error response from API:", errorData);
-            return errorData
+            const error = errorData.message
+            if (typeof error == "string") {
+                return { message: error || "Something went wrong. Please try again later." };
+            }
+            else if (typeof error == "object") {
+                if (Array.isArray(error)) {
+                    return { message: error[0] || "Something went wrong. Please try again later." };
+                }
+                return { message: error?.message || "Something went wrong. Please try again later." }
+            }
+            return { message: "Something went wrong. Please try again later." }
+
         }
 
         const data = await response.json();
         return data;
 
-    } catch (error) {
-        console.error("Network or server error:", error);
-        return { error: "Something went wrong. Please try again later." };
+    } catch (error: any) {
+
+        if (error instanceof TypeError && error.message.includes('fetch failed')) {
+            return {
+                message: "Error: Unable to connect to the server"
+            }
+        } else if (error?.message.includes('ECONNREFUSED')) {
+            return {
+                message: "Error: Unable to connect to the server"
+            }
+        } else {
+            return {
+                message: "Unexpected error occured"
+            }
+        }
+
     }
 };
 

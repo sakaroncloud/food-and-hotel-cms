@@ -57,27 +57,27 @@ export const EditRoomWrapper = ({ ...props }: Props) => {
                 <ScrollBar />
                 <div className={cn("hidden", activeTab == 0 && "block")}>
                     <RoomBasicForm
-                        propertyId={props.generalFormValues.propertyID}
+                        propertyId={props.generalFormValues.propertyId}
                         roomId={props.roomId}
                         formValues={props.generalFormValues}
                     />
                 </div>
                 <div className={cn("hidden", activeTab == 1 && "block")}>
                     <RoomAmenityForm
-                        propertyID={props.generalFormValues.propertyID}
+                        propertyId={props.generalFormValues.propertyId}
                         formValues={props.roomAmenities}
-                        roomID={props.roomId} />
+                        roomId={props.roomId} />
                 </div>
                 <div className={cn("hidden", activeTab == 2 && "block")}>
-                    <RoomRuleForm roomID={props.roomId}
-                        propertyID={props.generalFormValues.propertyID}
+                    <RoomRuleForm roomId={props.roomId}
+                        propertyId={props.generalFormValues.propertyId}
                         formValues={props.rules}
                     />
                 </div>
                 <div className={cn("hidden", activeTab == 3 && "block")}>
                     <RoomGalleryForm
-                        propertyID={props.generalFormValues.propertyID}
-                        roomID={props.roomId}
+                        propertyId={props.generalFormValues.propertyId}
+                        roomId={props.roomId}
                         defaultImages={props.galleries}
                     />
                 </div>

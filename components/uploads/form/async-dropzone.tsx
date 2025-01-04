@@ -60,7 +60,7 @@ export const AsyncDropZone = ({ endPoint, setShowLibrary, multiple = false }: Pr
             } else {
                 // Handle server-side errors
                 onError(new Error(response?.message || "Upload failed"));
-                toast.error(response?.message?.[0] || `upload failed.`);
+                toast.error(response?.message || `upload failed.`);
             }
         } catch (error) {
             // Handle client-side errors

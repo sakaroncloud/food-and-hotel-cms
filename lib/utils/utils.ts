@@ -118,35 +118,35 @@ export const getIDsFromSlug = (option: TSlug) => {
   /**
    * Extract IDs for Restaurant
    */
-  const [restaurantID] = extractIDs(option?.restaurantSlug, /--(\d+)$/);
+  const [restaurantId] = extractIDs(option?.restaurantSlug, /--(\d+)$/);
 
   /**
    * Extract IDs for Product and Menu
    */
-  const [productID, productRestaurantID] = extractIDs(option?.productSlug, /P(\d+)R(\d+)/);
-  const [menuID, menuRestaurantID] = extractIDs(option?.productSlug, /M(\d+)R(\d+)/);
+  const [productId, productRestaurantID] = extractIDs(option?.productSlug, /P(\d+)R(\d+)/);
+  const [menuId, menuRestaurantID] = extractIDs(option?.productSlug, /M(\d+)R(\d+)/);
 
   /**
    * Extract IDs for Property and Room
    */
-  const [propertyID] = extractIDs(option?.propertySlug, /--(\d+)$/);
-  const [roomID, roomPropertyId] = extractIDs(option?.roomSlug, /R(\d+)P(\d+)/);
+  const [propertyId] = extractIDs(option?.propertySlug, /--(\d+)$/);
+  const [roomId, roomPropertyId] = extractIDs(option?.roomSlug, /R(\d+)P(\d+)/);
 
   /**
    * Validation for slug integrity
    */
   const isSlugTempered = (
-    (productID && (!productRestaurantID || !restaurantID)) ||
-    (menuID && (!menuRestaurantID || !restaurantID)) ||
-    (roomID && (!roomPropertyId || !propertyID))
+    (productId && (!productRestaurantID || !restaurantId)) ||
+    (menuId && (!menuRestaurantID || !restaurantId)) ||
+    (roomId && (!roomPropertyId || !propertyId))
   );
 
   return {
     slugTempered: isSlugTempered,
-    restaurantID,
-    productID,
-    menuID,
-    propertyID,
-    roomID
+    restaurantId,
+    productId,
+    menuId,
+    propertyId,
+    roomId
   };
 };

@@ -16,7 +16,7 @@ const othersServerSchema = othersClientSchema.transform((values) => values.map((
 
 const baseRoomRulesSchema = z.object({
     allowSmoking: commonRuleSchema,
-    propertyID: z.number({
+    propertyId: z.number({
         message: "Property ID must be a number"
     }),
 })
@@ -38,13 +38,13 @@ export const roomRulesClientSchema = baseRoomRulesSchema.extend({
 
 // Use this in form schema
 export type TRoomRulesClientForm = z.infer<typeof roomRulesClientSchema>;
-export type TRoomRules = Omit<TRoomRulesClientForm, "propertyID">
+export type TRoomRules = Omit<TRoomRulesClientForm, "propertyId">
 // Use this to transform the data from server form to - client form
 export const roomRulesServer2ClientSchema = baseRoomRulesSchema.extend({
     others: serverToClientOthers,
 });
 
-export const roomRulesDefaultValues: Omit<TRoomRulesClientForm, "propertyID"> = {
+export const roomRulesDefaultValues: Omit<TRoomRulesClientForm, "propertyId"> = {
     allowSmoking: {
         status: false,
         description: ""

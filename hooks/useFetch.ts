@@ -1,6 +1,5 @@
 import { getSession } from "@/lib/actions/session";
 import { BACKEND_URL } from "@/lib/constants";
-import { API_ROUTES } from "@/lib/routes";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 
@@ -29,8 +28,15 @@ export const useLoadMoreFetch = (options: TLoadMore) => {
 };
 
 export const loadMore = async (pageParam = 1, ENDPOINT: string, take = 5, imageName = "") => {
+    const session = await getSession()
     try {
-        const res = await fetch(BACKEND_URL + ENDPOINT + `?page=${pageParam}&take=${take}&search=${imageName}`);
+        const res = await fetch(BACKEND_URL + ENDPOINT + `?page=${pageParam}&take=${take}&search=${imageName}`,
+            {
+                headers: {
+                    "Authorization": `Bearer ${session?.accessToken || ""}`
+                }
+            }
+        );
         return await res.json();
     } catch (error) {
         return null;

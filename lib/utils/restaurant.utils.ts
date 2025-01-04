@@ -5,7 +5,6 @@ export const parseRestaurantBasicFormFromServer2Client = (restaurantFromServer: 
     const validatedFields = restaurantBasicServer2ClientSchema.safeParse(restaurantFromServer)
 
     if (validatedFields.success) {
-        const dateTime = new Date(`1970-01-01T${validatedFields.data.openingTime}`).toISOString()
         return {
             ...validatedFields.data,
             openingTime: dayjs(new Date(`1970-01-01T${validatedFields.data.openingTime}`).toISOString()).format('HH:mm'),

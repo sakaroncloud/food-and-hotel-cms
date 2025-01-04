@@ -52,7 +52,7 @@ export const GalleryForm = (
         });
 
     const gallery: TAsyncGallery = useMemo(() => data?.pages?.flatMap((page) => page?.data).filter(Boolean) ?? [], [data]);
-
+    console.log(gallery, "oooooooooo", fetchEndPoint)
     const form = useFormContext();
     const [showLibrary, setShowLibrary] = useState(false);
     const value = form.watch(fieldId);

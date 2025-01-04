@@ -15,24 +15,26 @@ import { notFound } from 'next/navigation'
 const EditRestaurantPage = async ({ params }: TParams) => {
     const { restaurantSlug } = (await params)
 
-    const { restaurantID, slugTempered } = getIDsFromSlug({
+    const { restaurantId, slugTempered } = getIDsFromSlug({
         restaurantSlug
     })
 
-    if (!restaurantID || slugTempered) {
+    if (!restaurantId || slugTempered) {
         notFound()
     }
 
     const result = await getData<ResponseWithNoMeta<Restaurant.TRestaurant>>({
         endPoint: API_ROUTES.restaurant.endpoint,
-        param: restaurantID,
-        tags: ["restaurant", restaurantID]
+        param: restaurantId,
+        tags: ["restaurant", restaurantId]
     })
 
     if (!result?.data) notFound()
 
     const generalFormValues = parseRestaurantBasicFormFromServer2Client(result?.data)
-    console.log(generalFormValues)
+
+    if (!generalFormValues) notFound()
+
     return (
         <DashboardProvider>
             <EditRestaurantWrapper generalFormValues={generalFormValues}

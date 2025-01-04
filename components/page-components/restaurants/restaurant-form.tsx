@@ -1,6 +1,5 @@
 "use client"
 
-import { ChooseNewImageCard } from "@/components/choose-image-card/new-choose-image-card"
 import { GalleryForm } from "@/components/choose-image-card/property/gallery-form"
 import { CustomFormField } from "@/components/form/custom-form-field"
 import { FormFieldWrapper, FormFooter } from "@/components/form/form-field-wrapper"
@@ -198,12 +197,12 @@ export const RestaurantForm = ({ defaultFeaturedImage, defaultLogo, formValues }
                     className="flex flex-col gap-6"
                 >
 
-                    <ChooseNewImageCard
+                    {/* <ChooseNewImageCard
                         fieldId={"logo"}
                         label={"Logo"}
                         allowMultiple={false}
                         defaultImages={defaultLogo}
-                    />
+                    /> */}
 
                 </FormFieldWrapper>
 

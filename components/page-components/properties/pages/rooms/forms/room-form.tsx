@@ -25,7 +25,7 @@ export const RoomBasicForm = ({ formValues, propertyId, roomId }: Props) => {
         resolver: zodResolver(roomBasicFormSchema),
         defaultValues: formValues || {
             ...roomBasicDefaultValues,
-            propertyID: parseInt(`${propertyId}`)
+            propertyId: parseInt(`${propertyId}`)
         }
     })
 

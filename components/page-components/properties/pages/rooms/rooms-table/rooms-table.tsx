@@ -12,11 +12,11 @@ type Props = {
 }
 export const RoomsTable = async ({ propertySlug }: Props) => {
 
-    const propertyID = propertySlug.split("--")?.[1]
+    const propertyId = propertySlug.split("--")?.[1]
 
     const result = await getData<ResponseWithNoMeta<Property.TRoom[]>>({
-        endPoint: API_ROUTES.room.endpoint + "?propertyID=" + propertyID,
-        tags: [API_ROUTES.room.queryKey, propertyID]
+        endPoint: API_ROUTES.room.endpoint + "?propertyId=" + propertyId,
+        tags: [API_ROUTES.room.queryKey, propertyId]
     });
 
     if (!result?.data) return null
@@ -25,7 +25,7 @@ export const RoomsTable = async ({ propertySlug }: Props) => {
         return {
             ...room,
             property: {
-                id: propertyID,
+                id: propertyId,
                 slug: propertySlug
             }
         }

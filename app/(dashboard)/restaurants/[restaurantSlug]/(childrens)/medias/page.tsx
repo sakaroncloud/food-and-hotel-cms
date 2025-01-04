@@ -6,9 +6,9 @@ import { API_ROUTES } from '@/lib/routes'
 import { TParams } from '@/lib/types/global.type'
 import { getIDsFromSlug } from '@/lib/utils/utils'
 
-const PropertyMediaPage = async ({ params }: TParams) => {
-    const { propertySlug } = await params
-    const { propertyId } = getIDsFromSlug({ propertySlug })
+const RestaurantMediaPage = async ({ params }: TParams) => {
+    const { restaurantSlug } = await params
+    const { restaurantId } = getIDsFromSlug({ restaurantSlug })
     return (
         <TableWrapperWithFilter title="Uploads" headerActions={
             <div className="flex gap-6 items-center">
@@ -16,12 +16,12 @@ const PropertyMediaPage = async ({ params }: TParams) => {
                 <DropzoneTriggerer />
             </div>
         } >
-            <DropzoneAndMediaWrapper uploadEndPoint={API_ROUTES.propertyImage.endpoint + "/" + propertyId}
-                fetchEndPoint={API_ROUTES.propertyImage.endpoint + "/" + propertyId}
+            <DropzoneAndMediaWrapper uploadEndPoint={API_ROUTES.restImage.endpoint + "/" + restaurantId}
+                fetchEndPoint={API_ROUTES.restImage.endpoint + "/" + restaurantId}
                 multiple={true}
             />
         </TableWrapperWithFilter>
     )
 }
 
-export default PropertyMediaPage
+export default RestaurantMediaPage

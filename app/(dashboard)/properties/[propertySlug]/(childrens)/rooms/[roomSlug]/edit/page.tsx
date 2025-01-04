@@ -12,28 +12,28 @@ type Props = {
 const RoomEditPage = async ({ params }: Props) => {
     const { propertySlug, roomSlug } = await params
 
-    const { propertyID, roomID, slugTempered } = getIDsFromSlug({
+    const { propertyId, roomId, slugTempered } = getIDsFromSlug({
         propertySlug,
         roomSlug,
     })
 
-    if (slugTempered || propertyID === undefined || roomID === undefined) notFound()
+    if (slugTempered || propertyId === undefined || roomId === undefined) notFound()
 
     const result = await getData<ResponseWithNoMeta<Property.TRoom>>({
         endPoint: API_ROUTES.room.endpoint,
         query: {
-            key: "propertyID",
-            value: propertyID
+            key: "propertyId",
+            value: propertyId
         },
-        param: roomID,
-        tags: ["room", roomID]
+        param: roomId,
+        tags: ["room", roomId]
     })
 
     if (!result?.data) notFound()
 
     const generalInfo = parseRoomGeneralInfoFromServer2Client({
         ...result.data,
-        propertyID: +propertyID
+        propertyId: +propertyId
     })
 
     if (!generalInfo) notFound()
@@ -41,18 +41,18 @@ const RoomEditPage = async ({ params }: Props) => {
 
     const amenities = parseRoomAmenitiesFromServer2Client({
         ...result.data?.amenities,
-        propertyID: +propertyID
+        propertyId: +propertyId
     })
 
     const rules = parseRoomRulesFromServer2Client({
         ...result.data?.rules,
-        propertyID: +propertyID
+        propertyId: +propertyId
     })
 
     const galleries = result.data?.galleries
 
     return (
-        <EditRoomWrapper generalFormValues={generalInfo} roomId={roomID} roomAmenities={amenities} rules={rules}
+        <EditRoomWrapper generalFormValues={generalInfo} roomId={roomId} roomAmenities={amenities} rules={rules}
             galleries={galleries}
         />
     )

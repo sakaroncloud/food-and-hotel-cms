@@ -32,7 +32,7 @@ type Props = {
     allowMultiple: boolean | undefined;
     defaultImages?: TDefaultImage[] | undefined
 };
-export const ChooseNewImageCard = (
+export const ChooseNewsImageCard = (
     {
         fieldId,
         label,

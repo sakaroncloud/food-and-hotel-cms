@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const roomGallerySchema = z.object({
     galleryIds: z.array(z.string().uuid()).optional(),
-    propertyID: z.number({
+    propertyId: z.number({
         message: "Property ID must be a number"
     }),
 })
