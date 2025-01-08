@@ -37,39 +37,46 @@ export async function signIn(formData: TLogin): Promise<
 
     const result: TBaseResponse<TLoginResponse> = await response.json();
 
-    if (response.ok) {
-        if (result.data.tokens.limitError) {
-            return {
-                message: result.data.tokens.limitError,
-                data: {
-                    accessToken: result.data.tokens.accessToken,
-                },
-            };
-        } else {
-
-            if (result.data.role !== Role.ADMIN) {
+    try {
+        if (response.ok) {
+            if (result.data.tokens.limitError) {
                 return {
-                    message: "Invalid Credentials"
+                    message: result.data.tokens.limitError,
+                    data: {
+                        accessToken: result.data.tokens.accessToken,
+                    },
+                };
+            } else {
+
+                if (result.data.role !== Role.ADMIN) {
+                    return {
+                        message: "Invalid Credentials"
+                    }
                 }
+                await createSession({
+                    user: {
+                        id: result.data.id,
+                        name: result.data.firstName,
+                        role: result.data.role,
+                    },
+                    accessToken: result.data.tokens.accessToken,
+                    refreshToken: result.data.tokens?.refreshToken || "",
+                    csrfId: result.data.tokens.csrfId || ""
+                });
+                return {
+                    success: "Login successful",
+                };
             }
-            await createSession({
-                user: {
-                    id: result.data.id,
-                    name: result.data.firstName,
-                    role: result.data.role,
-                },
-                accessToken: result.data.tokens.accessToken,
-                refreshToken: result.data.tokens?.refreshToken || "",
-                csrfId: result.data.tokens.csrfId || ""
-            });
+        } else {
             return {
-                success: "Login successful",
+                message: result?.message || result?.message[0],
             };
         }
-    } else {
+    }
+    catch (e) {
         return {
-            message: result?.message || result?.message[0],
-        };
+            message: "Unexpected error occured"
+        }
     }
 }
 
