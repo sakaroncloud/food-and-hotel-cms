@@ -22,22 +22,23 @@ export async function signIn(formData: TLogin): Promise<
             errors: validationFields.error.flatten().fieldErrors,
         };
     }
-
-    const response = await fetch(
-        BACKEND_URL + API_ROUTES.login.endpoint,
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(validationFields.data),
-        }
-    );
-
-
-    const result: TBaseResponse<TLoginResponse> = await response.json();
-
     try {
+
+        const response = await fetch(
+            BACKEND_URL + API_ROUTES.login.endpoint,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(validationFields.data),
+            }
+        );
+
+
+        const result: TBaseResponse<TLoginResponse> = await response.json();
+
+
         if (response.ok) {
             if (result.data.tokens.limitError) {
                 return {

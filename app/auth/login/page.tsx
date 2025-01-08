@@ -34,38 +34,7 @@ const LoginPage = () => {
     }
   })
 
-  useEffect(() => {
-    console.log(BACKEND_URL, "baackendurl")
-    const api = async () => {
-      try {
-        const response = await fetch(BACKEND_URL)
-        if (response.ok) {
-          const data = await response.json()
-          console.log("ok", data)
-        }
-        else {
-          const data = await response.json()
-          console.log("error", data)
-        }
-      }
-      catch (error) {
-        console.log("error", error)
-      }
-    }
-    api()
-  }, [])
 
-
-  // useEffect(() => {
-  //   if (errors) {
-  //     Object.keys(errors).map((key) => {
-  //       form.setError(key as keyof typeof errors, {
-  //         type: "custom",
-  //         message: errors[key as keyof typeof errors],
-  //       });
-  //     });
-  //   }
-  // }, [errors]);
 
   const onSubmit = async (values: TLogin) => {
     // setErrors({});
