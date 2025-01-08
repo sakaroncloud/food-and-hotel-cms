@@ -52,42 +52,6 @@ export const parsePLocationsFromS2C = (locationsFromServer: any): TPropertyLocat
     return undefined
 }
 
-export const parsePAddressFromS2C = (addressFromServer?: TAddress): TAddressForm | undefined => {
-    if (!addressFromServer) return undefined
-    return {
-        ...addressFromServer,
-        city: addressFromServer.city.id
-    }
-
-}
-
-
-
-// export const getIDsFromPropertyAndRoom = (propertySlug: string, roomSlug: string) => {
-//     // Extract Property ID from the property slug
-//     const propertyIdMatch = propertySlug.match(/--(\d+)$/);
-//     const propertyId = propertyIdMatch ? propertyIdMatch[1] : null;
-
-//     // Extract Room ID and Property ID from the room slug
-//     const roomIdMatch = roomSlug.match(/R(\d+)P(\d+)/);
-//     const roomId = roomIdMatch ? roomIdMatch[1] : null;
-//     const roomPropertyId = roomIdMatch ? roomIdMatch[2] : null;
-//     if ((!roomId || !roomPropertyId || !propertyId) || (propertyId !== roomPropertyId)) {
-//         return {
-//             slugTempered: true,
-//         }
-//     }
-//     return {
-//         slugTempered: false,
-//         propertyId,
-//         roomId,
-//     }
-// }
-
-// export const getPropertyIDFromPropertySlug = (propertySlug: string) => {
-//     const propertyIdMatch = propertySlug.match(/--(\d+)$/);
-//     return propertyIdMatch ? propertyIdMatch[1] : null;
-// }
 
 export const parseRoomGeneralInfoFromS2C = (roomFromServer: any): TRoomBasicForm | undefined => {
     const validatedFields = roomBasicFormSchema.safeParse(roomFromServer)

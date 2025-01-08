@@ -1,15 +1,12 @@
 "use server";
 
-enum Role {
-  ADMIN = "ADMIN",
-  EDITOR = "EDITOR",
-  USER = "USER",
-}
+
 
 import { jwtVerify, SignJWT } from "jose";
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { Role } from "../types/user.types";
 
 export type Session = {
   user: {
@@ -82,7 +79,7 @@ export async function updateTokens({
 
   const { payload } = await jwtVerify<Session>(cookie, encodedKey);
 
-  if (!payload) throw new Error("Session not found");
+  if (!payload) return { message: "Unauthorized" };
 
   const newPayload: Session = {
     user: {

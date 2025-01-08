@@ -23,7 +23,11 @@ export const RestaurantTable = async ({ showDeleted }: Props) => {
         isDeleted: showDeleted,
     }))
 
+    console.log(filteredData)
+
 
     return (
-        <DataTable columns={columns} data={filteredData || []} showDeleted={showDeleted} />)
+        <DataTable columns={columns} data={filteredData || []} showDeleted={showDeleted}
+            searchKey='name'
+        />)
 }

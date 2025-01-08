@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import TanstackProvider from "@/components/providers/tanstack-provider";
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
-const inter = Inter({
-  variable: "--font-inter",
+const poppins = Poppins({
+  variable: "--font-poppins",
   weight: ["300", "400", "500", "600", "700", "800"],
   subsets: ["latin"],
 });
@@ -28,7 +28,7 @@ export default function RootLayout({
 
       <html lang="en">
         <body
-          className={` ${inter.className} antialiased`}
+          className={`bg-orange-200 ${poppins.className} antialiased `}
         >
           <AntdRegistry>{children}</AntdRegistry>
           <Toaster

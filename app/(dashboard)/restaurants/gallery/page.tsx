@@ -17,7 +17,6 @@ const FoodMediaPage = () => {
             } >
                 <DropzoneAndMediaWrapper uploadEndPoint={API_ROUTES.allRestImage.endpoint}
                     fetchEndPoint={API_ROUTES.allRestImage.endpoint}
-
                 />
             </TableWrapperWithFilter>
         </DashboardProvider>

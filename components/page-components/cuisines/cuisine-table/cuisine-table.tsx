@@ -14,5 +14,7 @@ export const CuisineTable = () => {
         queryKey: API_ROUTES.cuisine.queryKey,
     });
     return (
-        <DataTable columns={columns} data={result?.data || []} />)
+        <DataTable columns={columns} data={result?.data || []}
+            searchKey='name'
+        />)
 }

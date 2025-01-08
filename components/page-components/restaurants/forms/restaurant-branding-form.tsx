@@ -1,4 +1,4 @@
-import { GalleryForm } from "@/components/choose-image-card/property/gallery-form";
+import { GalleryForm } from "@/components/choose-image-card/gallery-form";
 import { FormFieldWrapper, FormFooter } from "@/components/form/form-field-wrapper";
 import { Form } from "@/components/ui/form";
 import { updateRestaurantBrandings } from "@/lib/actions/food/action.restaurant";

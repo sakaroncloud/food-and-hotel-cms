@@ -11,9 +11,9 @@ type Props = {
 const DashboardLayout = ({ children }: Props) => {
     return (
         <GalleryProvider>
-            <SidebarProvider  >
+            <SidebarProvider >
                 <AppSidebar />
-                <SidebarInset>
+                <SidebarInset className="bg-gray-100">
                     {children}
                 </SidebarInset>
             </SidebarProvider>

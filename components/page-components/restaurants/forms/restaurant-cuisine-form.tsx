@@ -32,7 +32,6 @@ export const RestaurantCuisineForm = ({ restaurantId, formValues }: Props) => {
 
 
     const onSubmit = (values: TRestCuisineForm) => {
-        console.log(values)
         startTransition(async () => {
             const response = await submitRestaurantCuisine(values, restaurantId);
             if (response.success == true) {

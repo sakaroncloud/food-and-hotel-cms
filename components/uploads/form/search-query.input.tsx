@@ -22,7 +22,7 @@ export const SearchQueryInput = ({ className, placeholder }: Props) => {
     return (
 
         <Input
-            className="max-w-xs"
+            className="max-w-xs w-full"
             placeholder={placeholder}
             onChange={handleChangeQuery}
             defaultValue={searchParams.get("search") || ""}

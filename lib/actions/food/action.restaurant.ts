@@ -6,6 +6,9 @@ import { API_ROUTES } from "../../routes";
 import { restaurantBasicFormSchema, TRestBasicForm } from "@/schemas/fooding/restaurant/restaurant-basic.schema";
 import { restaurantCuisineC2SSchema, TRestCuisineForm } from "@/schemas/fooding/restaurant/restaurant-cuisine.schema";
 import { restBrandingFormSchema, TRestBrandingForm } from "@/schemas/fooding/restaurant/restaurant-branding.schema";
+import { restaurantGallerySchema, TRestaurantGalleryClientForm } from "@/schemas/fooding/restaurant/restaurant.gallery.schema";
+import { TAddress } from "@/lib/types/address.types";
+import { TAddressForm } from "@/schemas/schema.address";
 
 export async function submitRestaurantBasic(formData: TRestBasicForm, param?: string | number) {
     const validationFields = restaurantBasicFormSchema.safeParse(formData)
@@ -96,3 +99,22 @@ export async function updateRestaurantBrandings(formData: TRestBrandingForm, par
         DATA: validationFields.data,
     })
 }
+
+
+export async function submitRestaurantGallery(formData: TRestaurantGalleryClientForm, param: string | number) {
+
+    const validationFields = restaurantGallerySchema.safeParse(formData)
+    if (!validationFields.success) {
+        return {
+            message: "Data tempered",
+        };
+    }
+
+    return await SubmitHandler({
+        ENDPOINT: API_ROUTES.restaurant.endpoint + "/" + param + "/gallery",
+        METHOD: "PATCH",
+        DATA: validationFields.data,
+    })
+}
+
+

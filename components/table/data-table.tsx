@@ -29,15 +29,28 @@ import { Input } from "@/components/ui/input"
 import { DataTablePagination } from "./pagination"
 import { DataTableViewOptions } from "./column-visibility-toggle"
 import { cn } from "@/lib/utils/utils"
+import { DataTableToolbar } from "./data-table-toolbar"
+
+
 
 interface DataTableProps<TData, TValue> {
     searchKey?: string;
+    apiSearchKey?: string;
+    searchLabel?: string;
     columns: ColumnDef<TData, TValue>[]
-    data: TData[]
+    data: TData[];
     actionButton?: React.ReactNode
     showViewColumn?: boolean,
     showPagination?: boolean,
-    showDeleted?: boolean
+    showDeleted?: boolean,
+    facetedFilters?: {
+        title: string,
+        options: {
+            label: string
+            value: string
+            icon?: React.ComponentType<{ className?: string }>
+        }[]
+    }
 }
 
 export function DataTable<TData, TValue>({
@@ -45,9 +58,12 @@ export function DataTable<TData, TValue>({
     columns,
     data,
     searchKey,
+    apiSearchKey,
+    searchLabel,
     showViewColumn = false,
     showPagination = true,
-    showDeleted = false
+    showDeleted = false,
+    facetedFilters
 }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -81,24 +97,10 @@ export function DataTable<TData, TValue>({
 
     return (
         <div className="space-y-4">
-            <div className="flex items-center py-4 bg-white w-full">
-                <div className="flex gap-3 flex-1">
-                    {searchKey && searchKey.length > 0 && <Input
-                        placeholder={`Filter ${searchKey}`}
-                        value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ""}
-                        onChange={(event) =>
-                            table.getColumn(searchKey)?.setFilterValue(event.target.value)
-                        }
-                        className="max-w-xs"
-                    />}
-                    <div className="w-fit">
-                        {actionButton}
-                    </div>
-                </div>
-
-                {showViewColumn && <DataTableViewOptions table={table} />}
-
-            </div>
+            <DataTableToolbar table={table} searchKey={searchKey} searchLabel={searchLabel}
+                apiSearchKey={apiSearchKey} facetedFilters={facetedFilters}
+                showViewColumn={showViewColumn}
+            />
             <div className={cn("rounded-md border p-2 ", showDeleted && "border-red-600")}>
                 <Table>
                     <TableHeader>

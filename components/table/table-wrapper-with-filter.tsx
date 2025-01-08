@@ -13,11 +13,11 @@ export const TableWrapperWithFilter = ({
     filterHeader,
 }: Props) => {
     return (
-        <div className="space-y-6 relative">
+        <div className="space-y-5 relative">
             <div className=" w-full bg-white shadow border rounded-lg relative">
                 <header
                     className={cn(
-                        "flex justify-between items-center relative py-4 px-6",
+                        "flex justify-between items-center relative py-4 px-6 ",
                         filterHeader && "border-b border-dashed border-gray-200 pb-4"
                     )}
                 >
@@ -29,7 +29,7 @@ export const TableWrapperWithFilter = ({
                 </header>
 
                 {filterHeader && (
-                    <div className="pt-4 py-4 px-6">
+                    <div className="pt-4 py-4 px-6 flex-1">
                         <Suspense fallback="loading">{filterHeader}</Suspense>
                     </div>
                 )}

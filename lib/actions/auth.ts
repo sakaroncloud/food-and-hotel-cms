@@ -1,10 +1,11 @@
 "use server";
 import { loginSchema, signUpSchema, TLogin, TSignUp } from "@/schemas/auth.schema";
 import { ReturnType, TBaseResponse } from "@/lib/types/response.type";
-import { Role, TLoginResponse } from "@/lib/types/auth.response.type";
+import { TLoginResponse } from "@/lib/types/auth.response.type";
 import { createSession, deleteSession, getSession } from "./session";
 import { API_ROUTES } from "@/lib/routes";
 import { BACKEND_URL } from "@/lib/constants";
+import { Role } from "../types/user.types";
 
 export async function signIn(formData: TLogin): Promise<
     ReturnType & {

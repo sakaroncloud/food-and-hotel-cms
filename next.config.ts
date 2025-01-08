@@ -6,10 +6,12 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         hostname: "localhost"
+      }, {
+        hostname: "jubahospitality.com"
       }
     ]
   },
-
+  output: "standalone"
 };
 
 export default nextConfig;

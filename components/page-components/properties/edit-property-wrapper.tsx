@@ -30,6 +30,7 @@ type Props = {
 export const EditPropertyWrapper = ({ address, amenities, galleries, generalFormValues, nearestLocations, rules }: Props) => {
     const [activeTab, setActiveTab] = useState(0)
 
+
     const tabs = [
         {
             label: "General Info",
@@ -68,7 +69,7 @@ export const EditPropertyWrapper = ({ address, amenities, galleries, generalForm
 
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-5">
             <MultiStepTabs activeTab={activeTab} setActiveTab={setActiveTab} tabs={tabs} />
             <ScrollArea className="px-4 h-[calc(100vh-200px)]">
                 <ScrollBar />

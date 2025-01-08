@@ -10,7 +10,6 @@ const CuisinesPage = () => {
     <DashboardProvider >
       <TableWrapperWithFilter title="Cuisines" headerActions={
         <div className="flex gap-6 items-center">
-          <TableSearchForm placeholder="Enter Cuisine" />
           <AddItemButton label="Add New" path={`/restaurants/cuisines/add`} />
         </div>
       } >

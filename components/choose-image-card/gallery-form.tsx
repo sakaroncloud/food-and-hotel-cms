@@ -21,7 +21,7 @@ import { TAsyncGallery, TDefaultImage } from "@/lib/types/upload.type";
 import { BACKEND_URL } from "@/lib/constants";
 import FallbackImage from "@/components/fallback-image";
 import { AsyncDropZone } from "@/components/uploads/form/async-dropzone";
-import { LibraryContent } from "../library-tab-content";
+import { LibraryContent } from "./library-tab-content";
 
 type Props = {
     fieldId: string;

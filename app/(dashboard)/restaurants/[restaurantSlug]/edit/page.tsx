@@ -5,7 +5,8 @@ import { API_ROUTES } from '@/lib/routes'
 import { TParams } from '@/lib/types/global.type'
 import { ResponseWithNoMeta } from '@/lib/types/response.type'
 import { Restaurant } from '@/lib/types/restaurant.types'
-import { parseRestBasicFormFromS2C, parseRestBrandingFromS2C, parseRestCuisineFromS2C } from '@/lib/utils/restaurant.utils'
+import { parseAddressFromS2C } from '@/lib/utils/address.utils'
+import { parseRestBasicFormFromS2C, parseRestCuisineFromS2C } from '@/lib/utils/restaurant.utils'
 import { getIDsFromSlug } from '@/lib/utils/utils'
 import { notFound } from 'next/navigation'
 
@@ -40,13 +41,16 @@ const EditRestaurantPage = async ({ params }: TParams) => {
         logo: result?.data?.logo,
         bannerImage: result?.data?.bannerImage
     }
-    console.log(brandings)
+    const galleries = result.data?.galleries
+    const address = parseAddressFromS2C(result.data?.address)
 
     return (
         <DashboardProvider>
             <EditRestaurantWrapper generalFormValues={generalFormValues}
                 cuisines={cuisines}
                 brandings={brandings}
+                galleries={galleries}
+                address={address}
             />
         </DashboardProvider>
     )

@@ -11,10 +11,10 @@ import { TRestBasicForm } from "@/schemas/fooding/restaurant/restaurant-basic.sc
 import { notFound } from "next/navigation"
 import { RestaurantBasicForm } from "./forms/restaurant-basic-form"
 import { RestaurantCuisineForm } from "./forms/restaurant-cuisine-form"
-import { result } from "lodash"
 import { TRestCuisineForm } from "@/schemas/fooding/restaurant/restaurant-cuisine.schema"
 import { RestaurantBrandingForm } from "./forms/restaurant-branding-form"
-import { TRestBrandingForm } from "@/schemas/fooding/restaurant/restaurant-branding.schema"
+import { RestaurantGalleryForm } from "./forms/restaurant-gallery-form"
+import { RestaurantAddressForm } from "./forms/restaurant-address-form"
 
 type Props = {
     generalFormValues: TRestBasicForm & { id: number };
@@ -40,18 +40,18 @@ export const EditRestaurantWrapper = ({ address, brandings, cuisines, galleries,
         {
             label: "Cuisines",
             value: "cuisines",
-            published: cuisines !== undefined && cuisines !== null
+            published: cuisines?.cuisines && cuisines?.cuisines?.length > 0 || false
         },
         {
-            label: "Logo",
-            value: "logo",
-            published: false,
+            label: "Branding",
+            value: "branding",
+            published: (brandings && (brandings?.bannerImage !== null && brandings?.logo !== null)) || false,
         },
 
         {
             label: "Gallery",
             value: "gallery",
-            published: false,
+            published: galleries !== undefined && galleries !== null && galleries?.length > 0
         },
 
 
@@ -64,7 +64,7 @@ export const EditRestaurantWrapper = ({ address, brandings, cuisines, galleries,
         {
             label: "Address",
             value: "address",
-            published: false,
+            published: address !== undefined && address !== null
         }
     ]
 
@@ -75,7 +75,7 @@ export const EditRestaurantWrapper = ({ address, brandings, cuisines, galleries,
 
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-5">
             <MultiStepTabs activeTab={activeTab} setActiveTab={setActiveTab} tabs={tabs} />
             <ScrollArea className="px-4 h-[calc(100vh-200px)]">
                 <ScrollBar />
@@ -97,14 +97,20 @@ export const EditRestaurantWrapper = ({ address, brandings, cuisines, galleries,
                     />
                 </div>
                 <div className={cn("hidden", activeTab == 3 && "block")}>
-
+                    <RestaurantGalleryForm
+                        restaurantId={generalFormValues.id}
+                        defaultImages={galleries}
+                    />
                 </div>
                 <div className={cn("hidden", activeTab == 4 && "block")}>
 
                 </div>
 
                 <div className={cn("hidden", activeTab == 5 && "block")}>
-
+                    <RestaurantAddressForm
+                        restaurantId={generalFormValues?.id}
+                        formValues={address}
+                    />
                 </div>
             </ScrollArea>
         </div>

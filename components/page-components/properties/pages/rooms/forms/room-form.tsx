@@ -20,7 +20,6 @@ type Props = {
 
 export const RoomBasicForm = ({ formValues, propertyId, roomId }: Props) => {
     console.log(propertyId)
-    const router = useRouter()
     const form = useForm<TRoomBasicForm>({
         resolver: zodResolver(roomBasicFormSchema),
         defaultValues: formValues || {

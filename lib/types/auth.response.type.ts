@@ -1,8 +1,6 @@
-export enum Role {
-    ADMIN = "ADMIN",
-    EDITOR = "EDITOR",
-    USER = "USER",
-}
+import { Role } from "./user.types";
+
+
 export type TLoginResponse = {
     id: string;
     firstName: string;

@@ -52,7 +52,7 @@ export const PropertyLocationsForm = ({ formValues, id }: Props) => {
                     className='flex justify-between flex-1 '
                 >
 
-                    <div className="w-full space-y-6">
+                    <div className="w-full space-y-5">
                         {fields.map((field, index) => (
                             <div key={field.id} className="flex gap-4">
                                 <CustomFormField

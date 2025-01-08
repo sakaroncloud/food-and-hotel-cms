@@ -51,7 +51,7 @@ export const EditRoomWrapper = ({ ...props }: Props) => {
     ]
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-5">
             <MultiStepTabs activeTab={activeTab} setActiveTab={setActiveTab} tabs={tabs} />
             <ScrollArea className="px-4 h-[calc(100vh-200px)]">
                 <ScrollBar />

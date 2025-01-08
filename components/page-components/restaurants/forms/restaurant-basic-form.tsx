@@ -35,7 +35,7 @@ export const RestaurantBasicForm = ({ formValues }: Props) => {
                     queryClient.invalidateQueries()
                 }
                 if (!formValues) {
-                    router.push(response.data.slug + "/edit")
+                    router.push("/restaurants")
                     queryClient.invalidateQueries()
                 }
             }

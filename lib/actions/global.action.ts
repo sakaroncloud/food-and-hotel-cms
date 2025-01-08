@@ -21,7 +21,7 @@ export const SubmitHandler = async (option: Option) => {
     const session = await getSession()
 
     if (!session?.accessToken) {
-        throw new Error("Unauthorized")
+        return { message: "Unauthorized" };
     }
 
     try {
@@ -81,7 +81,7 @@ export const SubmitHandler = async (option: Option) => {
 
 
 export const deleteHandler = async (option: {
-    PARAM: string,
+    PARAM: string | number,
     ENDPOINT: string,
     revalidateTag?: string[]
 }) => {
@@ -142,7 +142,7 @@ export const deleteHandler = async (option: {
 
 
 export const deleteForeverHandler = async (option: {
-    PARAM: string,
+    PARAM: string | number,
     ENDPOINT: string,
     revalidateTag?: string[]
 
@@ -199,7 +199,7 @@ export const deleteForeverHandler = async (option: {
 };
 
 export const restoreHandler = async (option: {
-    PARAM: string,
+    PARAM: string | number,
     ENDPOINT: string,
     revalidateTag?: string[]
 

@@ -1,6 +1,5 @@
 import { getData } from '@/app/data';
 import FallbackImage from '@/components/fallback-image';
-import { AddressFormModal } from '@/components/form/address-modal';
 import { API_ROUTES } from '@/lib/routes';
 import { ResponseWithNoMeta } from '@/lib/types/response.type';
 import { Restaurant } from '@/lib/types/restaurant.types';
@@ -89,12 +88,6 @@ export const RestaurantHeroSection = async ({
                         <div className='flex gap-2 items-center'>
 
                             <div className='flex items-center gap-2 text-gray-700'>
-                                <AddressFormModal
-                                    formValues={
-                                        restaurant?.address ? { ...restaurant?.address, city: restaurant?.address?.city.id } : undefined
-                                    }
-                                    ENDPOINT={`${API_ROUTES.restaurant.endpoint}/${restaurant.id}/address`} label="Edit Address"
-                                />
                                 {formattedAddress}
                             </div>
 

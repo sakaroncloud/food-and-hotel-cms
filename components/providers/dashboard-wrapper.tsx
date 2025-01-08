@@ -16,7 +16,7 @@ export const DashboardProvider = ({ children }: Props) => {
   const breadCrumb = getBreadCrumb(pathname)
 
   return (
-    <div className='p-2'>
+    <div className='p-2 bg-slate-100'>
       <header className="flex fixed  top-0 z-50 w-full bg-white  h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
         <div className="flex items-center h-full w-full mt-4 rounded-xl bg-primary  gap-2 px-4">
           <SidebarTrigger className="-ml-1 text-white hover:text-white" />

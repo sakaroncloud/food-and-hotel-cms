@@ -31,6 +31,10 @@ export const API_ROUTES = {
         endpoint: "/fooding/restaurant-private" as const,
         queryKey: "restaurant" as const,
     },
+    order: {
+        endpoint: "/fooding/order" as const,
+        queryKey: "order" as const,
+    },
     singleCusineRestaurants: {
         endpoint: "/fooding/restaurant/cuisine" as const,
         queryKey: "singleCusineRestaurants" as const,
@@ -54,6 +58,10 @@ export const API_ROUTES = {
     room: {
         endpoint: "/lodging/room" as const,
         queryKey: "room" as const,
+    },
+    user: {
+        endpoint: "/user" as const,
+        queryKey: "user" as const,
     }
 };
 

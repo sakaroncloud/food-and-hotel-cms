@@ -1,0 +1,24 @@
+services:
+  api1:
+    image: 'ghcr.io/sakaroncloud/jubabackend:v.1'
+    container_name: api1
+    env_file:
+      - .env.prod
+    ports:
+      - 8000:8000
+    volumes:
+      - shared-public:/app/backend/public
+
+  cms:
+    image: 'ghcr.io/sakaroncloud/jubacms:v.3'
+    container_name: cms
+    env_file:
+      - .env.cms
+    ports:
+      - 3000:3000
+    depends_on:
+      - api1
+      - api2
+
+volumes:
+  shared-public:

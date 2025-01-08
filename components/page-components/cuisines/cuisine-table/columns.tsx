@@ -41,7 +41,7 @@ export const columns: ColumnDef<Restaurant.Cuisine.TCuisine>[] = [
             const image = row.original.bannerImage?.url
             return (
                 <div className="flex items-center gap-2">
-                    <div className="p-1 border border-slate-200 bg-white rounded-lg"> <FallbackImage type="square" src={image || "/"} alt={row.original.name} width={40} height={40} className="rounded-lg" /></div>
+                    <div className="p-1 border border-slate-200 bg-white rounded-lg"> <FallbackImage type="square" src={image || "/"} alt={row.original.name} width={40} height={40} errorMessage="No Image" errorClassName="h-10 w-10 text-[10px] text-primary" className="rounded-lg" /></div>
                     <div className="text-sm font-medium capitalize">{row.original.name}</div>
                 </div>
             )
@@ -72,7 +72,7 @@ export const columns: ColumnDef<Restaurant.Cuisine.TCuisine>[] = [
                 startTransition(async () => {
                     const res = await deleteHandler({
                         ENDPOINT: API_ROUTES.cuisine.endpoint,
-                        PARAM: data.id
+                        PARAM: data.slug
                     })
                     if (res.success == true) {
                         toast.success(res.message)

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse, userAgent } from "next/server";
 import { getSession } from "./lib/actions/session";
-import { Role } from "./lib/types/auth.response.type";
 import { DEFAULT_LOGIN_REDIRECT, LOGGED_OUT_REDIRECT } from "./lib/routes";
+import { Role } from "./lib/types/user.types";
 
 export async function middleware(request: NextRequest) {
   const nextUrl = request.nextUrl;

@@ -1,7 +1,10 @@
 import { restaurantBasicS2CSchema, TRestBasicC2S, TRestBasicForm } from "@/schemas/fooding/restaurant/restaurant-basic.schema"
 import { restBrandingS2CSchema, TRestBrandingForm } from "@/schemas/fooding/restaurant/restaurant-branding.schema"
 import { restaurantCuisineS2CSchema, TRestCuisineForm } from "@/schemas/fooding/restaurant/restaurant-cuisine.schema"
+import { productS2CSchema, TProductForm } from "@/schemas/fooding/schema.product"
 import dayjs from "dayjs"
+import { Restaurant } from "../types/restaurant.types"
+import { menuFormSchema, TMenuForm } from "@/schemas/fooding/schema.menu"
 
 export const parseRestBasicFormFromS2C = (restaurantFromServer: TRestBasicC2S): TRestBasicForm & { id: number } | undefined => {
     const validatedFields = restaurantBasicS2CSchema.safeParse(restaurantFromServer)
@@ -33,3 +36,37 @@ export const parseRestBrandingFromS2C = (brandingsFromServer: any): TRestBrandin
 
     return undefined
 }
+
+
+/**
+ * For Product Form
+ */
+
+export const parseProductFromS2C = (product: Restaurant.Product.TProduct, restaurantId: number): TProductForm | undefined => {
+
+
+    const validatedData = productS2CSchema.safeParse({
+        ...product,
+        restaurantId,
+    })
+
+    console.log(validatedData.error)
+    if (validatedData.success) {
+        return validatedData.data
+    }
+    return undefined
+}
+
+export const parseMenuFromS2C = (menuFromServer: any, restaurantId: number): TMenuForm | undefined => {
+
+    const validatedData = menuFormSchema.safeParse({
+        ...menuFromServer,
+        restaurantId,
+    })
+
+    if (validatedData.success) {
+        return validatedData.data
+    }
+    return undefined
+}
+

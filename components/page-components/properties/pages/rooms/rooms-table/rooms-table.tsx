@@ -31,7 +31,6 @@ export const RoomsTable = async ({ propertySlug }: Props) => {
         }
     })
 
-    console.log(filteredData)
 
     return (
         <DataTable searchKey='name' columns={columns} data={filteredData || []} showPagination={false} />)

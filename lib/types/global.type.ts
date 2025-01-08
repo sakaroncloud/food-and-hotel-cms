@@ -14,7 +14,7 @@ export type CardItemProps = TCardLabel & {
     iconColor: ClassNameValue;
 }
 
-type TSlug = "propertySlug" | "roomSlug" | "restaurantSlug" | "citySlug" | "cuisineSlug" | "restaurantSlug"
+type TSlug = "propertySlug" | "roomSlug" | "menuSlug" | "restaurantSlug" | "citySlug" | "cuisineSlug" | "restaurantSlug"
 
 export type TParams = {
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>

@@ -9,13 +9,14 @@ export const menuFormSchema = z.object({
         message: "Desccription must be at least 4 characters"
     }),
 
-    restaurant: z.string(),
+    restaurantId: z.number({
+        message: "Restaurant ID must be a number"
+    }),
 })
 
 export type TMenuForm = z.infer<typeof menuFormSchema>
 
-export const menuDefaultValues: TMenuForm = {
+export const menuDefaultValues: Omit<TMenuForm, "restaurantId"> = {
     name: "",
-    restaurant: "",
     description: ""
 }

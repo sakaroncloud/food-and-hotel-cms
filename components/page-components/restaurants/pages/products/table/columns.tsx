@@ -31,7 +31,7 @@ export const columns: ColumnDef<Restaurant.Product.TProduct & {
                 const page = parseInt(searchParams.get("page") || "1");
                 const take = 10;
                 const index = row.index + 1 + (page - 1) * take;
-                return <CustomCell label={"#SN: " + index.toString()} />;
+                return <CustomCell label={"#: " + index.toString()} />;
             },
         },
 
@@ -78,7 +78,6 @@ export const columns: ColumnDef<Restaurant.Product.TProduct & {
                 const data = row.original;
                 const router = useRouter()
                 const [open, setOpen] = useState(false);
-                const [openEdit, setOpenEdit] = useState(false);
                 const queryClient = useQueryClient()
                 const [pending, startTransition] = useTransition()
 
@@ -86,7 +85,7 @@ export const columns: ColumnDef<Restaurant.Product.TProduct & {
                     startTransition(async () => {
                         const res = await deleteHandler({
                             ENDPOINT: API_ROUTES.product.endpoint,
-                            PARAM: data.id + "?restaurant=" + data.restaurant?.slug
+                            PARAM: data.id + "?restaurantId=" + data.restaurant?.id
                         })
                         if (res.success == true) {
                             toast.success(res.message)

@@ -8,7 +8,7 @@ type Props = {
 const PropertyRoomsPage = async ({ params }: Props) => {
     const propertySlug = (await params).propertySlug
     return (
-        <div className="space-y-6 relative">
+        <div className="space-y-5 relative">
             <div className=" w-full bg-white shadow border rounded-lg relative">
                 <header
                     className={cn(

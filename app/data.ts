@@ -17,6 +17,9 @@ export const getData = async <T>(options: TOption): Promise<T | null> => {
     if (options.query) {
         queryString = `?${options.query.key}=${options.query.value}`
     }
+
+    console.log(options.endPoint)
+    console.log(queryString)
     const session = await getSession()
 
     const fetchOption: RequestInit = {

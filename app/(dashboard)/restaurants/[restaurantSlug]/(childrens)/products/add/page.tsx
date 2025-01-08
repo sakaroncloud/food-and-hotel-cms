@@ -1,13 +1,14 @@
+import { ProductForm } from '@/components/page-components/restaurants/pages/products/product-form'
 import { CreatePageWrapper } from '@/components/providers/create-page-wrapper'
-import React from 'react'
-import { ProductForm } from '../_components/product-form'
+import { TParams } from '@/lib/types/global.type'
 
-type Props = {
-    params: Promise<{ restaurantSlug: string }>
-}
 
-const AddProductPage = async ({ params }: Props) => {
+
+
+const AddProductPage = async ({ params }: TParams) => {
     const { restaurantSlug } = await params
+
+
 
     return (
         <CreatePageWrapper title='Add New Product'>

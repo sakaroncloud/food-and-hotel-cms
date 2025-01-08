@@ -15,7 +15,6 @@ import { API_ROUTES } from "@/lib/routes"
 import toast from "react-hot-toast"
 import { useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
-import { MenuFormModal } from "../menu-form-modal"
 import { Restaurant } from "@/lib/types/restaurant.types"
 
 export const columns: ColumnDef<Restaurant.Menu.TMenu & {
@@ -30,7 +29,7 @@ export const columns: ColumnDef<Restaurant.Menu.TMenu & {
                 const take = 10;
                 const index = row.index + 1 + (page - 1) * take;
 
-                return <CustomCell label={index.toString()} />;
+                return <CustomCell label={`# ${index.toString()}`} />;
             },
         },
 
@@ -45,12 +44,14 @@ export const columns: ColumnDef<Restaurant.Menu.TMenu & {
                 )
             }
         },
-
+        {
+            accessorKey: "totalProducts",
+            header: "Total Products",
+        }
+        ,
         {
             accessorKey: "description",
-            header: ({ column }) => (
-                <DataTableColumnHeader column={column} title="Description" />
-            ),
+            header: "Description",
             cell: ({ row }) => {
                 const description = row.original?.description
                 if (!description) return null
@@ -60,8 +61,6 @@ export const columns: ColumnDef<Restaurant.Menu.TMenu & {
             }
         },
 
-
-
         {
             accessorKey: "actions",
             header: "Actions",
@@ -69,7 +68,6 @@ export const columns: ColumnDef<Restaurant.Menu.TMenu & {
                 const data = row.original;
                 const router = useRouter()
                 const [open, setOpen] = useState(false);
-                const [openEdit, setOpenEdit] = useState(false);
                 const queryClient = useQueryClient()
                 const [pending, startTransition] = useTransition()
 
@@ -77,7 +75,7 @@ export const columns: ColumnDef<Restaurant.Menu.TMenu & {
                     startTransition(async () => {
                         const res = await deleteHandler({
                             ENDPOINT: API_ROUTES.menu.endpoint,
-                            PARAM: data.id + "?restaurant=" + data.restaurant?.slug
+                            PARAM: data.id + "?restaurantId=" + data.restaurant?.id
                         })
                         if (res.success == true) {
                             toast.success(res.message)
@@ -95,27 +93,11 @@ export const columns: ColumnDef<Restaurant.Menu.TMenu & {
                 return (
                     <div className="flex gap-2">
                         <EditButton
-                            onClick={() => setOpenEdit(true)}
+                            path={`/restaurants/${data.restaurant.slug}/menus/${data.slug}/edit`}
                         >
                             Open Edit
                         </EditButton>
 
-                        {openEdit && (
-                            <MenuFormModal
-                                key={data.id}
-                                label="Edit Menu"
-                                restaurantSlug={data.restaurant.slug}
-                                formDescription="Make change to the menu here"
-                                openModal={openEdit}
-                                setOpenModal={setOpenEdit}
-                                formValues={{
-                                    id: data?.id || "",
-                                    description: data?.description || "",
-                                    name: data?.name || "",
-                                    restaurant: data.restaurant.slug,
-                                }}
-                            />
-                        )}
 
                         <CustomFormModal
                             open={open}

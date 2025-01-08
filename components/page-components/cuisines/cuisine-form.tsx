@@ -1,5 +1,5 @@
 "use client"
-import { GalleryForm } from "@/components/choose-image-card/property/gallery-form"
+import { GalleryForm } from "@/components/choose-image-card/gallery-form"
 import { CustomFormField } from "@/components/form/custom-form-field"
 import { FormFieldWrapper, FormFooter } from "@/components/form/form-field-wrapper"
 import { Form } from "@/components/ui/form"

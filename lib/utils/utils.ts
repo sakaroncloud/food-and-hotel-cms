@@ -104,6 +104,7 @@ type TSlug = {
   roomSlug?: string;
   restaurantSlug?: string;
   productSlug?: string;
+  menuSlug?: string;
 };
 
 export const getIDsFromSlug = (option: TSlug) => {
@@ -124,7 +125,7 @@ export const getIDsFromSlug = (option: TSlug) => {
    * Extract IDs for Product and Menu
    */
   const [productId, productRestaurantID] = extractIDs(option?.productSlug, /P(\d+)R(\d+)/);
-  const [menuId, menuRestaurantID] = extractIDs(option?.productSlug, /M(\d+)R(\d+)/);
+  const [menuId, menuRestaurantID] = extractIDs(option?.menuSlug, /M(\d+)R(\d+)/);
 
   /**
    * Extract IDs for Property and Room

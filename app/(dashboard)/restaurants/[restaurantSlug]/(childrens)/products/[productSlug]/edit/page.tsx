@@ -1,11 +1,14 @@
 import { CreatePageWrapper } from '@/components/providers/create-page-wrapper'
 import React from 'react'
-import { ProductForm } from '../../_components/product-form'
 import { getData } from '@/app/data'
 import { API_ROUTES } from '@/lib/routes'
 import { ResponseWithNoMeta } from '@/lib/types/response.type'
 import { notFound } from 'next/navigation'
 import { Restaurant } from '@/lib/types/restaurant.types'
+import { getIDsFromSlug } from '@/lib/utils/utils'
+import { ProductForm } from '@/components/page-components/restaurants/pages/products/product-form'
+import { productS2CSchema, TProductForm } from '@/schemas/fooding/schema.product'
+import { parseProductFromS2C } from '@/lib/utils/restaurant.utils'
 
 type Props = {
     params: Promise<{ restaurantSlug: string, productSlug: string }>
@@ -14,29 +17,41 @@ type Props = {
 const EditProductPage = async ({ params }: Props) => {
     const { restaurantSlug, productSlug } = await params
 
+    const { restaurantId, productId, slugTempered } = getIDsFromSlug({
+        restaurantSlug,
+        productSlug
+    })
+    if (!restaurantId || slugTempered || !productId) {
+        notFound()
+    }
+
+
     const result = await getData<ResponseWithNoMeta<Restaurant.Product.TProduct>>({
         endPoint: API_ROUTES.product.endpoint,
-        param: productSlug,
-        tags: ["product", productSlug]
+        query: {
+            key: "restaurantId",
+            value: restaurantId
+        },
+        param: productId,
+        tags: ["product", productId]
     })
+
+
 
     if (!result?.data) {
         notFound()
     }
+    console.log(result.data)
+    const product = parseProductFromS2C(result.data, +restaurantId)
 
-    const product = result.data
 
     return (
         <CreatePageWrapper title='Edit Product'>
             <ProductForm
-                formValues={{
-                    ...product,
-                    menus: product?.menus?.map((menu) => ({ value: menu.id, label: menu.name })) || [],
-                    bannerImage: product?.bannerImage?.id,
-                    restaurant: restaurantSlug
-                }}
-                defaultFeaturedImage={product?.bannerImage ? [{ id: product.bannerImage.id, url: product.bannerImage.url }] : []}
-                restaurantSlug={restaurantSlug} />
+                formValues={product}
+                productId={productId}
+                restaurantSlug={restaurantSlug}
+            />
         </CreatePageWrapper>
     )
 }

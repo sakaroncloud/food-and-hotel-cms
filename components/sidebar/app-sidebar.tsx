@@ -209,14 +209,14 @@ const data = {
     ],
     users: [
         {
-            name: "Admin",
-            url: "/users",
+            name: "Staffs",
+            url: "/staffs",
             icon: ShieldCheck,
         },
 
         {
             name: "Customers",
-            url: "/users",
+            url: "/customers",
             icon: Users,
         }
     ],

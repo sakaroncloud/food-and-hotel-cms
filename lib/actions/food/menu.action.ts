@@ -5,7 +5,7 @@ import { API_ROUTES } from "../../routes";
 import { menuFormSchema, TMenuForm } from "@/schemas/fooding/schema.menu";
 
 
-export async function submitMenu(formData: TMenuForm, param?: string) {
+export async function submitMenu(formData: TMenuForm, param?: string | number) {
 
     const validationFields = menuFormSchema.safeParse(formData)
     if (!validationFields.success) {
@@ -13,6 +13,8 @@ export async function submitMenu(formData: TMenuForm, param?: string) {
             message: "Data tempered",
         };
     }
+
+    console.log(validationFields.data, param)
 
 
     return await SubmitHandler({

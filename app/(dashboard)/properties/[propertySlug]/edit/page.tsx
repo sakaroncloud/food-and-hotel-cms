@@ -3,7 +3,8 @@ import { EditPropertyWrapper } from '@/components/page-components/properties/edi
 import { API_ROUTES } from '@/lib/routes'
 import { Property } from '@/lib/types/property.types'
 import { ResponseWithNoMeta } from '@/lib/types/response.type'
-import { parsePAddressFromS2C, parsePAmenitiesFromS2C, parsePLocationsFromS2C, parsePropertyGalleryFromS2C, parsePRulesFromS2C } from '@/lib/utils/property.utils'
+import { parseAddressFromS2C } from '@/lib/utils/address.utils'
+import { parsePAmenitiesFromS2C, parsePLocationsFromS2C, parsePRulesFromS2C } from '@/lib/utils/property.utils'
 import { TPropertyBasicForm } from '@/schemas/lodging/property/property-basic.schema'
 import { notFound } from 'next/navigation'
 type Props = {
@@ -37,11 +38,8 @@ const EditPropertyPage = async ({ params }: Props) => {
     const rules = parsePRulesFromS2C(result.data?.rules)
     const locations = parsePLocationsFromS2C(result.data?.nearestLocations)
 
-    const address = parsePAddressFromS2C(result.data?.address)
+    const address = parseAddressFromS2C(result.data?.address)
     const galleries = result.data.galleries
-
-
-
 
     return (
         <EditPropertyWrapper address={address} galleries={galleries} generalFormValues={generalData} amenities={aminities} rules={rules} nearestLocations={locations} />

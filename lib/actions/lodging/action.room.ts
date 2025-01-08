@@ -1,7 +1,7 @@
 import { roomBasicFormSchema, TRoomBasicForm } from "@/schemas/lodging/room/room-basic.schema";
 import { SubmitHandler } from "../global.action";
 import { API_ROUTES } from "@/lib/routes";
-import { roomAmenitiesClientSchema, roomAmenitiesC2SSchema, TRoomAmenitiesClientForm } from "@/schemas/lodging/room/room-amenities.schema";
+import { roomAmenitiesC2SSchema, TRoomAmenitiesClientForm } from "@/schemas/lodging/room/room-amenities.schema";
 import { roomRulesC2SSchema, TRoomRulesClientForm } from "@/schemas/lodging/room/room-rules.schema";
 
 export async function submitRoom(formData: TRoomBasicForm, param?: string) {

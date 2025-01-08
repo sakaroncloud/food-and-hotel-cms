@@ -14,45 +14,51 @@ import { API_ROUTES } from '@/lib/routes';
 import { ResponseWithNoMeta } from '@/lib/types/response.type';
 import { FormFieldWrapper, FormFooter } from '@/components/form/form-field-wrapper';
 import { Restaurant } from '@/lib/types/restaurant.types';
+import { GalleryForm } from '@/components/choose-image-card/gallery-form';
+import { getIDsFromSlug } from '@/lib/utils/utils';
 
 type Props = {
-    formValues?: TProductForm & {
-        id: string,
-    };
+    formValues?: TProductForm;
+    productId?: string | number;
     restaurantSlug: string;
-    defaultFeaturedImage?: TDefaultImage[];
+    defaultImages?: {
+        bannerImage?: TDefaultImage;
+    }
 }
 
-export const ProductForm = ({ defaultFeaturedImage, formValues, restaurantSlug }: Props) => {
+export const ProductForm = ({ defaultImages, formValues, productId, restaurantSlug }: Props) => {
+
+    const { restaurantId } = getIDsFromSlug({
+        restaurantSlug
+    })
+
+    console.log(formValues)
 
     const { data: menus } = useFetch<ResponseWithNoMeta<Restaurant.Menu.TMenusResponse>>({
-        endPoint: API_ROUTES.menu.endpoint + "?restaurant=" + restaurantSlug,
-        queryKey: API_ROUTES.menu.queryKey + restaurantSlug,
+        endPoint: API_ROUTES.menu.endpoint + "?restaurantId=" + restaurantId,
+        queryKey: API_ROUTES.menu.queryKey + restaurantId,
     });
 
 
     const form = useForm<TProductForm>({
         resolver: zodResolver(productFormSchema),
-        defaultValues: formValues ? {
-            ...formValues,
-        } : {
+        defaultValues: formValues || {
             ...productDefaultValues,
-            restaurant: restaurantSlug,
+            restaurantId: parseInt(`${restaurantId}`)
         }
 
     })
 
     const [isPending, startTransition] = useTransition();
     const router = useRouter()
-
-
     const onSubmit = (values: TProductForm) => {
         startTransition(async () => {
-            const response = await submitProduct(values, formValues?.id);
+            const response = await submitProduct(values, productId);
             if (response.success == true) {
                 toast.success(response.message)
                 router.refresh()
                 if (!formValues) {
+                    router.push(`/restaurants/${restaurantSlug}/products`)
                     form.reset()
                 }
             }
@@ -62,7 +68,7 @@ export const ProductForm = ({ defaultFeaturedImage, formValues, restaurantSlug }
         })
     }
 
-
+    console.log(form.formState.errors, "errors")
 
     return (
 
@@ -97,6 +103,7 @@ export const ProductForm = ({ defaultFeaturedImage, formValues, restaurantSlug }
                             label='Price'
                             inputType='number'
                             placeholder='Enter Price'
+                            step={"any"}
                             className='w-full'
                         />
 
@@ -118,8 +125,6 @@ export const ProductForm = ({ defaultFeaturedImage, formValues, restaurantSlug }
                     description="You can select multiple menus"
                     className="flex flex-col gap-6"
                 >
-
-
                     <CustomFormField
                         elementName="multiselect"
                         fieldId="menus"
@@ -128,10 +133,10 @@ export const ProductForm = ({ defaultFeaturedImage, formValues, restaurantSlug }
                         className="w-full"
                         isMulti={true}
                         selectOptions={
-                            menus?.data?.menus?.map((menu) => ({ value: menu.id, label: menu.name })) || []
+                            menus?.data?.menus?.map((menu) => ({ value: `${menu.id}`, label: menu.name })) || []
                         }
                         defaultValue={
-                            productDefaultValues.menus
+                            formValues?.menus || productDefaultValues.menus
                         }
                     />
                 </FormFieldWrapper>
@@ -142,12 +147,14 @@ export const ProductForm = ({ defaultFeaturedImage, formValues, restaurantSlug }
                     description="This image will be used in website"
                     className="flex flex-col gap-6"
                 >
-                    {/* <ChooseNewImageCard
-                        fieldId={"bannerImage"}
-                        label={"Featured Image"}
+                    <GalleryForm
+                        defaultImages={defaultImages?.bannerImage?.id ? [defaultImages.bannerImage] : []}
                         allowMultiple={false}
-                        defaultImages={defaultFeaturedImage}
-                    /> */}
+                        fieldId={"bannerImage"}
+                        label={"Banner Image"}
+                        fetchEndPoint={API_ROUTES.singleRestImage.endpoint + "/" + restaurantId}
+                        uploadEndPoint={API_ROUTES.singleRestImage.endpoint + "/" + restaurantId}
+                    />
                 </FormFieldWrapper>
                 <FormFooter
                     buttonLabel={formValues ? "Update" : "Add New"}

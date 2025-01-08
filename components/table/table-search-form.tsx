@@ -22,7 +22,7 @@ const SearchForm = ({ className, placeholder }: Props) => {
     }, 300);
 
     return (
-        <div className="px-3 py-1 border border-slate-200 rounded-lg flex items-center gap-2 max-w-[400px] w-full">
+        <div className="px-3 py-1 border border-slate-200 rounded-lg flex items-center gap-2 max-w-[300px] w-full">
             <Search />
             <Input
                 className="border-0 shadow-none focus:border-0 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none px-0 border-none"

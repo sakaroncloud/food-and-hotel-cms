@@ -1,6 +1,7 @@
 import { EDiscountType, EWeekDay } from "@/schemas/fooding/schema.restaurant";
-import { TBaseWithDescription, TImage } from "./shared.types";
+import { TBaseWithDescription, TImage, TInTBaseWithDescription } from "./shared.types";
 import { TAddress } from "./address.types";
+import { TAsyncGallery } from "./upload.type";
 
 export namespace Restaurant {
 
@@ -8,7 +9,10 @@ export namespace Restaurant {
     // Sub-Namespace for products
     export namespace Product {
         /** Defines a product entity in the restaurant */
-        export type TProduct = TBaseWithDescription & {
+        export type TProduct = {
+            id: number;
+            name: string;
+            slug: string;
             description: string;
             price: number;
             preparationTime: number;
@@ -24,8 +28,9 @@ export namespace Restaurant {
     // Sub-NameSpace for Menus
     export namespace Menu {
         /** Defines a cuisine entity */
-        export type TMenu = TBaseWithDescription & {
+        export type TMenu = TInTBaseWithDescription & {
             products?: Product.TProduct[];
+            totalProducts?: number;
         };
         export type TMenusResponse = {
             menus: TMenu[]
@@ -74,6 +79,8 @@ export namespace Restaurant {
         totalMenus: number;
         totalCuisines: number;
         totalUploads: number;
+        galleries?: TAsyncGallery;
+
     };
 
     export type TRest = Omit<TSingleRestaurant, | "totalProducts" | "totalMenus" | "totalCuisines" | "totalUploads"> & {

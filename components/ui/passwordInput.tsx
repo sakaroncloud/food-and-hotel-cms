@@ -1,7 +1,7 @@
 import * as React from "react"
 
 import { cn } from "@/lib/utils/utils"
-import { Eye, EyeClosed, EyeOff } from "lucide-react"
+import { Eye, EyeClosed } from "lucide-react"
 
 const PasswordInput = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
   ({ className, type, ...props }, ref) => {
@@ -18,7 +18,7 @@ const PasswordInput = React.forwardRef<HTMLInputElement, React.ComponentProps<"i
           {...props}
         />
         <span className="absolute right-3 cursor-pointer" onClick={() => setShow(!show)}>
-          {show ? <Eye className="size-5" /> : <EyeOff className="size-5" />}
+          {show ? <Eye className="size-4" /> : <EyeClosed className="size-4" />}
 
         </span>
       </div>

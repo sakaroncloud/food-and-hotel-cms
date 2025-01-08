@@ -11,6 +11,7 @@
   "dependencies": {
     "@ant-design/icons": "^5.5.2",
     "@ant-design/nextjs-registry": "^1.0.2",
+    "@faker-js/faker": "^9.3.0",
     "@hookform/error-message": "^2.0.1",
     "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-alert-dialog": "^1.1.3",

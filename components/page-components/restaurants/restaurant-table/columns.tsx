@@ -29,7 +29,7 @@ export const columns: ColumnDef<Restaurant.TRest & {
                 const take = 10;
                 const index = row.index + 1 + (page - 1) * take;
 
-                return <CustomCell label={"#SN: " + index.toString()} />;
+                return <CustomCell label={"#: " + index.toString()} />;
             },
         },
 
@@ -56,6 +56,11 @@ export const columns: ColumnDef<Restaurant.TRest & {
             accessorKey: "totalMenus",
             header: "Total Menus",
         },
+        {
+            accessorKey: "commissionPercentage",
+            header: "Commission (%)",
+        },
+
         {
             accessorKey: "actions",
             header: "Actions",
